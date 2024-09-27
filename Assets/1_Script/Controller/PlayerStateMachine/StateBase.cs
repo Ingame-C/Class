@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Class.StateMachine
 {
@@ -57,6 +57,7 @@ namespace Class.StateMachine
         }
 
         #endregion
+
 
 
     }

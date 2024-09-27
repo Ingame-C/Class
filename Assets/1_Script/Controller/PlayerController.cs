@@ -19,6 +19,7 @@ namespace Class
 
 
 
+
         [Header("Player Move Args")]
         [SerializeField] private float walkSpeed;
         [SerializeField] private float runSpeed;        // Is it necessary?
@@ -121,7 +122,6 @@ namespace Class
 
 
     }
-
 }
 
-// ÇÑ±Û ÁÖ¼® Å×½ºÆ®
+// í•œê¸€ ì£¼ì„ í…ŒìŠ¤íŠ¸

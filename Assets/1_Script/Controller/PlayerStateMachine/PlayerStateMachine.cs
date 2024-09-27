@@ -7,6 +7,7 @@ namespace Class.StateMachine
         private StateBase curState;
         public StateBase CurState { get=>curState;}
 
+
         public void Init(StateBase state)
         {
             curState = state;
@@ -21,5 +22,4 @@ namespace Class.StateMachine
             curState.Enter();
         }
     }
-
 }

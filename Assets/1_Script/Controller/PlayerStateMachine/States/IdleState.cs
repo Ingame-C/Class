@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Class.StateMachine
 {
@@ -20,6 +20,7 @@ namespace Class.StateMachine
         {
             base.Exit();
         }
+
 
         public override void HandleInput()
         {
