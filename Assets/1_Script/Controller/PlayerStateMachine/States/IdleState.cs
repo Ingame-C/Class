@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 namespace Class.StateMachine
 {
@@ -14,6 +14,7 @@ namespace Class.StateMachine
         {
             base.Enter();
             vertInputRaw = horzInputRaw = 0f;
+            
         }
 
         public override void Exit()

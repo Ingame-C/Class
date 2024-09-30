@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 namespace Class.StateMachine
 {
@@ -14,6 +14,8 @@ namespace Class.StateMachine
         protected float horzInputRaw = 0f;
         protected float mouseX = 0f;
         protected float mouseY = 0f;
+
+        protected bool isESCPressed = false;
 
         public StateBase(PlayerController controller, PlayerStateMachine stateMachine)
         {
@@ -52,9 +54,24 @@ namespace Class.StateMachine
         {
             if(Input.GetKeyDown(KeyCode.F) && controller.IsDetectInteractable)
             {
-                Debug.Log("Interact!");
+                switch (controller.RecentlyDetectedProp.PropType) {
+                    case PropTypes.Chair:
+                        stateMachine.ChangeState(controller.sitState);
+                        break;
+                }
+
             }
         }
+
+        protected void GetInteractOutInput(out bool isPressed)
+        {
+            isPressed = false;
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                isPressed = true;
+            }
+        }
+
 
         #endregion
 
