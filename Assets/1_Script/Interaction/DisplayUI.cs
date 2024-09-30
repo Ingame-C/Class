@@ -19,13 +19,6 @@ public class DisplayUI : MonoBehaviour
     }
     void Update()
     {
-        if (controller.IsDetectInteractable)
-        {
-            UIElement.SetActive(true);
-        }
-        else
-        {
-            UIElement.SetActive(false);
-        }
+        UIElement.SetActive(controller.IsDetectInteractable);
     }
 }
