@@ -52,6 +52,8 @@ namespace Class.StateMachine
 
         protected void GetInteractableInput()
         {
+            if (controller.IsInteracting) return;
+
             if(Input.GetKeyDown(KeyCode.F) && controller.IsDetectInteractable)
             {
                 switch (controller.RecentlyDetectedProp.PropType) {

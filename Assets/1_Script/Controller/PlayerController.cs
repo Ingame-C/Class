@@ -48,7 +48,10 @@ namespace Class
 
 
         private bool isDetectInteractable = false;
+        private bool isInteracting = false;
+
         public bool IsDetectInteractable { get => isDetectInteractable; }
+        public bool IsInteracting { get => isInteracting; set => isInteracting = value; }
 
         private void Awake()
         {
@@ -74,9 +77,6 @@ namespace Class
             stateMachine.CurState.HandleInput();
 
             stateMachine.CurState.LogicUpdate();
-
-            //TEST
-
         }
 
         private void FixedUpdate()
@@ -95,6 +95,12 @@ namespace Class
         public void SetPlayerRotation(Quaternion rotation)
         {
             transform.rotation = rotation;
+        }
+
+        public void SetPlayerLookAt(Transform targetTransform)
+        {
+            transform.LookAt(targetTransform);
+            cameraTransform.LookAt(targetTransform);
         }
 
         private void ChangeStateToThisman()
@@ -149,6 +155,7 @@ namespace Class
             else
             {
                 isDetectInteractable = false;
+                recentlyDetectedProp = null;
             }
 
             Debug.DrawRay(cameraTransform.position, cameraTransform.forward * rayLength, Color.red);
@@ -159,5 +166,3 @@ namespace Class
 
     }
 }
-
-// 한글 주석 테스트

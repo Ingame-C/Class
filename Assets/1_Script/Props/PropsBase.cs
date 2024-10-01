@@ -4,10 +4,11 @@ using UnityEngine;
 namespace Class
 {
 
-    public class PropsBase : MonoBehaviour
+    public abstract class PropsBase : MonoBehaviour
     {
-        protected PropTypes propType = PropTypes.None;
-        public PropTypes PropType { get { return propType; } }  
+
+        // 각 자식클래스가 정의하는것을 강제하도록 추상 프로퍼티 사용
+        public abstract PropTypes PropType { get; }  
 
         protected virtual void Init()
         {

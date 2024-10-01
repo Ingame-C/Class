@@ -18,27 +18,24 @@ namespace Class.StateMachine {
         {
             base.Enter();
 
-            // TODO : Lerp, set yaw
-            controller.transform.LookAt(thisman);
+            // TODO : 바로 Lookat이 아니라 LookAt함수로 Quaternion 받아와서 Update에서 Lerp해도 좋을 것 같습니다.
+            controller.SetPlayerLookAt(thisman);
         }
 
         public override void Exit()
         {
             base.Exit();
-
         }
 
 
         public override void HandleInput()
         {
             base.HandleInput();
-
         }
 
         public override void LogicUpdate()
         {
             base.LogicUpdate();
-
         }
 
         public override void PhysicsUpdate()

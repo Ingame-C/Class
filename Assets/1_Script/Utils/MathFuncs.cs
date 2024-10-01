@@ -1,5 +1,3 @@
-
-
 using UnityEngine;
 
 namespace Class
@@ -37,12 +35,6 @@ namespace Class
 
         }
 
-        public static Quaternion GetQuaternionFromTo(Vector3 From, Vector3 To)
-        {
-            Quaternion result = Quaternion.Euler(From - To);
-
-            return result;
-        }
     }
 
 }

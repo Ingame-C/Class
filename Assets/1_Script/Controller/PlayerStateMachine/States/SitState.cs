@@ -18,6 +18,7 @@ namespace Class.StateMachine
         public override void Enter()
         {
             base.Enter();
+            controller.IsInteracting = true;
             SoundManager.Instance.CreateAudioSource(controller.transform.position, SfxClipTypes.Sweep);
             chair = controller.RecentlyDetectedProp;
             chair.GetComponent<BoxCollider>().isTrigger = true;
@@ -30,7 +31,7 @@ namespace Class.StateMachine
         public override void Exit()
         {
             base.Exit();
-
+            controller.IsInteracting = false;
             controller.SetPlayerPosition(prevPosition);
             chair.GetComponent<BoxCollider>().isTrigger = false;
         }
@@ -39,10 +40,9 @@ namespace Class.StateMachine
         public override void HandleInput()
         {
             base.HandleInput();
+
             GetInteractOutInput(out isESCPressed);
-
             GetMouseInput(out mouseX, out mouseY);
-
         }
 
         public override void LogicUpdate()
