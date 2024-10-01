@@ -1,15 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using Class;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(PlayerController))]
-[RequireComponent(typeof(GameObject))] 
 public class DisplayUI : MonoBehaviour
 {
-
     [SerializeReference]
-    private GameObject UIElement;   // it is UI displayed
+    private TextMeshProUGUI InteractableNameUI;
+    [SerializeReference]
+    private GameObject key_F;
 
     private PlayerController controller;
 
@@ -19,6 +21,9 @@ public class DisplayUI : MonoBehaviour
     }
     void Update()
     {
-        UIElement.SetActive(controller.IsDetectInteractable && !controller.IsInteracting);
+        InteractableNameUI.text = controller.RecentlyDetectedProp?.ToString();
+
+        key_F.SetActive(controller.IsDetectInteractable);
+        InteractableNameUI.enabled = controller.IsDetectInteractable;
     }
 }
