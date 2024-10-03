@@ -7,7 +7,7 @@ namespace Class.StateMachine
     public class SitState : StateBase
     {
         private PropsBase chair;
-        private Vector3 prevPosition;
+        private Vector3 returnPosition;
 
         public SitState(PlayerController controller, PlayerStateMachine stateMachine)
             : base(controller, stateMachine)
@@ -23,7 +23,7 @@ namespace Class.StateMachine
             chair = controller.RecentlyDetectedProp;
             chair.GetComponent<BoxCollider>().isTrigger = true;
 
-            prevPosition = controller.transform.position;
+            returnPosition = chair.transform.position + new Vector3(-chair.transform.localScale.x, controller.transform.position.y-chair.transform.position.y, 0);
             controller.SetPlayerPosition(chair.transform.position);
             controller.SetPlayerRotation(chair.transform.rotation);
         }
@@ -32,7 +32,7 @@ namespace Class.StateMachine
         {
             base.Exit();
             controller.IsInteracting = false;
-            controller.SetPlayerPosition(prevPosition);
+            controller.SetPlayerPosition(returnPosition);
             chair.GetComponent<BoxCollider>().isTrigger = false;
         }
 
