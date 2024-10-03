@@ -49,7 +49,7 @@ namespace Class.StateMachine
         {
             base.LogicUpdate();
 
-            if(isESCPressed)
+            if (isESCPressed)
             {
                 stateMachine.ChangeState(controller.idleState);
                 isESCPressed = false;
@@ -61,6 +61,8 @@ namespace Class.StateMachine
         public override void PhysicsUpdate()
         {
             base.PhysicsUpdate();
+
+            controller.RaycastInteractableObject();
         }
     }
 
