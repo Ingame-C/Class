@@ -1,32 +1,36 @@
-using System.Collections;
-using System.Collections.Generic;
-using Class;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(PlayerController))]
-public class DisplayUI : MonoBehaviour
+
+namespace Class
 {
-    [SerializeReference]
-    private TextMeshProUGUI InteractableNameUI;
-    [SerializeReference]
-    private GameObject key_F;
-    [SerializeReference]
-    private GameObject key_ESC;
 
-    private PlayerController controller;
-
-    private void Awake()
+    [RequireComponent(typeof(PlayerController))]
+    public class DisplayUI : MonoBehaviour
     {
-        controller = GetComponent<PlayerController>();
-    }
-    void Update()
-    {
-        InteractableNameUI.text = controller.RecentlyDetectedProp?.ToString();
+        private PlayerController controller;
 
-        key_F.SetActive(controller.IsDetectInteractable);
-        // InteractableNameUI.enabled = controller.IsDetectInteractable;
-        key_ESC.SetActive(controller.IsInteracting); 
+        [Header("Viewport Center")]
+        [SerializeReference] private Image viewportCenter;
+        [SerializeField] Color originalColor;
+        [SerializeField] Color interactableColor;
+
+        private void Awake()
+        {
+            controller = GetComponent<PlayerController>();
+        }
+
+        private void Update()
+        {
+            if (controller.IsDetectInteractable)
+            { 
+                viewportCenter.color = interactableColor;
+            }
+            else
+            {
+                viewportCenter.color = originalColor;
+            }
+}
     }
+
 }

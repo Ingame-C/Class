@@ -54,7 +54,7 @@ namespace Class.StateMachine
         {
             if (controller.IsInteracting) return;
 
-            if(Input.GetKeyDown(KeyCode.F) && controller.IsDetectInteractable)
+            if(Input.GetMouseButtonDown(0) && controller.IsDetectInteractable)
             {
                 switch (controller.RecentlyDetectedProp.PropType) {
                     case PropTypes.Chair:
@@ -71,7 +71,7 @@ namespace Class.StateMachine
         protected void GetInteractOutInput(out bool isPressed)
         {
             isPressed = false;
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetMouseButtonDown(1))
             {
                 isPressed = true;
             }
