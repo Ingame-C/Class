@@ -61,7 +61,6 @@ namespace Class.StateMachine
         public override void PhysicsUpdate()
         {
             base.PhysicsUpdate();
-            controller.RaycastInteractableObject();
         }
     }
 

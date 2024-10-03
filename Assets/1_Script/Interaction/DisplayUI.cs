@@ -24,6 +24,6 @@ public class DisplayUI : MonoBehaviour
         InteractableNameUI.text = controller.RecentlyDetectedProp?.ToString();
 
         key_F.SetActive(controller.IsDetectInteractable);
-        InteractableNameUI.enabled = controller.IsDetectInteractable;
+        // InteractableNameUI.enabled = controller.IsDetectInteractable;
     }
 }
