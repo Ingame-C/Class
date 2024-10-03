@@ -12,6 +12,8 @@ public class DisplayUI : MonoBehaviour
     private TextMeshProUGUI InteractableNameUI;
     [SerializeReference]
     private GameObject key_F;
+    [SerializeReference]
+    private GameObject key_ESC;
 
     private PlayerController controller;
 
@@ -25,5 +27,6 @@ public class DisplayUI : MonoBehaviour
 
         key_F.SetActive(controller.IsDetectInteractable);
         // InteractableNameUI.enabled = controller.IsDetectInteractable;
+        key_ESC.SetActive(controller.IsInteracting); 
     }
 }
