@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Class.StateMachine
@@ -25,7 +26,17 @@ namespace Class.StateMachine
 
         public virtual void Enter() { }             // Run once when Enter State
         public virtual void HandleInput() { }       // Manage Input in particular state
-        public virtual void LogicUpdate() { }       // Logic Update
+        public virtual void LogicUpdate()           // Logic Update
+        {         
+            HoldGrabbable();
+
+            // Unexpect Error: IsGrabbing이 false라면 의자에서 내리는 게 불가능 해야 하는데, false가 되면서 내리는 것까지 되는 오류가 발생함.
+            // Solution : 물건을 집는 것에 쿨타임 삽입. 그 쿨타임 내로 천천히 IsGrabbing을 false로 만들면 해결 될듯함.
+            if (Input.GetMouseButtonDown(1) && controller.IsGrabbing)
+            {
+                controller.ReleaseObject();
+            }
+        }       
         public virtual void PhysicsUpdate() { }     // Only Physics Update
         public virtual void Exit() { }              // Run once when Exit State
 
@@ -52,16 +63,18 @@ namespace Class.StateMachine
 
         protected void GetInteractableInput()
         {
-            if (controller.IsInteracting) return;
+            // Message: 앉아있는 상태에서 물건을 집는 것이 불가능해지기에 우선 주석처리를 함. 나중에 회의를 해서 코드 수정 요망.
+            // if (controller.IsInteracting) return; 
 
             if(Input.GetMouseButtonDown(0) && controller.IsDetectInteractable)
             {
+                Debug.Log("clicked!");
                 switch (controller.RecentlyDetectedProp.PropType) {
                     case PropTypes.Chair:
                         stateMachine.ChangeState(controller.sitState);
                         break;
                     case PropTypes.Pencil:
-                        controller.InteractableGrabbing = (Grabbable) controller.RecentlyDetectedProp;
+                        controller.GrabObject((Grabbable)controller.RecentlyDetectedProp);
                         break;
                 }
 
@@ -77,11 +90,18 @@ namespace Class.StateMachine
             }
         }
 
+        private void HoldGrabbable()
+        {
+            if (controller.InteractableGrabbing == null)
+            {
+                return;
+            }
+
+            // To do: 들고있는 상태 동안의 로직 구현하기
+            controller.InteractableGrabbing.transform.position = controller.CameraTransform.position + controller.CameraTransform.forward * 0.5f;
+        }
 
         #endregion
-
-
-
     }
 
 }

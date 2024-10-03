@@ -163,10 +163,38 @@ namespace Class
 
         #endregion
 
-        public Grabbable InteractableGrabbing;
+        #region Grabbing Fields and Funcs
 
-        // To do: item 들고 다니게 하는 logic 구현.
+        public Grabbable InteractableGrabbing = null;
+        public bool IsGrabbing = false;
+        public Transform CameraTransform { get => cameraTransform; }        // 들고있는 물체의 위치를 정돈시키기 위해, 카메라의 트랜스폼을 가져옴.
+
+        public void GrabObject(Grabbable grabbable)
+        {
+
+            if (IsGrabbing || InteractableGrabbing != null)
+            {
+                return;
+            }
+
+            IsGrabbing = true;
+            InteractableGrabbing = grabbable;
+            InteractableGrabbing.GetComponent<BoxCollider>().isTrigger = true;
+        }
+
+        public void ReleaseObject()
+        {
+            if(InteractableGrabbing == null || !IsGrabbing)
+            {
+                return;
+            }
+
+            InteractableGrabbing.GetComponent<BoxCollider>().isTrigger = false;
+            InteractableGrabbing = null;
+            IsGrabbing = false;
+        }
 
 
+        #endregion
     }
 }
