@@ -60,6 +60,9 @@ namespace Class.StateMachine
                     case PropTypes.Chair:
                         stateMachine.ChangeState(controller.sitState);
                         break;
+                    case PropTypes.Pencil:
+                        controller.InteractableGrabbing = (Grabbable) controller.RecentlyDetectedProp;
+                        break;
                 }
 
             }

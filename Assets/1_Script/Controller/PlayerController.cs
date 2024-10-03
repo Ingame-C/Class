@@ -163,6 +163,10 @@ namespace Class
 
         #endregion
 
+        public Grabbable InteractableGrabbing;
+
+        // To do: item 들고 다니게 하는 logic 구현.
+
 
     }
 }
