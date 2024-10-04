@@ -30,8 +30,6 @@ namespace Class.StateMachine
         {         
             HoldGrabbable();
 
-            // Unexpect Error: IsGrabbing이 false라면 의자에서 내리는 게 불가능 해야 하는데, false가 되면서 내리는 것까지 되는 오류가 발생함.
-            // Solution : 물건을 집는 것에 쿨타임 삽입. 그 쿨타임 내로 천천히 IsGrabbing을 false로 만들면 해결 될듯함.
             if (Input.GetMouseButtonDown(1) && controller.IsGrabbing)
             {
                 controller.ReleaseObject();
@@ -65,17 +63,18 @@ namespace Class.StateMachine
         {
             // Message: 앉아있는 상태에서 물건을 집는 것이 불가능해지기에 우선 주석처리를 함. 나중에 회의를 해서 코드 수정 요망.
             // if (controller.IsInteracting) return; 
-
             if(Input.GetMouseButtonDown(0) && controller.IsDetectInteractable)
             {
-                Debug.Log("clicked!");
                 switch (controller.RecentlyDetectedProp.PropType) {
                     case PropTypes.Chair:
                         stateMachine.ChangeState(controller.sitState);
                         break;
-                    case PropTypes.Pencil:
-                        controller.GrabObject((Grabbable)controller.RecentlyDetectedProp);
-                        break;
+                }
+
+                // Grabbalbe Object는 일괄적으로 관리할 예정.
+                if(controller.RecentlyDetectedProp.PropType >= PropTypes.Pencil)
+                {
+                    controller.GrabObject((Grabbable)controller.RecentlyDetectedProp);
                 }
 
             }

@@ -110,6 +110,7 @@ namespace Class
 
         #endregion
 
+
         #region Logic Control Funcs
 
         private float horzRot = 0f;
@@ -163,6 +164,7 @@ namespace Class
 
         #endregion
 
+
         #region Grabbing Fields and Funcs
 
         public Grabbable InteractableGrabbing = null;
@@ -171,7 +173,6 @@ namespace Class
 
         public void GrabObject(Grabbable grabbable)
         {
-
             if (IsGrabbing || InteractableGrabbing != null)
             {
                 return;
@@ -191,6 +192,12 @@ namespace Class
 
             InteractableGrabbing.GetComponent<BoxCollider>().isTrigger = false;
             InteractableGrabbing = null;
+
+            Invoke("DelaySetFlag", 0.5f);   // IsGrabbing 설정을 딜레이 시켜서, 의자를 내리지 못하게 설정.
+        }
+
+        public void DelaySetFlag()
+        {
             IsGrabbing = false;
         }
 
