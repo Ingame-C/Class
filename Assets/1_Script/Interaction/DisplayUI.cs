@@ -30,7 +30,7 @@ namespace Class
             {
                 viewportCenter.color = originalColor;
             }
-}
+        }
     }
 
 }

@@ -1,3 +1,6 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Class {
@@ -34,28 +37,74 @@ namespace Class {
 
         #endregion
 
+        #region Object Pooling
+
+        private Transform poolRoot;
+        private Stack<AudioSource> audioSources = new Stack<AudioSource>();
+
+        private void InitPool(int cnt = 10)
+        {
+            poolRoot = new GameObject { name = "_poolRoot" }.transform;
+            poolRoot.parent = this.transform;
+
+            for (int i = 0; i < cnt; i++)
+            {
+                audioSources.Push(Create());
+            }
+        }
+
+        private AudioSource Create()
+        {
+            GameObject go = Instantiate(audioPrefab);
+            go.name = audioPrefab.name;
+            go.transform.parent = poolRoot;
+            go.gameObject.SetActive(false);
+            return go.GetComponent<AudioSource>();
+        }
+        private void Push(AudioSource source)
+        {
+            source.gameObject.SetActive(false);
+            audioSources.Push(source);
+        }
+        private AudioSource Pop()
+        {
+            AudioSource source;
+            if (audioSources.Count() == 0) source = Create();
+            else source = audioSources.Pop();
+
+            source.gameObject.SetActive(true);
+            return source;
+        }
+
+        private IEnumerator PushAfterDelay(AudioSource source, float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            Push(source);
+        }
+
+        #endregion 
+
         private void Awake()
         {
             Init();
+            InitPool();
         }
 
         [Header("GameObjects")]
         [SerializeField] private GameObject audioPrefab;
         
-        
         [Header("AudioClips")]
         [SerializeField] public AudioClip[] sfxClips;
 
-        // TODO : Object pooling : Sound Prefab
         public void CreateAudioSource(Vector3 pos, SfxClipTypes clipIdx)
         {
-            GameObject go = Instantiate(audioPrefab, pos, Quaternion.identity, transform);
-            go.GetComponent<AudioSource>().clip = sfxClips[(int)clipIdx];
-            go.GetComponent<AudioSource>().volume = 1f;
-            go.GetComponent<AudioSource>().Play();
+            AudioSource audioSource = Pop();
+            audioSource.transform.position = pos;
+            audioSource.clip = sfxClips[(int)clipIdx];
+            audioSource.volume = 1f;
+            audioSource.Play();
 
-            Destroy(go, sfxClips[(int)clipIdx].length);
-
+            StartCoroutine(PushAfterDelay(audioSource, audioSource.clip.length));
         }
 
 
