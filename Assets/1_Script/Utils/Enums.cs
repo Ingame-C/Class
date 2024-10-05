@@ -15,4 +15,10 @@ namespace Class {
         Add = 1,
     }
 
+    public enum  SceneEnums
+    {
+        Game,
+        Test
+    }
+
 }

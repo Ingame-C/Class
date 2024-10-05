@@ -66,6 +66,7 @@ namespace Class
 
         private void Update()
         {
+            // HACK : 테스트 코드입니다.
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 StageOver();
