@@ -7,7 +7,10 @@ namespace Class
         private PropTypes proptype = PropTypes.Pencil;
         public override PropTypes PropType { get => proptype; }
 
+        protected override void Init()
+        {
 
+        }
 
     }
 }

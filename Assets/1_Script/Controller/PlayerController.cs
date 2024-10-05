@@ -110,6 +110,7 @@ namespace Class
 
         #endregion
 
+
         #region Logic Control Funcs
 
         private float horzRot = 0f;
@@ -163,10 +164,44 @@ namespace Class
 
         #endregion
 
-        public Grabbable InteractableGrabbing;
 
-        // To do: item 들고 다니게 하는 logic 구현.
+        #region Grabbing Fields and Funcs
+
+        public Grabbable InteractableGrabbing = null;
+        public bool IsGrabbing = false;
+        public Transform CameraTransform { get => cameraTransform; }        // 들고있는 물체의 위치를 정돈시키기 위해, 카메라의 트랜스폼을 가져옴.
+
+        public void GrabObject(Grabbable grabbable)
+        {
+            if (IsGrabbing || InteractableGrabbing != null)
+            {
+                return;
+            }
+
+            IsGrabbing = true;
+            InteractableGrabbing = grabbable;
+            InteractableGrabbing.GetComponent<BoxCollider>().isTrigger = true;
+        }
+
+        public void ReleaseObject()
+        {
+            if(InteractableGrabbing == null || !IsGrabbing)
+            {
+                return;
+            }
+
+            InteractableGrabbing.GetComponent<BoxCollider>().isTrigger = false;
+            InteractableGrabbing = null;
+
+            Invoke("DelaySetFlag", 0.5f);   // IsGrabbing 설정을 딜레이 시켜서, 의자를 내리지 못하게 설정.
+        }
+
+        public void DelaySetFlag()
+        {
+            IsGrabbing = false;
+        }
 
 
+        #endregion
     }
 }

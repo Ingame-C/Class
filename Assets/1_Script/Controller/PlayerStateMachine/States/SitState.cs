@@ -42,6 +42,7 @@ namespace Class.StateMachine
             base.HandleInput();
 
             GetInteractOutInput(out isESCPressed);
+            GetInteractableInput();                     // 앉아있는 상태에서 물건을 집을 수 있도록 추가함.
             GetMouseInput(out mouseX, out mouseY);
         }
 
@@ -49,7 +50,7 @@ namespace Class.StateMachine
         {
             base.LogicUpdate();
 
-            if (isESCPressed)
+            if (isESCPressed && !controller.IsGrabbing)
             {
                 stateMachine.ChangeState(controller.idleState);
                 isESCPressed = false;
@@ -61,7 +62,6 @@ namespace Class.StateMachine
         public override void PhysicsUpdate()
         {
             base.PhysicsUpdate();
-
             controller.RaycastInteractableObject();
         }
     }
