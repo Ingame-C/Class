@@ -1,6 +1,4 @@
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace Class.Manager {
 
@@ -14,16 +12,8 @@ namespace Class.Manager {
         {
             if (s_instance == null)
             {
-                GameObject go = GameObject.Find("@Managers");
-                if (go == null)
-                {
-                    go = new GameObject { name = "@Managers" };
-                    go.AddComponent<Managers>();
-                }
-
-                DontDestroyOnLoad(go);
-
-                _resource.Init();
+                s_instance = this;
+                DontDestroyOnLoad(this.gameObject);
             }
             else
             {

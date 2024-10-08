@@ -9,7 +9,6 @@ namespace Class.UI
     {
         [SerializeField] private Image blocker;
 
-        // HACK: 임시로 만들어둔 이펙트입니다. 회의로 정확한 이펙트 정한 후에 만들겠습니다.
         public IEnumerator FadeInCoroutine(float duration)
         {
             blocker.color = Color.clear;

@@ -8,4 +8,8 @@ public static class Constants
     public const int LAYER_WALL = 1 << 9;
 
 
+    /** Tag Names **/
+
+    public const string TAG_INITPROPS = "InitProps";
+    public const string TAG_PLAYER = "Player";
 }

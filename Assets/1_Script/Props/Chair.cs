@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Class
 {
 
-    public class Chair : PropsBase, IInteractable
+    public class Chair : Usable
     {
         private PropTypes proptype = PropTypes.Chair;
         public override PropTypes PropType { get => proptype; }
@@ -14,13 +14,10 @@ namespace Class
 
         }
 
-        // 상호작용 UI를 나타낼 때에, 오브젝트의 이름을 가져오는 용도. 
-        public override string ToString()
+        public override void Interact(PlayerController controller)
         {
-            // to do: 유니코드 오류 고쳐서 한글 띄우게끔 하기.
-            return "Chair";
+            controller.StateMachine.ChangeState(controller.sitState);
         }
-
     }
 
 }
