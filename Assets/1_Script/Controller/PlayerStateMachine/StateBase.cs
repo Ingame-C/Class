@@ -69,6 +69,10 @@ namespace Class.StateMachine
                     case PropTypes.Chair:
                         stateMachine.ChangeState(controller.sitState);
                         break;
+                    case PropTypes.LockerDoor:
+                        var obj = (LockerDoor) controller.RecentlyDetectedProp;
+                        obj.Interact();
+                        break;
                 }
 
                 // Grabbalbe Object는 일괄적으로 관리할 예정.
