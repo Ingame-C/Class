@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Class
 {
     [RequireComponent (typeof (Animator))]
-    public class LockerDoor : PropsBase, IInteractable
+    public class LockerDoor : Usable
     {
         private int state = 0;      // Purpose: 여닫힌 상태를 더욱 편하게 다루는 용도.
         private Animator animator;
@@ -26,7 +26,7 @@ namespace Class
         {
 
         }
-        public void Interact()
+        public override void Interact(PlayerController controller)
         {
             state = (state + 1) % 2;
             animator.SetBool("IsOpened", IsOpened);

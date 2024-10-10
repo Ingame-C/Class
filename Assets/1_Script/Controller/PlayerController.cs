@@ -145,7 +145,7 @@ namespace Class
             float tmpTime = Time.deltaTime * fallSpeed;
             transform.RotateAround(point, dir, tmpTime);
             
-            fallSpeed *= (1 + 2*Time.deltaTime);
+            fallSpeed *= (1 + 0.5f*Time.deltaTime);
 
             return tmpTime;
         }
