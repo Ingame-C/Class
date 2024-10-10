@@ -20,7 +20,15 @@ namespace Class.StateMachine
             base.Enter();
             controller.IsInteracting = true;
             SoundManager.Instance.CreateAudioSource(controller.transform.position, SfxClipTypes.Sweep);
-            chair = controller.RecentlyDetectedProp;
+
+            if (controller.RecentlyDetectedProp != null)
+                chair = controller.RecentlyDetectedProp;
+            else
+            {
+                chair = GameManagerEx.Instance.StartChair;
+                Debug.Log(chair.name);
+            }
+
             chair.GetComponent<BoxCollider>().isTrigger = true;
 
             returnPosition = chair.transform.position + new Vector3(-chair.transform.localScale.x, controller.transform.position.y-chair.transform.position.y, 0);

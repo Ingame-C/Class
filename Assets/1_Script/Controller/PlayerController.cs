@@ -40,9 +40,12 @@ namespace Class
 
 
         private PlayerStateMachine stateMachine;
+        public PlayerStateMachine StateMachine { get => stateMachine; }
         public IdleState idleState;
         public WalkState walkState;
         public SitState sitState;
+
+        public FallState fallState;
         public ThismanState thismanState;
 
 
@@ -55,6 +58,8 @@ namespace Class
 
         private void Awake()
         {
+            recentlyDetectedProp = null;
+
             rigid = GetComponent<Rigidbody>();
             capsuleColl = GetComponent<CapsuleCollider>();
             
@@ -63,13 +68,15 @@ namespace Class
             walkState = new WalkState(this, stateMachine);
             sitState = new SitState(this, stateMachine);
             thismanState = new ThismanState(this, stateMachine);
-            stateMachine.Init(idleState);
+            fallState = new FallState(this, StateMachine);
 
         }
 
         private void Start()
         {
-            ThismanManager.Instance.StageOverAction += ChangeStateToThisman;
+            stateMachine.Init(sitState);
+            GameManagerEx.Instance.OnStageFailAction += ChangeStateToThisman;
+            GameManagerEx.Instance.OnStageClearAction += ChangeStateToFall;
         }
 
         private void Update()
@@ -108,6 +115,11 @@ namespace Class
             stateMachine.ChangeState(thismanState);
         }
 
+        private void ChangeStateToFall()
+        {
+            stateMachine.ChangeState(fallState);
+        }
+
         #endregion
 
 
@@ -125,6 +137,17 @@ namespace Class
 
             transform.rotation = Quaternion.Euler(0f, horzRot, 0f);
             cameraTransform.rotation = Quaternion.Euler(vertRot, horzRot, 0f);
+        }
+
+        private float fallSpeed = 50f;
+        public float RotateAroundAxis(Vector3 point, Vector3 dir)
+        {
+            float tmpTime = Time.deltaTime * fallSpeed;
+            transform.RotateAround(point, dir, tmpTime);
+            
+            fallSpeed *= (1 + 2*Time.deltaTime);
+
+            return tmpTime;
         }
 
         #endregion
