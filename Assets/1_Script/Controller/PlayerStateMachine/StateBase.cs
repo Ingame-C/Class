@@ -63,9 +63,14 @@ namespace Class.StateMachine
         {
             if(Input.GetMouseButtonDown(0) && controller.IsDetectInteractable)
             {
-                if (controller.RecentlyDetectedProp.GetComponent<Usable>() != null)
-                {
-                    controller.RecentlyDetectedProp.GetComponent<Usable>().Interact(controller);
+                switch (controller.RecentlyDetectedProp.PropType) {
+                    case PropTypes.Chair:
+                        stateMachine.ChangeState(controller.sitState);
+                        break;
+                    case PropTypes.LockerDoor:
+                        var obj = (LockerDoor) controller.RecentlyDetectedProp;
+                        obj.Interact();
+                        break;
                 }
 
                 // Grabbalbe Object는 일괄적으로 관리할 예정.
