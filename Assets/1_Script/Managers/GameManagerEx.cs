@@ -78,9 +78,9 @@ namespace Class
         // 따라서, Tag 달아서 Find 함수 사용하도록 하겠습니다. 혹시 더 빠른 방안 있으시면 말씀해주세요.
 
         /** Find in Runtime **/
-        private PlayerController controller;
-        private Door doorToOpen;
-        private Chair startChair;              // 플레이어가 재시작 할때마다 깨어날 의자 필요
+        [SerializeField] private PlayerController controller;
+        [SerializeField]  private Door doorToOpen;
+        [SerializeField] private Chair startChair;              // 플레이어가 재시작 할때마다 깨어날 의자 필요
 
         public Chair StartChair { get => startChair; }
 

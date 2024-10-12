@@ -1,6 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
 
 namespace Class.StateMachine {
     public class FallState : StateBase
@@ -9,7 +7,7 @@ namespace Class.StateMachine {
         private Vector3 rotatePoint;
 
         private float elapsedDegree;
-        private float maxDegree = 120f;
+        private float maxDegree = 150f;
 
         // TODO : 상호작용 중에는 어덯게 처리할까요?
         public FallState(PlayerController controller, PlayerStateMachine stateMachine)
@@ -44,7 +42,7 @@ namespace Class.StateMachine {
         {
             base.LogicUpdate();
 
-            if (elapsedDegree < maxDegree) elapsedDegree += controller.RotateAroundAxis(rotatePoint, -rotateAxis);
+            if (elapsedDegree < maxDegree) elapsedDegree += controller.RotateAroundAxis(rotatePoint, -rotateAxis, elapsedDegree/maxDegree);
             else GameManagerEx.Instance.DirectSceneConversion(SceneEnums.Game);
 
         }

@@ -521,6 +521,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd46a6d22cb2c744b93bfd010e2f312f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controller: {fileID: 0}
+  doorToOpen: {fileID: 0}
+  startChair: {fileID: 0}
   screenBlocker: {fileID: 1715933186}
   thismanPrefab: {fileID: 1660326195393746161, guid: 23225e69e8faeb841b72ff6850b9d319, type: 3}
 --- !u!1 &690880666
@@ -1056,7 +1059,10 @@ GameObject:
   - component: {fileID: 963194228}
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
-  m_Layer: 0
+  - component: {fileID: 963194229}
+  - component: {fileID: 963194230}
+  - component: {fileID: 963194231}
+  m_Layer: 3
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -1137,6 +1143,97 @@ Transform:
   m_Children: []
   m_Father: {fileID: 690880667}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &963194229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 948f4100a11a5c24981795d21301da5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volumeTrigger: {fileID: 963194228}
+  volumeLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  stopNaNPropagation: 1
+  finalBlitToCameraTarget: 0
+  antialiasingMode: 3
+  temporalAntialiasing:
+    jitterSpread: 0.42
+    sharpness: 3
+    stationaryBlending: 0.759
+    motionBlending: 0.85
+  subpixelMorphologicalAntialiasing:
+    quality: 2
+  fastApproximateAntialiasing:
+    fastMode: 0
+    keepAlpha: 0
+  fog:
+    enabled: 1
+    excludeSkybox: 1
+  debugLayer:
+    lightMeter:
+      width: 512
+      height: 256
+      showCurves: 1
+    histogram:
+      width: 512
+      height: 256
+      channel: 3
+    waveform:
+      exposure: 0.12
+      height: 256
+    vectorscope:
+      size: 256
+      exposure: 0.12
+    overlaySettings:
+      linearDepth: 0
+      motionColorIntensity: 4
+      motionGridSize: 64
+      colorBlindnessType: 0
+      colorBlindnessStrength: 1
+  m_Resources: {fileID: 11400000, guid: d82512f9c8e5d4a4d938b575d47f88d4, type: 2}
+  m_ShowToolkit: 0
+  m_ShowCustomSorter: 0
+  breakBeforeColorGrading: 0
+  m_BeforeTransparentBundles: []
+  m_BeforeStackBundles: []
+  m_AfterStackBundles: []
+--- !u!114 &963194230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sharedProfile: {fileID: 11400000, guid: bfb0eaaeed08f8847a72bc67e98b76f9, type: 2}
+  isGlobal: 1
+  blendDistance: 0
+  weight: 1
+  priority: 0
+--- !u!114 &963194231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4fe82fd8a1c61c4fbaf59f12da98622, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pixelationMaterial: {fileID: 2100000, guid: 3a693b94350deec49b2b49a595c4d2e7, type: 2}
+  pixelSize: 0.002
 --- !u!1001 &1226992334
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1689,8 +1786,8 @@ MonoBehaviour:
   walkSpeed: 5
   horzRotSpeed: 5
   vertRotSpeed: 5
-  maxVertRot: 48
-  minVertRot: -49.5
+  maxVertRot: 70.5
+  minVertRot: -70.5
   cameraTransform: {fileID: 963194228}
   rayLength: 5
   InteractableGrabbing: {fileID: 0}
@@ -2124,6 +2221,10 @@ PrefabInstance:
     - target: {fileID: 6082358737577827877, guid: 6f3400e0412449943b0258cc57e8e221, type: 3}
       propertyPath: m_Name
       value: Tmp_Door
+      objectReference: {fileID: 0}
+    - target: {fileID: 6082358737577827877, guid: 6f3400e0412449943b0258cc57e8e221, type: 3}
+      propertyPath: m_TagString
+      value: InitProps
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

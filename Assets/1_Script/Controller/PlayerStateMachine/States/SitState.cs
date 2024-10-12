@@ -1,4 +1,3 @@
-using UnityEditor;
 using UnityEngine;
 
 
@@ -26,7 +25,6 @@ namespace Class.StateMachine
             else
             {
                 chair = GameManagerEx.Instance.StartChair;
-                Debug.Log(chair.name);
             }
 
             chair.GetComponent<BoxCollider>().isTrigger = true;

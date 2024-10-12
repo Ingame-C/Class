@@ -140,12 +140,10 @@ namespace Class
         }
 
         private float fallSpeed = 50f;
-        public float RotateAroundAxis(Vector3 point, Vector3 dir)
+        public float RotateAroundAxis(Vector3 point, Vector3 dir, float ratio)
         {
-            float tmpTime = Time.deltaTime * fallSpeed;
+            float tmpTime = Time.deltaTime * (fallSpeed + fallSpeed * 1.75f* Mathf.Sin(ratio*Mathf.PI));
             transform.RotateAround(point, dir, tmpTime);
-            
-            fallSpeed *= (1 + 0.5f*Time.deltaTime);
 
             return tmpTime;
         }
