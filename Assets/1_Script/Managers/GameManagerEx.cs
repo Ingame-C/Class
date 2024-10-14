@@ -96,6 +96,8 @@ namespace Class
         /** State Variables **/
         private bool isLoadingScene = false;
 
+        public PlayerController Controller { get => controller; }
+
 
         private void InitScene(Scene scene, LoadSceneMode mode)
         {
