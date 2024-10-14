@@ -1,5 +1,6 @@
 using Class.StateMachine;
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Class
@@ -192,8 +193,13 @@ namespace Class
         public bool IsGrabbing = false;
         public Transform CameraTransform { get => cameraTransform; }        // 들고있는 물체의 위치를 정돈시키기 위해, 카메라의 트랜스폼을 가져옴.
 
+
+        [SerializeField] public float GrabbaleHori = 0f;
+        [SerializeField] public float GrabbaleVert = 0f;
+
         public void GrabObject(Grabbable grabbable)
         {
+
             if (IsGrabbing || InteractableGrabbing != null)
             {
                 return;
@@ -206,11 +212,30 @@ namespace Class
 
         public void ReleaseObject()
         {
-            if(InteractableGrabbing == null || !IsGrabbing)
+            float _distance = 1.0f;
+            // 물건이 떨어질 위치는 우선적으로 플레이어 앞으로 조정.
+            Vector3 _releasePosion = CameraTransform.position;
+
+            if (InteractableGrabbing == null || !IsGrabbing)
             {
                 return;
             }
 
+            if(recentlyDetectedProp != null)
+            {
+                _distance = Vector3.Distance(transform.position, recentlyDetectedProp.transform.position);
+
+                // TODO: 특정 물체 위에서만, 물건을 올려놓을 수 있도록 설정해야함.
+                // + 지금은 하드 코딩으로 의자만 빼놓은 상태.
+                if (recentlyDetectedProp.PropType == PropTypes.Chair)
+                {
+                    _distance = 1.0f;
+                }
+            }
+
+            _releasePosion += CameraTransform.forward * _distance + Vector3.up * 0.1f;
+
+            InteractableGrabbing.transform.position = _releasePosion;
             InteractableGrabbing.GetComponent<BoxCollider>().isTrigger = false;
             InteractableGrabbing = null;
 

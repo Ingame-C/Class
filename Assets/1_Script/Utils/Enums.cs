@@ -7,6 +7,7 @@ namespace Class {
         Chair,
         Door,
         LockerDoor,
+        Desk,
         Pencil = 100,
     }
 

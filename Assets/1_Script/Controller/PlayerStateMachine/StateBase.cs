@@ -93,8 +93,10 @@ namespace Class.StateMachine
                 return;
             }
 
-            // To do: 들고있는 상태 동안의 로직 구현하기
-            controller.InteractableGrabbing.transform.position = controller.CameraTransform.position + controller.CameraTransform.forward * 0.5f;
+            // Grabbalbe의 위치 조정.
+            Vector3 _grabblePosition = controller.CameraTransform.position + controller.CameraTransform.forward * 0.5f;
+            _grabblePosition += controller.CameraTransform.up * controller.GrabbaleHori + controller.CameraTransform.right * controller.GrabbaleVert;
+            controller.InteractableGrabbing.transform.position = _grabblePosition;
         }
 
         #endregion

@@ -27,7 +27,7 @@ namespace Class.StateMachine
                 chair = GameManagerEx.Instance.StartChair;
             }
 
-            chair.GetComponent<BoxCollider>().isTrigger = true;
+            chair.GetComponent<MeshCollider>().isTrigger = true;
 
             returnPosition = chair.transform.position + new Vector3(-chair.transform.localScale.x, controller.transform.position.y-chair.transform.position.y, 0);
             controller.SetPlayerPosition(chair.transform.position);
@@ -39,7 +39,7 @@ namespace Class.StateMachine
             base.Exit();
             controller.IsInteracting = false;
             controller.SetPlayerPosition(returnPosition);
-            chair.GetComponent<BoxCollider>().isTrigger = false;
+            chair.GetComponent<MeshCollider>().isTrigger = false;
         }
 
 
