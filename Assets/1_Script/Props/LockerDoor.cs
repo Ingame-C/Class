@@ -3,7 +3,6 @@ using UnityEngine;
 
 namespace Class
 {
-    [RequireComponent (typeof (Animator))]
     public class LockerDoor : Usable
     {
         private int state = 0;      // Purpose: 여닫힌 상태를 더욱 편하게 다루는 용도.

@@ -63,15 +63,17 @@ namespace Class.StateMachine
         {
             if(Input.GetMouseButtonDown(0) && controller.IsDetectInteractable)
             {
-                if (controller.RecentlyDetectedProp.GetComponent<Usable>() != null)
+
+
+                if(controller.RecentlyDetectedProp is Usable usable)
                 {
-                    controller.RecentlyDetectedProp.GetComponent<Usable>().Interact(controller);
+                    usable.Interact(controller);
                 }
 
                 // Grabbalbe Object는 일괄적으로 관리할 예정.
-                if (controller.RecentlyDetectedProp.PropType >= PropTypes.Pencil)
+                if(controller.RecentlyDetectedProp is Grabbable grabbable)
                 {
-                    controller.GrabObject((Grabbable)controller.RecentlyDetectedProp);
+                    controller.GrabObject(grabbable);
                 }
 
             }
