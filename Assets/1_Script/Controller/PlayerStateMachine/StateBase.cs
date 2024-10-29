@@ -34,6 +34,16 @@ namespace Class.StateMachine
             {
                 controller.ReleaseObject();
             }
+
+            // Test
+            if (Input.GetKeyDown(KeyCode.K) && controller.RecentlyDetectedProp is Desk desk)
+            {
+                foreach (var item in desk.props)
+                {
+                    Debug.Log(item);
+                }
+            }
+
         }       
         public virtual void PhysicsUpdate() { }     // Only Physics Update
         public virtual void Exit() { }              // Run once when Exit State
@@ -63,8 +73,6 @@ namespace Class.StateMachine
         {
             if(Input.GetMouseButtonDown(0) && controller.IsDetectInteractable)
             {
-
-
                 if(controller.RecentlyDetectedProp is Usable usable)
                 {
                     usable.Interact(controller);
@@ -75,7 +83,6 @@ namespace Class.StateMachine
                 {
                     controller.GrabObject(grabbable);
                 }
-
             }
         }
 

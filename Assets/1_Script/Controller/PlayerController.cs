@@ -191,7 +191,7 @@ namespace Class
 
         public Grabbable InteractableGrabbing = null;
         public bool IsGrabbing = false;
-        public Transform CameraTransform { get => cameraTransform; }        // 들고있는 물체의 위치를 정돈시키기 위해, 카메라의 트랜스폼을 가져옴.
+        public Transform CameraTransform { get => cameraTransform; }
 
 
         [SerializeField] public float GrabbaleHori = 0f;
@@ -205,6 +205,13 @@ namespace Class
                 return;
             }
 
+            // 만약 물건이 책상 아래에 놓여져 있었다면, 책상 위 목록에서 grabbable을 삭제.
+            if (grabbable.TheDeskBelow != null)
+            {
+                grabbable?.TheDeskBelow.props.Remove(grabbable.PropType);
+            }
+
+
             IsGrabbing = true;
             InteractableGrabbing = grabbable;
             InteractableGrabbing.GetComponent<BoxCollider>().isTrigger = true;
@@ -213,7 +220,7 @@ namespace Class
         public void ReleaseObject()
         {
             float _distance = 1.0f;
-            // 물건이 떨어질 위치는 우선적으로 플레이어 앞으로 조정.
+
             Vector3 _releasePosion = CameraTransform.position;
 
             if (InteractableGrabbing == null || !IsGrabbing)
@@ -221,16 +228,11 @@ namespace Class
                 return;
             }
 
-            if(recentlyDetectedProp != null)
+            if(recentlyDetectedProp is Desk desk)
             {
-                _distance = Vector3.Distance(transform.position, recentlyDetectedProp.transform.position);
-
-                // TODO: 특정 물체 위에서만, 물건을 올려놓을 수 있도록 설정해야함.
-                // + 지금은 하드 코딩으로 의자만 빼놓은 상태.
-                if (recentlyDetectedProp.PropType == PropTypes.Chair)
-                {
-                    _distance = 1.0f;
-                }
+                _distance = Vector3.Distance(transform.position, desk.transform.position);
+                InteractableGrabbing.TheDeskBelow = desk;
+                desk.props.Add(InteractableGrabbing.PropType);
             }
 
             _releasePosion += CameraTransform.forward * _distance + Vector3.up * 0.1f;

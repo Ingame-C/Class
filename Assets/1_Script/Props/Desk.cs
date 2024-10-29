@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Class
@@ -6,6 +7,7 @@ namespace Class
     public class Desk : PropsBase
     {
         private PropTypes proptype = PropTypes.Desk;
+        public List<PropTypes> props = new List<PropTypes>();
         public override PropTypes PropType { get => proptype; }
 
 
