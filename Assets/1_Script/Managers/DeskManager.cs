@@ -93,7 +93,11 @@ namespace Class
         public bool CheckCleared()
         {
             for(int i = 0; i < 20; i++) {
-                if (Desks[i].props.Any(prop => prop != preset[presetIndex][i]))
+                if(preset[presetIndex][i] == PropTypes.None && Desks[i].props.Count == 0)
+                {
+                    continue;
+                }
+                else if (Desks[i].props.Any(prop => prop != preset[presetIndex][i]))
                 {
                     return false;
                 }
@@ -103,7 +107,7 @@ namespace Class
 
         public void SetRandomPreset()
         {
-            presetIndex = UnityEngine.Random.Range(0, 4);
+            presetIndex = UnityEngine.Random.Range(0, 5);
         }
 
 
