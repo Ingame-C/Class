@@ -30,9 +30,9 @@ namespace Class.StateMachine
         {         
             HoldGrabbable();
 
-            if (Input.GetMouseButtonDown(1) && controller.IsGrabbing)
+            if (Input.GetMouseButtonDown(1) && controller.InteractableGrabbing is Grabbable grabbable)
             {
-                controller.ReleaseObject();
+                grabbable.ReleaseObject();
             }
 
             // Test
@@ -42,6 +42,10 @@ namespace Class.StateMachine
                 {
                     Debug.Log(item);
                 }
+            }
+            else if(Input.GetKeyDown(KeyCode.K) && controller.RecentlyDetectedProp is not Desk)
+            {
+                DeskManager.Instance.CheckCleared();
             }
 
         }       
@@ -81,7 +85,7 @@ namespace Class.StateMachine
                 // Grabbalbe Object는 일괄적으로 관리할 예정.
                 if(controller.RecentlyDetectedProp is Grabbable grabbable)
                 {
-                    controller.GrabObject(grabbable);
+                    grabbable.GrabObject();
                 }
             }
         }

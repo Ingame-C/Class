@@ -17,6 +17,7 @@ namespace Class
         private CapsuleCollider capsuleColl;
         private Animator animator;
 
+
         /** Properties **/
         public Rigidbody Rigidbody { get => rigid; }
         public CapsuleCollider CapsuleColl {  get { return capsuleColl; } }
@@ -32,6 +33,8 @@ namespace Class
         [SerializeField] private float vertRotSpeed;
         [SerializeField, Range(0f, 90f)] private float maxVertRot;
         [SerializeField, Range(-90f, 0f)] private float minVertRot;
+        [SerializeField] public float GrabbaleHori = 0f;
+        [SerializeField] public float GrabbaleVert = 0f;
 
         [Header("GameObjects")]
         [SerializeField] private Transform cameraTransform;
@@ -49,10 +52,15 @@ namespace Class
         public FallState fallState;
         public ThismanState thismanState;
 
-
+        private Grabbable interactableGrabbing = null;
 
         private bool isDetectInteractable = false;
         private bool isInteracting = false;
+        private bool isGrabbing = false;
+
+        public Grabbable InteractableGrabbing { get => interactableGrabbing; set { interactableGrabbing = value; } }
+        public bool IsGrabbing { get => isGrabbing; set { isGrabbing = value; } }
+        public Transform CameraTransform { get => cameraTransform; }
 
         public bool IsDetectInteractable { get => isDetectInteractable; }
         public bool IsInteracting { get => isInteracting; set => isInteracting = value; }
@@ -187,69 +195,5 @@ namespace Class
         #endregion
 
 
-        #region Grabbing Fields and Funcs
-
-        public Grabbable InteractableGrabbing = null;
-        public bool IsGrabbing = false;
-        public Transform CameraTransform { get => cameraTransform; }
-
-
-        [SerializeField] public float GrabbaleHori = 0f;
-        [SerializeField] public float GrabbaleVert = 0f;
-
-        public void GrabObject(Grabbable grabbable)
-        {
-
-            if (IsGrabbing || InteractableGrabbing != null)
-            {
-                return;
-            }
-
-            // 만약 물건이 책상 아래에 놓여져 있었다면, 책상 위 목록에서 grabbable을 삭제.
-            if (grabbable.TheDeskBelow != null)
-            {
-                grabbable?.TheDeskBelow.props.Remove(grabbable.PropType);
-            }
-
-
-            IsGrabbing = true;
-            InteractableGrabbing = grabbable;
-            InteractableGrabbing.GetComponent<BoxCollider>().isTrigger = true;
-        }
-
-        public void ReleaseObject()
-        {
-            float _distance = 1.0f;
-
-            Vector3 _releasePosion = CameraTransform.position;
-
-            if (InteractableGrabbing == null || !IsGrabbing)
-            {
-                return;
-            }
-
-            if(recentlyDetectedProp is Desk desk)
-            {
-                _distance = Vector3.Distance(transform.position, desk.transform.position);
-                InteractableGrabbing.TheDeskBelow = desk;
-                desk.props.Add(InteractableGrabbing.PropType);
-            }
-
-            _releasePosion += CameraTransform.forward * _distance + Vector3.up * 0.1f;
-
-            InteractableGrabbing.transform.position = _releasePosion;
-            InteractableGrabbing.GetComponent<BoxCollider>().isTrigger = false;
-            InteractableGrabbing = null;
-
-            Invoke("DelaySetFlag", 0.5f);   // IsGrabbing 설정을 딜레이 시켜서, 의자를 내리지 못하게 설정.
-        }
-
-        public void DelaySetFlag()
-        {
-            IsGrabbing = false;
-        }
-
-
-        #endregion
     }
 }
