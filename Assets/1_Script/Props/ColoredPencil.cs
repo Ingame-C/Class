@@ -1,15 +1,13 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Class
 {
-
-    public class Desk : PropsBase
+    public class ColoredPencil : Grabbable, IInteractable
     {
-        private PropTypes proptype = PropTypes.Desk;
-        public List<PropTypes> props = new List<PropTypes>();
+        private PropTypes proptype = PropTypes.ColoredPencil;
         public override PropTypes PropType { get => proptype; }
-
 
         protected override void Init()
         {
@@ -17,5 +15,4 @@ namespace Class
         }
 
     }
-
 }

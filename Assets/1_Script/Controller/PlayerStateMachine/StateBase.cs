@@ -30,10 +30,24 @@ namespace Class.StateMachine
         {         
             HoldGrabbable();
 
-            if (Input.GetMouseButtonDown(1) && controller.IsGrabbing)
+            if (Input.GetMouseButtonDown(1) && controller.InteractableGrabbing is Grabbable grabbable)
             {
-                controller.ReleaseObject();
+                grabbable.ReleaseObject();
             }
+
+            // Test
+            if (Input.GetKeyDown(KeyCode.K) && controller.RecentlyDetectedProp is Desk desk)
+            {
+                foreach (var item in desk.props)
+                {
+                    Debug.Log(item);
+                }
+            }
+            else if(Input.GetKeyDown(KeyCode.K) && controller.RecentlyDetectedProp is not Desk)
+            {
+                DeskManager.Instance.CheckCleared();
+            }
+
         }       
         public virtual void PhysicsUpdate() { }     // Only Physics Update
         public virtual void Exit() { }              // Run once when Exit State
@@ -63,8 +77,6 @@ namespace Class.StateMachine
         {
             if(Input.GetMouseButtonDown(0) && controller.IsDetectInteractable)
             {
-
-
                 if(controller.RecentlyDetectedProp is Usable usable)
                 {
                     usable.Interact(controller);
@@ -73,9 +85,8 @@ namespace Class.StateMachine
                 // Grabbalbe Object는 일괄적으로 관리할 예정.
                 if(controller.RecentlyDetectedProp is Grabbable grabbable)
                 {
-                    controller.GrabObject(grabbable);
+                    grabbable.GrabObject();
                 }
-
             }
         }
 

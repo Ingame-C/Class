@@ -17,6 +17,7 @@ namespace Class
         private CapsuleCollider capsuleColl;
         private Animator animator;
 
+
         /** Properties **/
         public Rigidbody Rigidbody { get => rigid; }
         public CapsuleCollider CapsuleColl {  get { return capsuleColl; } }
@@ -32,6 +33,8 @@ namespace Class
         [SerializeField] private float vertRotSpeed;
         [SerializeField, Range(0f, 90f)] private float maxVertRot;
         [SerializeField, Range(-90f, 0f)] private float minVertRot;
+        [SerializeField] public float GrabbaleHori = 0f;
+        [SerializeField] public float GrabbaleVert = 0f;
 
         [Header("GameObjects")]
         [SerializeField] private Transform cameraTransform;
@@ -49,10 +52,15 @@ namespace Class
         public FallState fallState;
         public ThismanState thismanState;
 
-
+        private Grabbable interactableGrabbing = null;
 
         private bool isDetectInteractable = false;
         private bool isInteracting = false;
+        private bool isGrabbing = false;
+
+        public Grabbable InteractableGrabbing { get => interactableGrabbing; set { interactableGrabbing = value; } }
+        public bool IsGrabbing { get => isGrabbing; set { isGrabbing = value; } }
+        public Transform CameraTransform { get => cameraTransform; }
 
         public bool IsDetectInteractable { get => isDetectInteractable; }
         public bool IsInteracting { get => isInteracting; set => isInteracting = value; }
@@ -187,67 +195,5 @@ namespace Class
         #endregion
 
 
-        #region Grabbing Fields and Funcs
-
-        public Grabbable InteractableGrabbing = null;
-        public bool IsGrabbing = false;
-        public Transform CameraTransform { get => cameraTransform; }        // 들고있는 물체의 위치를 정돈시키기 위해, 카메라의 트랜스폼을 가져옴.
-
-
-        [SerializeField] public float GrabbaleHori = 0f;
-        [SerializeField] public float GrabbaleVert = 0f;
-
-        public void GrabObject(Grabbable grabbable)
-        {
-
-            if (IsGrabbing || InteractableGrabbing != null)
-            {
-                return;
-            }
-
-            IsGrabbing = true;
-            InteractableGrabbing = grabbable;
-            InteractableGrabbing.GetComponent<BoxCollider>().isTrigger = true;
-        }
-
-        public void ReleaseObject()
-        {
-            float _distance = 1.0f;
-            // 물건이 떨어질 위치는 우선적으로 플레이어 앞으로 조정.
-            Vector3 _releasePosion = CameraTransform.position;
-
-            if (InteractableGrabbing == null || !IsGrabbing)
-            {
-                return;
-            }
-
-            if(recentlyDetectedProp != null)
-            {
-                _distance = Vector3.Distance(transform.position, recentlyDetectedProp.transform.position);
-
-                // TODO: 특정 물체 위에서만, 물건을 올려놓을 수 있도록 설정해야함.
-                // + 지금은 하드 코딩으로 의자만 빼놓은 상태.
-                if (recentlyDetectedProp.PropType == PropTypes.Chair)
-                {
-                    _distance = 1.0f;
-                }
-            }
-
-            _releasePosion += CameraTransform.forward * _distance + Vector3.up * 0.1f;
-
-            InteractableGrabbing.transform.position = _releasePosion;
-            InteractableGrabbing.GetComponent<BoxCollider>().isTrigger = false;
-            InteractableGrabbing = null;
-
-            Invoke("DelaySetFlag", 0.5f);   // IsGrabbing 설정을 딜레이 시켜서, 의자를 내리지 못하게 설정.
-        }
-
-        public void DelaySetFlag()
-        {
-            IsGrabbing = false;
-        }
-
-
-        #endregion
     }
 }

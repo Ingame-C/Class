@@ -9,6 +9,9 @@ namespace Class {
         LockerDoor,
         Desk,
         Pencil = 100,
+        Crayons,
+        Pallet,
+        ColoredPencil,
     }
 
 
