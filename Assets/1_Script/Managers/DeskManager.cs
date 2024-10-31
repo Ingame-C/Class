@@ -97,7 +97,7 @@ namespace Class
                 {
                     continue;
                 }
-                else if (Desks[i].props.Any(prop => prop != preset[presetIndex][i]))
+                if (Desks[i].props.Any(prop => prop != preset[presetIndex][i]))
                 {
                     return false;
                 }
