@@ -21,12 +21,10 @@ namespace Class
 
             Vector3 localPlayer = parentTransform.InverseTransformPoint(GameManagerEx.Instance.Controller.transform.position);
 
-            localPlayer.y = transform.position.y;
-            localPlayer.z = -localPlayer.z;
+            localPlayer.y = 0;
+            localPlayer.x = -localPlayer.x;
 
-
-            transform.LookAt(localPlayer);
-
+            transform.LookAt(parentTransform.TransformPoint(localPlayer));
         }
 
         public void OnPreCull()
