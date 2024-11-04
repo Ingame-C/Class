@@ -7,7 +7,7 @@ namespace Class
     {
         private Rigidbody rigid = null;
         private Desk desk = null;
-        private PlayerController controller;
+        private PlayerController controller = null;
 
         public Desk TheDeskBelow { get => desk; }
         private void Awake()
