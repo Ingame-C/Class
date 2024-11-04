@@ -14,7 +14,7 @@ namespace Class
         [SerializeField] private Desk[] Desks;
 
         private List<List<PropTypes>> preset = new List<List<PropTypes>>();
-        private int presetIndex;
+        [SerializeField] private int presetIndex;
 
         #region Singleton
         private static DeskManager instance;
@@ -97,11 +97,13 @@ namespace Class
                 {
                     continue;
                 }
-                if (Desks[i].props.Any(prop => prop != preset[presetIndex][i]))
+                if (!Desks[i].props.Any(prop => prop == preset[presetIndex][i]))
                 {
+                    Debug.Log("Wrong");
                     return false;
                 }
             }
+            Debug.Log("Correct");
             return true;
         }
 
