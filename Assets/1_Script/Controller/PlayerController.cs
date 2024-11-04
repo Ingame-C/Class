@@ -48,6 +48,7 @@ namespace Class
         public IdleState idleState;
         public WalkState walkState;
         public SitState sitState;
+        public HideState hideState;
 
         public FallState fallState;
         public ThismanState thismanState;
@@ -55,15 +56,20 @@ namespace Class
         private Grabbable interactableGrabbing = null;
 
         private bool isDetectInteractable = false;
-        private bool isInteracting = false;
+        private bool isSitting = false;
         private bool isGrabbing = false;
+        private bool isHiding = false;
+        
 
         public Grabbable InteractableGrabbing { get => interactableGrabbing; set { interactableGrabbing = value; } }
         public bool IsGrabbing { get => isGrabbing; set { isGrabbing = value; } }
+        public bool IsSitting { get => isSitting; set => isSitting = value; }
+        public bool IsHiding { get => isHiding; set => isHiding = value; }
+        public bool IsDetectInteractable { get => isDetectInteractable; }
+        
         public Transform CameraTransform { get => cameraTransform; }
 
-        public bool IsDetectInteractable { get => isDetectInteractable; }
-        public bool IsInteracting { get => isInteracting; set => isInteracting = value; }
+
 
         private void Awake()
         {
@@ -78,7 +84,7 @@ namespace Class
             sitState = new SitState(this, stateMachine);
             thismanState = new ThismanState(this, stateMachine);
             fallState = new FallState(this, StateMachine);
-
+            hideState = new HideState(this, stateMachine);
         }
 
         private void Start()
