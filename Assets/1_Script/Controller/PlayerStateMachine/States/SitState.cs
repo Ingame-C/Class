@@ -17,7 +17,7 @@ namespace Class.StateMachine
         public override void Enter()
         {
             base.Enter();
-            controller.IsInteracting = true;
+            controller.IsSitting = true;
             SoundManager.Instance.CreateAudioSource(controller.transform.position, SfxClipTypes.Sweep);
 
             if (controller.RecentlyDetectedProp != null)
@@ -37,7 +37,7 @@ namespace Class.StateMachine
         public override void Exit()
         {
             base.Exit();
-            controller.IsInteracting = false;
+            controller.IsSitting = false;
             controller.SetPlayerPosition(returnPosition);
             chair.GetComponent<MeshCollider>().isTrigger = false;
         }
