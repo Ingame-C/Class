@@ -1,4 +1,3 @@
-using Class.StateMachine;
 using Class.UI;
 using System;
 using System.Collections;
@@ -39,6 +38,16 @@ namespace Class
         private void Awake()
         {
             Init();
+
+        }
+
+        private void Start()
+        {
+
+            OnStageStartAction -= InitThismanManager;
+            OnStageStartAction += InitThismanManager;
+
+            OnStageStartAction.Invoke();
         }
 
         // TODO : 정확한 스테이지 이동이 구현되어야합니다.
@@ -79,7 +88,7 @@ namespace Class
 
         /** Find in Runtime **/
         [SerializeField] private PlayerController controller;
-        [SerializeField]  private Door doorToOpen;
+        [SerializeField] private Door doorToOpen;
         [SerializeField] private Chair startChair;              // 플레이어가 재시작 할때마다 깨어날 의자 필요
 
         public Chair StartChair { get => startChair; }
@@ -87,17 +96,21 @@ namespace Class
         [Header("Game Over")]
         [SerializeField] private ScreenBlocker screenBlocker;
         [SerializeField] private GameObject thismanPrefab;
-
+        [SerializeField] private GameObject thismanManagerPrefab;
 
         /** Actions **/
-        public Action OnStageFailAction;
-        public Action OnStageClearAction;
+        public Action OnStageFailAction { get; set; }
+        public Action OnStageClearAction { get; set; }
+
+        public Action OnStageStartAction { get; set; }
 
         /** State Variables **/
         private bool isLoadingScene = false;
 
         public PlayerController Controller { get => controller; }
 
+        /** GameObjects **/
+        private GameObject thismanManager = null;
 
         private void InitScene(Scene scene, LoadSceneMode mode)
         {
@@ -116,8 +129,8 @@ namespace Class
         private void ClearScene(Scene scene)
         {
             if (scene.name != SceneEnums.Game.ToString()) return;
-            OnStageFailAction = null;
             OnStageClearAction = null;
+            OnStageFailAction = null;
         }
 
 
@@ -126,7 +139,11 @@ namespace Class
         {
             isLoadingScene = true;
             OnStageClearAction.Invoke();
+
+            FinThismanManager();
             yield return new WaitForSeconds(1.0f);
+
+            OnStageStartAction.Invoke();
             isLoadingScene = false;
         }
 
@@ -140,6 +157,7 @@ namespace Class
  
             SpawnThisman();
             OnStageFailAction.Invoke();
+            FinThismanManager();
             yield return new WaitForSeconds(0.8f);
 
             // 씬 전환
@@ -148,10 +166,11 @@ namespace Class
             yield return async;
             yield return StartCoroutine(screenBlocker.FadeOutCoroutine(0.5f));
 
+            OnStageStartAction.Invoke();
             isLoadingScene = false;
         }
 
-        public void SpawnThisman()
+        private void SpawnThisman()
         {
             GameObject tmpThis = Instantiate(thismanPrefab, doorToOpen.transform.position, Quaternion.identity);
             tmpThis.GetComponent<ThismanController>().SetThismanTarget(controller.transform);
@@ -159,6 +178,23 @@ namespace Class
             controller.GetComponent<PlayerController>().thismanState.Thisman = tmpThis.transform;
 
         }
+
+        private void InitThismanManager()
+        {
+            thismanManager = Instantiate(thismanManagerPrefab, transform);
+            thismanManager.GetComponent<ThismanManager>().Init();
+        }
+
+
+        private void FinThismanManager()
+        {
+            if (thismanManager != null)
+            {
+                Destroy(thismanManager); thismanManager = null;
+            }
+        }
+
+
 
 
         // HACK : 테스트 코드입니다.
