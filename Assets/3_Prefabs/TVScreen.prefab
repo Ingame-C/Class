@@ -235,5 +235,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c023e78cf2981744fbe578e54325d4cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  classCenter: {x: 0, y: 10, z: 0}
-  cameraTransform: {fileID: 3135865896200480088}
+  tvScreen: {fileID: 0}
+  noiseScreen: {fileID: 0}
+  useScreen: 0
+  tvNoiseMaterial: {fileID: 0}
+  minDistance: 1
+  maxDistance: 1

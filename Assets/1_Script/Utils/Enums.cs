@@ -8,6 +8,7 @@ namespace Class {
         Door,
         LockerDoor,
         Desk,
+        Chalk,
         Pencil = 100,
         Crayons,
         Pallet,
