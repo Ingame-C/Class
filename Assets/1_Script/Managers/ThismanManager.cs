@@ -13,7 +13,7 @@ namespace Class
         [SerializeField] private float moveInTime;                      // 걸어오는 시간. 알아채기 + 숨기까지 충분한 시간 필요.
         [SerializeField] private float moveOutTime;                     // 걸어가는 시간
 
-        [SerializeField] private bool tmpBool;
+        [SerializeField] private bool isPlayerHide;
 
         private bool isChecking = false;
         private bool isComing = false;
@@ -49,15 +49,15 @@ namespace Class
             isComing = true;
             yield return StartCoroutine(MoveInCoroutine());
 
-            // TODO : Player가 숨어있는지 확인
+            isPlayerHide = GameManagerEx.Instance.Controller.StateMachine.CurState == GameManagerEx.Instance.Controller.hideState;
 
-            if (tmpBool) // Player가 안숨음
-            {
-                GameManagerEx.Instance.OnStageFailed(-1);
-            }
-            else        // Player가 숨음
+            if (isPlayerHide) // Player가 숨음
             {
                 yield return StartCoroutine(MoveOutCoroutine());
+            }
+            else        // 안숨음
+            {
+                GameManagerEx.Instance.OnStageFailed(-1);
             }
 
         }

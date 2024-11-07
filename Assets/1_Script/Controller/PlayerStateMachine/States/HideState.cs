@@ -13,6 +13,7 @@ namespace Class.StateMachine
         public override void Enter()
         {
             base.Enter();
+            Debug.Log("Hide Enter");
             controller.IsHiding = true;
             // TODO: 필요하다면 사운드 추가하기.
             //SoundManager.Instance.CreateAudioSource(controller.transform.position, SfxClipTypes.???);
@@ -27,17 +28,18 @@ namespace Class.StateMachine
             controller.SetPlayerRotation(hidable.HideRotation);
 
             // 필요에 따라 없앨 수도 있을 것 같습니다.
-            hidable.GetComponent<MeshCollider>().isTrigger = false;
+            hidable.GetComponent<Collider>().isTrigger = true;
         }
 
         public override void Exit()
         {
             base.Exit();
+            Debug.Log("Hide Exit");
             controller.IsHiding = false;
             controller.SetPlayerPosition(hidable.ReturnPosition);
 
             // 필요에 따라 없앨 수도 있을 것 같습니다.
-            hidable.GetComponent<MeshCollider>().isTrigger = false;
+            hidable.GetComponent<Collider>().isTrigger = false;
         }
 
 

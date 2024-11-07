@@ -8,7 +8,7 @@ namespace Class
         [SerializeField] private Vector3 returnPosition;
         [SerializeField] private Vector3 hidePosition;
         [SerializeField] private Quaternion hideRotation;
-        
+
         public Vector3 ReturnPosition { get => returnPosition; }
         public Vector3 HidePosition { get => hidePosition; }
         public Quaternion HideRotation { get => hideRotation; }
