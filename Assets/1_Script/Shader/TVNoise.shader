@@ -44,6 +44,7 @@ Shader "Custom/TVNoise"
 
             fixed4 frag (v2f i) : SV_Target
             {
+
                 // UV 좌표와 시간을 이용한 노이즈 생성
                 float noise = frac(sin(dot(i.uv * _TimeValue, float2(12.9898, 78.233))) * 43758.5453);
                 

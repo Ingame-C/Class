@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
@@ -21,8 +22,8 @@ namespace Class.Manager
     }
 
     [Serializable]
-    public class GameplayData {     // 유저가 플레이한 게임 데이터를 저장
-    
+    public class GameplayData {     // 유저가 플레이한 게임 데이터를 저장. Start에서 
+        //List<bool> stageCleared = new List<bool>();
     }
 
 
@@ -54,6 +55,10 @@ namespace Class.Manager
             LoadAll();
         }
 
+        public void OnStart()
+        {
+
+        }
 
         /** Save/Load Functions **/
         private void LoadAll()
@@ -87,6 +92,12 @@ namespace Class.Manager
             }
         }
 
+
+        public void SaveClearStage(int stageId)
+        {
+            Debug.Log($"Stage: {stageId} Clear!");
+            // TODO : GameplayData 에 진행상황 bool 배열로 저장해둬야합니다.
+        }
 
     }
 
