@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   checkTerm: 1
-  probability: 1
+  probability: 0.04
   moveInTime: 5
   moveOutTime: 5
   tmpBool: 1
