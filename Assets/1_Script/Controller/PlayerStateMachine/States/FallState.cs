@@ -19,6 +19,7 @@ namespace Class.StateMachine {
         public override void Enter()
         {
             base.Enter();
+            controller.CapsuleColl.enabled = false;
             rotateAxis = controller.transform.TransformPoint(Vector3.right) - controller.transform.position;
             rotateAxis.y = 0;
             rotatePoint = controller.transform.position - new Vector3(0, controller.transform.localScale.y, 0);

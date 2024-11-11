@@ -1,5 +1,3 @@
-using Class.Manager;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace Class

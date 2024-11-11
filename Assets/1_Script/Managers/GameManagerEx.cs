@@ -1,3 +1,4 @@
+using Class.Manager;
 using Class.UI;
 using System;
 using System.Collections;
@@ -38,7 +39,6 @@ namespace Class
         private void Awake()
         {
             Init();
-
         }
 
         private void Start()
@@ -53,27 +53,33 @@ namespace Class
         // TODO : 정확한 스테이지 이동이 구현되어야합니다.
         // 해당 함수들은 현재 실패한/클리어한 스테이지 ID를 받고 다음에 이동할 스테이지ID를 구해야합니다.
 
+        private int currentStage = 1;
+        public int CurrentStage {  get { return currentStage; } }
+
         public bool OnStageClear(int clearStageId)
         {
+            Managers.Data.SaveClearStage(clearStageId);
             if (SceneManager.GetActiveScene().name != SceneEnums.Game.ToString()) return false;
             if (isLoadingScene) return false;
 
+            MoveStage(Mathf.Clamp(clearStageId + 1, clearStageId, Managers.Resource.GetStageCount()));
             StartCoroutine(LoadSceneAfterClear(SceneEnums.Game));
             return true;
         }
 
-        public bool OnStageFailed(int faildStageId)
+        public bool OnStageFailed(int failedStageId)
         {
             if (SceneManager.GetActiveScene().name != SceneEnums.Game.ToString()) return false;
             if (isLoadingScene) return false;
 
+            MoveStage(Mathf.Clamp(failedStageId - 1, 1, failedStageId));
             StartCoroutine(LoadSceneAfterFail(SceneEnums.Game));
             return true;
         }
 
         private void MoveStage(int stageId)
         {
-
+            currentStage = stageId;
         }
 
         public void DirectSceneConversion(SceneEnums sceneEnum)
@@ -202,11 +208,11 @@ namespace Class
         {
             if (Input.GetKeyDown(KeyCode.C))
             {
-                OnStageFailed(1);
+                OnStageFailed(currentStage);
             }
             else if (Input.GetKeyDown(KeyCode.V))
             {
-                OnStageClear(1);
+                OnStageClear(currentStage);
             }
         }
 
