@@ -44,6 +44,11 @@ namespace Class.Manager
 
             return ret.First();
         }
+
+        public int GetStageCount()
+        {
+            return stageInfos.stageInfo.Length;
+        }
         
 
     }

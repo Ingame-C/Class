@@ -3,6 +3,14 @@
         {
             "stageId": 1,
             "difficultyLevel": 2
+        },
+        {
+            "stageId": 2,
+            "difficultyLevel": 3
+        },
+        {
+            "stageId": 3,
+            "difficultyLevel": 3
         }
     ]
 }

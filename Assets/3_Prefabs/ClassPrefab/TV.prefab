@@ -415,9 +415,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c023e78cf2981744fbe578e54325d4cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useScreen: 1
   tvScreen: {fileID: 2527352464044138098}
   noiseScreen: {fileID: 3814535598267631348}
+  useScreen: 1
   tvNoiseMaterial: {fileID: 2100000, guid: 3150a51283ed71a478ab387a1f4a5a2a, type: 2}
   minDistance: 3
   maxDistance: 10.4
