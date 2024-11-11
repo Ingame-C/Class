@@ -6,12 +6,15 @@ namespace Class{
     public class Chalk : Usable
     {
 
+        [SerializeField] private GameObject hintScreen;
         private PropTypes proptype = PropTypes.Chalk;
+        
         public override PropTypes PropType => proptype;
 
         public override void Interact(PlayerController controller)
         {
-            // TODO: 스테이지 번호 받아서, 칠판 컨트롤러와 연결, 힌트 뛰우기.
+            var hintScreenAnimator = hintScreen.GetComponent<Animator>();
+            hintScreenAnimator.SetBool("IsReleased", true);
         }
     }
 }
