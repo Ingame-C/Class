@@ -44,8 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ba9045ec18213a4cb7f5c065f3b9675, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkTerm: 1
-  probability: 0.04
+  checkTerm: 0
+  probability: 1
   moveInTime: 5
   moveOutTime: 5
-  tmpBool: 1
+  isPlayerHide: 0

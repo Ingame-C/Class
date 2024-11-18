@@ -17,8 +17,8 @@ namespace Class
             isTargetSet = true;
 
             transform.LookAt(player.transform);
-        }
 
+        }
         private void Update()
         {
             if (!isTargetSet) return;

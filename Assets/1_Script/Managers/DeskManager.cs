@@ -1,8 +1,5 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Class
@@ -99,11 +96,11 @@ namespace Class
                 }
                 if (!Desks[i].props.Any(prop => prop == preset[presetIndex][i]))
                 {
-                    Debug.Log("Wrong");
+                    // Debug.Log("Wrong");
                     return false;
                 }
             }
-            Debug.Log("Correct");
+            // Debug.Log("Correct");
             return true;
         }
 

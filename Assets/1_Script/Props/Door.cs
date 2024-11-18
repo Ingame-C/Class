@@ -18,6 +18,8 @@ namespace Class {
         private bool isCoroutineRunning = false;
         private Coroutine runningCoroutine = null;
 
+        public Vector3 OriginalPosition { get => originalPosition; }
+
         private void Start()
         {
             originalPosition = transform.position;
