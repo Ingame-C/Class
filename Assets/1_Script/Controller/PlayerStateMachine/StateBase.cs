@@ -43,10 +43,7 @@ namespace Class.StateMachine
                     Debug.Log(item);
                 }
             }
-            else if(Input.GetKeyDown(KeyCode.K) && controller.RecentlyDetectedProp is not Desk)
-            {
-                DeskManager.Instance.CheckCleared();
-            }
+
 
         }       
         public virtual void PhysicsUpdate() { }     // Only Physics Update

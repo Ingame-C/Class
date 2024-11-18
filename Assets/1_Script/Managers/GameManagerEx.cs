@@ -2,6 +2,7 @@ using Class.Manager;
 using Class.UI;
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -30,7 +31,6 @@ namespace Class
 
             SceneManager.sceneLoaded += InitScene;
             SceneManager.sceneUnloaded += ClearScene;
-
         }
 
         #endregion
@@ -43,9 +43,11 @@ namespace Class
 
         private void Start()
         {
-
             OnStageStartAction -= InitThismanManager;
             OnStageStartAction += InitThismanManager;
+
+            OnStageStartAction -= SetTimer;
+            OnStageStartAction += SetTimer;
 
             OnStageStartAction.Invoke();
         }
@@ -104,6 +106,10 @@ namespace Class
         [SerializeField] private GameObject thismanPrefab;
         [SerializeField] private GameObject thismanManagerPrefab;
 
+        [Header("Timer")]
+        [SerializeField] private float maxRemainedTime;
+        [SerializeField] private float remainedPlayTime;
+
         /** Actions **/
         public Action OnStageFailAction { get; set; }
         public Action OnStageClearAction { get; set; }
@@ -144,6 +150,7 @@ namespace Class
         private IEnumerator LoadSceneAfterClear(SceneEnums sceneEnum)
         {
             isLoadingScene = true;
+            // TODO : 폭죽 펑!
             OnStageClearAction.Invoke();
 
             FinThismanManager();
@@ -168,7 +175,7 @@ namespace Class
 
             // 씬 전환
             yield return StartCoroutine(screenBlocker.FadeInCoroutine(1.0f));
-            AsyncOperation async = SceneManager.LoadSceneAsync(Enum.GetName(typeof(SceneEnums), sceneEnum));
+            UnityEngine.AsyncOperation async = SceneManager.LoadSceneAsync(Enum.GetName(typeof(SceneEnums), sceneEnum));
             yield return async;
             yield return StartCoroutine(screenBlocker.FadeOutCoroutine(0.5f));
 
@@ -178,7 +185,7 @@ namespace Class
 
         private void SpawnThisman()
         {
-            GameObject tmpThis = Instantiate(thismanPrefab, doorToOpen.transform.position, Quaternion.identity);
+            GameObject tmpThis = Instantiate(thismanPrefab, doorToOpen.OriginalPosition, Quaternion.identity);
             tmpThis.GetComponent<ThismanController>().SetThismanTarget(controller.transform);
 
             controller.GetComponent<PlayerController>().thismanState.Thisman = tmpThis.transform;
@@ -202,6 +209,16 @@ namespace Class
 
 
 
+        private bool isTimerSet = false;
+        public bool IsTimerSet {  get { return isTimerSet; }  }
+
+        private void SetTimer()
+        {
+            remainedPlayTime = maxRemainedTime;
+            isTimerSet = true;
+        }
+
+
 
         // HACK : 테스트 코드입니다.
         private void Update()
@@ -214,6 +231,26 @@ namespace Class
             {
                 OnStageClear(currentStage);
             }
+
+
+            if (remainedPlayTime < 0 && isTimerSet)
+            {
+                isTimerSet = false;
+                if(thismanManager != null &&
+                        !thismanManager.GetComponent<ThismanManager>().IsComing) OnStageFailed(currentStage);
+            }
+
+            remainedPlayTime -= Time.deltaTime;
+            
+
+            /** Check clear condition **/
+            // HACK : 해당 부분 Func< ... , bool> 사용해서 여러 조건들을 담을 수 있도록 해야합니다.
+            // 담는 방식에 대해서는 좀 더 고민해야 할 것 같습니다.
+            if (DeskManager.Instance.CheckCleared() && isTimerSet) {
+                isTimerSet = false;
+                OnStageClear(currentStage);
+            }
+
         }
 
     }

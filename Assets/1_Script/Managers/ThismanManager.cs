@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Class
@@ -19,6 +18,8 @@ namespace Class
         private bool isComing = false;
         private float thismanTimer = 0f;
 
+        public bool IsComing { get { return isComing; } }
+
 
         public void Init()
         {
@@ -35,7 +36,7 @@ namespace Class
 
             if (thismanTimer > checkTerm)
             {
-                if (UnityEngine.Random.Range(0f, 1f) < probability - Mathf.Epsilon)
+                if (UnityEngine.Random.Range(0f, 1f) < (probability - Mathf.Epsilon))
                 {
                     StartCoroutine(ExecuteEarlySign());
                 }
@@ -51,13 +52,13 @@ namespace Class
 
             isPlayerHide = GameManagerEx.Instance.Controller.StateMachine.CurState == GameManagerEx.Instance.Controller.hideState;
 
-            if (isPlayerHide) // Player가 숨음
+            if (!isPlayerHide || !GameManagerEx.Instance.IsTimerSet) // Player가 안숨음 or Timer Expired
             {
-                yield return StartCoroutine(MoveOutCoroutine());
+                GameManagerEx.Instance.OnStageFailed(-1);
             }
             else        // 안숨음
             {
-                GameManagerEx.Instance.OnStageFailed(-1);
+                yield return StartCoroutine(MoveOutCoroutine());
             }
 
         }
