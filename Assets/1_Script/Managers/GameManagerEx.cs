@@ -5,6 +5,7 @@ using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 namespace Class
 {
@@ -45,9 +46,6 @@ namespace Class
         {
             OnStageStartAction -= InitThismanManager;
             OnStageStartAction += InitThismanManager;
-
-            OnStageStartAction -= SetTimer;
-            OnStageStartAction += SetTimer;
 
             OnStageStartAction.Invoke();
         }
@@ -105,6 +103,7 @@ namespace Class
         [SerializeField] private ScreenBlocker screenBlocker;
         [SerializeField] private GameObject thismanPrefab;
         [SerializeField] private GameObject thismanManagerPrefab;
+        [SerializeField] private GameObject fireworkPrefab;
 
         [Header("Timer")]
         [SerializeField] private float maxRemainedTime;
@@ -123,6 +122,7 @@ namespace Class
 
         /** GameObjects **/
         private GameObject thismanManager = null;
+        private GameObject firework = null;
 
         private void InitScene(Scene scene, LoadSceneMode mode)
         {
@@ -136,6 +136,11 @@ namespace Class
                 if (prop.GetComponent<Door>() != null) doorToOpen = prop.GetComponent<Door>();
                 if (prop.GetComponent<Chair>() != null) startChair = prop.GetComponent<Chair>();
             }
+
+            DeskManager.Instance.LoadDesks();
+
+            remainedPlayTime = maxRemainedTime;
+            isTimerSet = true;
         }
 
         private void ClearScene(Scene scene)
@@ -150,7 +155,13 @@ namespace Class
         private IEnumerator LoadSceneAfterClear(SceneEnums sceneEnum)
         {
             isLoadingScene = true;
-            // TODO : 폭죽 펑!
+
+            firework = Instantiate(fireworkPrefab,
+                controller.transform.position + controller.transform.forward, Quaternion.identity);
+            firework.GetComponent<ParticleSystem>().Simulate(1f, true, true, false);
+            firework.GetComponent<ParticleSystem>().Play();
+            // TODO : SOUND - 폭죽 펑
+            yield return new WaitForSeconds(0.3f);
             OnStageClearAction.Invoke();
 
             FinThismanManager();
@@ -212,14 +223,6 @@ namespace Class
         private bool isTimerSet = false;
         public bool IsTimerSet {  get { return isTimerSet; }  }
 
-        private void SetTimer()
-        {
-            remainedPlayTime = maxRemainedTime;
-            isTimerSet = true;
-        }
-
-
-
         // HACK : 테스트 코드입니다.
         private void Update()
         {
@@ -241,12 +244,13 @@ namespace Class
             }
 
             remainedPlayTime -= Time.deltaTime;
-            
+
 
             /** Check clear condition **/
             // HACK : 해당 부분 Func< ... , bool> 사용해서 여러 조건들을 담을 수 있도록 해야합니다.
             // 담는 방식에 대해서는 좀 더 고민해야 할 것 같습니다.
-            if (DeskManager.Instance.CheckCleared() && isTimerSet) {
+            if (DeskManager.Instance.CheckCleared() && isTimerSet)
+            {
                 isTimerSet = false;
                 OnStageClear(currentStage);
             }

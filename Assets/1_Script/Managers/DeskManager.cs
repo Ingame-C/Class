@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Class
@@ -45,6 +46,15 @@ namespace Class
         {
             Init();
             #region initialization preset
+
+            // HACK : 테스트용 케이스입니다. 지워도 상관없습니다.
+            preset.Add(new List<PropTypes>{
+                 PropTypes.Crayons, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None,
+                PropTypes.ColoredPencil, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None,
+                PropTypes.Pallet, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None,
+                PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None,
+            });
+
             preset.Add(new List<PropTypes>
             {
                 PropTypes.None, PropTypes.Crayons, PropTypes.None, PropTypes.None, PropTypes.ColoredPencil,     // 1분단
@@ -87,6 +97,40 @@ namespace Class
             #endregion
         }
 
+        /// <summary>
+        /// Load Desks after loading scene
+        /// </summary>
+        public void LoadDesks()
+        {
+            GameObject go = null;
+            var initProps = GameObject.FindGameObjectsWithTag(Constants.TAG_INITPROPS);
+            foreach (GameObject prop in initProps)
+            {
+                if (prop.name == "Tables")
+                {
+                    go = prop;
+                    break;
+                }
+            }
+
+            if(go == null)
+            {
+                Debug.LogError("There is no 'Tables' object in Scene");
+                return;
+            }
+
+            int counter = 0;
+            foreach (Transform child in go.transform)
+            {
+                if(counter >= Desks.Count() || child.GetComponent<Desk>() == null)
+                {
+                    Debug.LogError("Desk Binding Err : count mismatch or child doesn't have Desk");
+                    return;
+                }
+                Desks[counter++] = child.GetComponent<Desk>();
+            }
+        }
+
         public bool CheckCleared()
         {
             for(int i = 0; i < 20; i++) {
@@ -106,7 +150,7 @@ namespace Class
 
         public void SetRandomPreset()
         {
-            presetIndex = UnityEngine.Random.Range(0, 5);
+            presetIndex = UnityEngine.Random.Range(0, preset.Count());
         }
 
 

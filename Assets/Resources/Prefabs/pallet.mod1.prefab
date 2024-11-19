@@ -104,6 +104,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: pallet.mod1
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 168ed40e07fef9447ba201226dfd1f69, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 2372289446469841892, guid: 168ed40e07fef9447ba201226dfd1f69, type: 3}
       propertyPath: m_LocalPosition.y
       value: -0.015213164

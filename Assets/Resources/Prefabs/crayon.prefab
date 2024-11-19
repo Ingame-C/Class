@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5238234105034932450}
   - component: {fileID: 3015025539077730101}
   - component: {fileID: 5603783698128222827}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: crayon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
