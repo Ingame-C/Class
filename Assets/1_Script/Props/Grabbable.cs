@@ -13,8 +13,7 @@ namespace Class
         private void Awake()
         {
             rigid = GetComponent<Rigidbody>();
-            // Hard Coding
-            controller = GameObject.Find("Tmp_Player").GetComponent<PlayerController>();
+            controller = GameObject.Find(Constants.NAME_PLAYER).GetComponent<PlayerController>();
         }
         private void OnCollisionEnter(Collision collision)
         {
