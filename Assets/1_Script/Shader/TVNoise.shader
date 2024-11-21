@@ -4,6 +4,8 @@ Shader "Custom/TVNoise"
     {
         _MainTex ("Texture", 2D) = "white" {}
         _Alpha ("Alpha", Range(0, 1)) = 1.0  // 알파 값을 조절할 수 있는 속성 추가
+        _GridSize ("GridSize", Range(1, 256)) = 1
+        _Darkness ("Darkness", Range(0, 1)) = 1
     }
     SubShader
     {
@@ -33,6 +35,8 @@ Shader "Custom/TVNoise"
             sampler2D _MainTex;
             float _TimeValue;
             float _Alpha;  // 알파 값 속성
+            int _GridSize;
+            float _Darkness;
 
             v2f vert (appdata v)
             {
@@ -44,11 +48,11 @@ Shader "Custom/TVNoise"
 
             fixed4 frag (v2f i) : SV_Target
             {
+                float2 quantizedUV = floor(i.uv * _GridSize) / _GridSize;
 
-                // UV 좌표와 시간을 이용한 노이즈 생성
-                float noise = frac(sin(dot(i.uv * _TimeValue, float2(12.9898, 78.233))) * 43758.5453);
-                
-                // 노이즈 값을 사용하여 RGB는 같은 값, 알파는 _Alpha 값으로 설정
+                float noise = frac(sin(dot(quantizedUV * _TimeValue, float2(12.9898, 78.233))) * 43758.5453);
+
+                noise *= _Darkness;
                 return fixed4(noise, noise, noise, _Alpha);
             }
             ENDCG
