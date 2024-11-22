@@ -28,7 +28,7 @@ namespace Class
         public override void Interact(PlayerController controller)
         {
             state = (state + 1) % 2;
-            animator.SetBool("IsOpened", IsOpened);
+            animator.SetBool(Constants.FLAG_LOCKERDOOR, IsOpened);
         }
     }
 }

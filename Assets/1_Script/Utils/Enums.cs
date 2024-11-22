@@ -15,6 +15,12 @@ namespace Class {
         ColoredPencil,
     }
 
+    public enum EffectTypes
+    {
+        None = 0,
+
+    }
+
 
     public enum SfxClipTypes { 
         Sweep = 0,
