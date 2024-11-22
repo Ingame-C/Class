@@ -36,7 +36,9 @@ namespace Class
 
             if (thismanTimer > checkTerm)
             {
-                if (UnityEngine.Random.Range(0f, 1f) < (probability - Mathf.Epsilon))
+                float rand = UnityEngine.Random.Range(0f, 1f);
+                Debug.Log($"RANDOM CHECK : {rand}, {(probability - Mathf.Epsilon)}");
+                if (rand < (probability - Mathf.Epsilon))
                 {
                     StartCoroutine(ExecuteEarlySign());
                 }

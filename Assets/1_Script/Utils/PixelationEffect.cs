@@ -1,6 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Camera))]
+[ExecuteInEditMode]
 public class PixelationEffect : MonoBehaviour
 {
     public Material pixelationMaterial;

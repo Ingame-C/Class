@@ -122,7 +122,7 @@ MonoBehaviour:
     value: 0.84
   lumContrib:
     overrideState: 1
-    value: 0.33
+    value: 0.31
 --- !u!114 &6792879075641383112
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -187,7 +187,7 @@ MonoBehaviour:
     overrideState: 0
     value: 0
   saturation:
-    overrideState: 1
+    overrideState: 0
     value: 15
   brightness:
     overrideState: 0
