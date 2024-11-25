@@ -18,6 +18,7 @@ namespace Class {
     public enum EffectTypes
     {
         None = 0,
+        TableAndChairEffect,
 
     }
 

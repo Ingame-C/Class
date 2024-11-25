@@ -22,7 +22,7 @@ public static class Constants
     /** Anim Flags **/
 
     public const string FLAG_LOCKERDOOR = "IsOpened";
-    public const string FLAG_HINTSCREEN = "IsOpened";
+    public const string FLAG_HINTSCREEN = "IsReleased";
 
 
 }
