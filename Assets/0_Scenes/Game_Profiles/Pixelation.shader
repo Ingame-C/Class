@@ -4,6 +4,7 @@ Shader "Custom/Pixelation"
     {
         _MainTex ("Texture", 2D) = "white" {}
         _PixelSize ("Pixel Size", Float) = 0.01
+        _Darkness ("Darkness", Range(0, 1)) = 1
     }
     SubShader
     {
@@ -32,6 +33,7 @@ Shader "Custom/Pixelation"
             sampler2D _MainTex;
             float4 _MainTex_ST;
             float _PixelSize;
+            float _Darkness;
 
             v2f vert (appdata v)
             {
@@ -46,6 +48,7 @@ Shader "Custom/Pixelation"
                 // 픽셀화 처리를 위해 UV 좌표를 조정
                 float2 pixelUV = floor(i.uv / _PixelSize) * _PixelSize;
                 fixed4 col = tex2D(_MainTex, pixelUV);
+                col.rgb *= _Darkness;
                 return col;
             }
             ENDCG
