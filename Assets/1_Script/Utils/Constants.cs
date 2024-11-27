@@ -18,11 +18,12 @@ public static class Constants
 
     public const string NAME_PLAYER = "Tmp_Player";
 
-
     /** Anim Flags **/
 
     public const string FLAG_LOCKERDOOR = "IsOpened";
     public const string FLAG_HINTSCREEN = "IsReleased";
+
+
 
 
 }

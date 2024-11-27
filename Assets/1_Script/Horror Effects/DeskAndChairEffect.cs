@@ -5,9 +5,9 @@ using Class;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class TableAndChairEffect : HorrorEffect
+public class DeskAndChairEffect : HorrorEffect
 {
-    private EffectTypes effecttype = EffectTypes.TableAndChairEffect;
+    private EffectTypes effecttype = EffectTypes.DeskAndChairEffect;
     public override EffectTypes EffectType { get => effecttype; }
 
     private GameObject desksParent = null;
@@ -22,11 +22,11 @@ public class TableAndChairEffect : HorrorEffect
 
     //원래 사이즈와 커지는 사이즈.
     private Vector3 originalSize = Vector3.one;
-    [SerializeField, Range(1f, 10f)] private int scale;
+    [SerializeField, Range(1f, 10f)] private float scale = 10f;
 
     private List<int> randomNumberList = new List<int>();
 
-    [SerializeField] private float enlargementTime;
+    [SerializeField] private float enlargementTime = 0.5f;
 
 
     private void Awake()
@@ -141,7 +141,7 @@ public class TableAndChairEffect : HorrorEffect
             yield return null;
         }
 
-        elapsedTime = enlargementTime;
+        elapsedTime = 0;
     }
 
     private IEnumerator EnlargementObject(Chair prop)
@@ -154,7 +154,7 @@ public class TableAndChairEffect : HorrorEffect
             yield return null;
         }
 
-        elapsedTime = enlargementTime;
+        elapsedTime = 0;
     }
     #endregion
 }
