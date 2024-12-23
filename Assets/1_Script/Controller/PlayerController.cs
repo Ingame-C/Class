@@ -37,6 +37,7 @@ namespace Class
 
         [Header("GameObjects")]
         [SerializeField] private Transform cameraTransform;
+        [SerializeField] private GameObject bloodyRain;
         
         [Header("Raycast Args")]                        // Use to detect Interactables
         [SerializeField] private float rayLength;
@@ -132,6 +133,11 @@ namespace Class
         private void ChangeStateToFall()
         {
             stateMachine.ChangeState(fallState);
+        }
+
+        public void SetBloodyRain(bool isActive)
+        {
+            bloodyRain.SetActive(isActive);
         }
 
         #endregion
