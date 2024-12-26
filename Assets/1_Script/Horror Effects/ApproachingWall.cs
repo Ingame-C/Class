@@ -9,8 +9,9 @@ public class ApproachingWall : HorrorEffect
     private EffectTypes effecttype = EffectTypes.ApproachingWall;
     public override EffectTypes EffectType { get => effecttype; }
 
+
     // 0: Left, 1: Right, 2: Back, 3: Front
-    private List<GameObject> walls = null;
+    [SerializeField] private List<GameObject> walls = new List<GameObject>();
     private List<Vector3> dir = new List<Vector3> 
     {
         new Vector3(1, 0, 0),
@@ -18,64 +19,63 @@ public class ApproachingWall : HorrorEffect
         new Vector3(0, 0, 1),
         new Vector3(0, 0, -1) 
     };
-    private List<Vector3> originalPos = new List<Vector3>
-    {
 
-    };
+    [SerializeField] float speed = 3f;
 
     private GameObject wallsParent = null;
 
     private float endTime = 50f;
 
 
-    private void Awake()
+    private void Start()
     {
-
-        #region Initialization
-        walls = null;
-        wallsParent = null;
-        #endregion
 
         #region Get Walls
         var initProps = GameObject.FindGameObjectsWithTag(Constants.TAG_INITPROPS);
         foreach (GameObject prop in initProps)
         {
-            if (prop.name == "Walls") wallsParent = prop;
+            if (prop.name == "Walls")
+            {
+                wallsParent = prop;
+                break;
+            }
         }
 
-        if (wallsParent == null)
+        for(int i = 0; i < 2; i++)
         {
-            Debug.LogError("There is no 'Walls' object in Scene");
-            return;
-        }
-
-        foreach (GameObject wall in walls)
-        {
-            walls.Add(wall);
+            walls.Add(wallsParent.transform.GetChild(i).gameObject);
         }
 
         #endregion;
+
+
+        Activate();
+
     }
 
     public override void Activate()
     {
-        throw new System.NotImplementedException();
+        StartCoroutine(SetWallApproach());
     }
 
 
     float elapsedTime = 0;
     private IEnumerator SetWallApproach()
     {
-
+        for (int i = 0; i < 2; i++)
+        {
+            walls[i].tag = Constants.TAG_LAVAOBJECT;
+        }
         while (elapsedTime < endTime)
         {
-            elapsedTime += Time.deltaTime;
-            for(int i = 0; i < walls.Count; i++)
+            for (int i = 0; i < 2; i++)
             {
-                elapsedTime += Time.deltaTime;
-                transform.position = Vector3.Lerp(originalPosition, openedPosition, elapsedTime / endTime);
-                yield return null;
+                walls[i].transform.position += dir[i] * speed * Time.deltaTime;
             }
+            yield return null;
         }
+        elapsedTime = 0;
     }
 }
+
+

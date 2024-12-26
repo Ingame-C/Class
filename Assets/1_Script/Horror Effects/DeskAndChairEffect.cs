@@ -4,157 +4,105 @@ using System.Linq;
 using Class;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 public class DeskAndChairEffect : HorrorEffect
 {
     private EffectTypes effecttype = EffectTypes.DeskAndChairEffect;
     public override EffectTypes EffectType { get => effecttype; }
 
-    private GameObject desksParent = null;
-    private GameObject chairsParent = null;
+
+    private GameObject desksParent;
+    private GameObject chairsParent;
 
     private Desk[] desks;
     private Chair[] chairs;
 
     //효과의 타겟이 될 책상과 의자 List
-    private List<Desk> deskTargeted;
-    private List<Chair> chairTargeted;
+    private List<Desk> deskTargeted = new List<Desk>();
+    private List<Chair> chairTargeted = new List<Chair>();
 
-    //원래 사이즈와 커지는 사이즈.
-    private Vector3 originalSize = Vector3.one;
-    [SerializeField, Range(1f, 10f)] private float scale = 10f;
-
-    private List<int> randomNumberList = new List<int>();
-
-    [SerializeField] private float enlargementTime = 0.5f;
+    [SerializeField] private int aNumberOfProps = 3;
 
 
-    private void Awake()
+    private void Start()
     {
-        #region initialization
-        desks = null;
-        chairs = null;
-        desksParent = null;
-        chairTargeted = null;
-        deskTargeted = null;
-        chairTargeted = null;
-        randomNumberList = null;
-        #endregion
-
-        #region Get Desks and Chairs
-        var initProps = GameObject.FindGameObjectsWithTag(Constants.TAG_INITPROPS);
-        foreach (GameObject prop in initProps)
+        var go = GameObject.FindGameObjectsWithTag("InitProps");
+        foreach(GameObject obj in go)
         {
-            if (prop.name == "Tables") desksParent = prop;
-            if (prop.name == "Chairs") chairsParent = prop;
-        }
-
-        if (desksParent == null || chairsParent == null)
-        {
-            Debug.LogError("There is no 'Tables or Chairs' object in Scene");
-            return;
-        }
-
-
-        // chairs
-        int counter = 0;
-        foreach (Transform child in chairsParent.transform)
-        {
-            if (counter >= chairs.Count() || child.GetComponent<Chair>() == null)
+            if(obj.name == "Desks")
             {
-                Debug.LogError("Chair Binding Err : count mismatch or child doesn't have Chair");
-                return;
+                desksParent = obj;
             }
-            chairs[counter++] = child.GetComponent<Chair>();
-        }
-
-        // desks
-        counter = 0;
-        foreach (Transform child in desksParent.transform)
-        {
-            if (counter >= desks.Count() || child.GetComponent<Desk>() == null)
+            else if(obj.name == "Chairs")
             {
-                Debug.LogError("Desk Binding Err : count mismatch or child doesn't have Desk");
-                return;
+                chairsParent = obj;
             }
-            desks[counter++] = child.GetComponent<Desk>();
         }
-        #endregion
 
-        #region Choose Arbitary 3 Desk and Chair
+        desks = desksParent.GetComponentsInChildren<Desk>();
+        chairs = chairsParent.GetComponentsInChildren<Chair>();
 
-        int num = -1;
-        for(var i = 0; i < 3; i++)
+        for(int i = 0; i < aNumberOfProps; i++)
         {
-            num = CreateUnDuplicateRandom(0, 20);
-            deskTargeted.Add(desks[num]);
-            chairTargeted.Add(chairs[num]);
+            int j = UnityEngine.Random.Range(0, 20);
+            deskTargeted.Add(desks[j]);
+            chairTargeted.Add(chairs[j]);
         }
-        #endregion
+
+
+        foreach(Desk desk in deskTargeted)
+        {
+            desk.transform.localScale = targetSize;
+        }
+
+        foreach(Chair chair in chairTargeted)
+        {
+            chair.transform.localScale = targetSize;
+        }
 
     }
 
-    // Get Random Number, Do not allow duplication 
-    int CreateUnDuplicateRandom(int start, int number)
-    {
-        int currentNumber = Random.Range(start, number);
 
-        for (int i = 0; i < number;)
-        {
-            if (randomNumberList.Contains(currentNumber))
-            {
-                currentNumber = Random.Range(start, number);
-            }
-            else
-            {
-                randomNumberList.Add(currentNumber);
-                i++;
-            }
-        }
-
-        return currentNumber;
-    }
     public override void Activate()
     {
-        foreach(Desk prop in deskTargeted)
-        {
-            StartCoroutine(EnlargementObject(prop));
-        }
-        foreach (Chair prop in chairTargeted)
-        {
-            StartCoroutine(EnlargementObject(prop));
-        }
-
+        StartCoroutine(EnlargementObject());
     }
-
 
 
     #region Coroutine
     float elapsedTime = 0f;
-    private IEnumerator EnlargementObject(Desk prop)
+    [Header("Factor")]
+    [SerializeField] float duration = 3.0f;
+    [SerializeField] Vector3 targetSize;
+    Vector3 originalSize = Vector3.one;
+
+    private IEnumerator EnlargementObject()
     {
 
-        while (elapsedTime < enlargementTime)
+        while (elapsedTime < duration)
         {
             elapsedTime += Time.deltaTime;
-            prop.transform.localScale = Vector3.Lerp(originalSize, originalSize * scale, elapsedTime / enlargementTime);
+            foreach (Chair chair in chairTargeted)
+            {
+                chair.transform.localScale = Vector3.Lerp(originalSize, targetSize, elapsedTime / duration);
+            }
+            foreach(Desk desk in deskTargeted)
+            {
+                desk.transform.localScale = Vector3.Lerp(originalSize, targetSize, elapsedTime / duration);
+            }
             yield return null;
         }
 
-        elapsedTime = 0;
-    }
-
-    private IEnumerator EnlargementObject(Chair prop)
-    {
-
-        while (elapsedTime < enlargementTime)
+        foreach (Chair chair in chairTargeted)
         {
-            elapsedTime += Time.deltaTime;
-            prop.transform.localScale = Vector3.Lerp(originalSize, originalSize * scale, elapsedTime / enlargementTime);
-            yield return null;
+            chair.transform.localScale = targetSize;
+        }
+        foreach (Desk desk in deskTargeted)
+        {
+            desk.transform.localScale = targetSize;
         }
 
-        elapsedTime = 0;
     }
     #endregion
 }

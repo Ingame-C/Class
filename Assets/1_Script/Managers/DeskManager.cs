@@ -106,7 +106,7 @@ namespace Class
             var initProps = GameObject.FindGameObjectsWithTag(Constants.TAG_INITPROPS);
             foreach (GameObject prop in initProps)
             {
-                if (prop.name == "Tables")
+                if (prop.name == "Desks")
                 {
                     go = prop;
                     break;
@@ -115,7 +115,7 @@ namespace Class
 
             if(go == null)
             {
-                Debug.LogError("There is no 'Tables' object in Scene");
+                Debug.LogError("There is no 'Desks' object in Scene");
                 return;
             }
 
@@ -152,8 +152,5 @@ namespace Class
         {
             presetIndex = UnityEngine.Random.Range(0, preset.Count());
         }
-
-
-
     }
 }
