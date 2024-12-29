@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Class;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -46,6 +47,7 @@ public class ApproachingWall : HorrorEffect
             walls.Add(wallsParent.transform.GetChild(i).gameObject);
         }
 
+
         #endregion;
 
 
@@ -64,7 +66,11 @@ public class ApproachingWall : HorrorEffect
     {
         for (int i = 0; i < 2; i++)
         {
-            walls[i].tag = Constants.TAG_LAVAOBJECT;
+            var wall = walls[i].GetComponentsInChildren<Transform>();
+            foreach (var item in wall)
+            {
+                item.GameObject().tag = Constants.TAG_LAVAOBJECT;
+            }
         }
         while (elapsedTime < endTime)
         {

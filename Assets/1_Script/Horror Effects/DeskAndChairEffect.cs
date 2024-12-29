@@ -51,15 +51,7 @@ public class DeskAndChairEffect : HorrorEffect
         }
 
 
-        foreach(Desk desk in deskTargeted)
-        {
-            desk.transform.localScale = targetSize;
-        }
-
-        foreach(Chair chair in chairTargeted)
-        {
-            chair.transform.localScale = targetSize;
-        }
+        Activate();
 
     }
 
@@ -71,11 +63,12 @@ public class DeskAndChairEffect : HorrorEffect
 
 
     #region Coroutine
-    float elapsedTime = 0f;
     [Header("Factor")]
     [SerializeField] float duration = 3.0f;
     [SerializeField] Vector3 targetSize;
     Vector3 originalSize = Vector3.one;
+
+    float elapsedTime = 0f;
 
     private IEnumerator EnlargementObject()
     {

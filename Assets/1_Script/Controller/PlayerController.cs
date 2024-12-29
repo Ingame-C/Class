@@ -203,6 +203,7 @@ namespace Class
             if (collision.collider.gameObject.CompareTag(Constants.TAG_LAVAOBJECT))
             {
                 // TODO: GAMEOVER 시켜야 합니다.
+                Debug.Log("lava wall is comming!");
             }
         }
 

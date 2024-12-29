@@ -46,7 +46,7 @@ namespace Class
             Init();
             effects = Resources.LoadAll<GameObject>("Prefabs/Effects/");
 
-            Instantiate(effects[0]);
+            //Instantiate(effects[0]);
         }
 
         #endregion
