@@ -101,5 +101,9 @@ namespace Class
             isChecking = false;
         }
 
+        public void IncreaseProb()
+        {
+            probability *= 2;
+        }
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Class {
@@ -96,8 +97,12 @@ namespace Class {
         [Header("AudioClips")]
         [SerializeField] public AudioClip[] sfxClips;
 
+        private bool isBlockSound = false;
+
         public void CreateAudioSource(Vector3 pos, SfxClipTypes clipIdx)
         {
+            if (isBlockSound) return;
+
             AudioSource audioSource = Pop();
             audioSource.transform.position = pos;
             audioSource.clip = sfxClips[(int)clipIdx];
@@ -105,6 +110,15 @@ namespace Class {
             audioSource.Play();
 
             StartCoroutine(PushAfterDelay(audioSource, audioSource.clip.length));
+        }
+
+        public void BlockSound()
+        {
+            isBlockSound = true;
+        }
+        public void ReleaseSound()
+        {
+            isBlockSound = false;
         }
 
 

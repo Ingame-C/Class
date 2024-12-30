@@ -2,10 +2,9 @@ using Class.Manager;
 using Class.UI;
 using System;
 using System.Collections;
-using Unity.VisualScripting;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
 
 namespace Class
 {
@@ -96,8 +95,13 @@ namespace Class
         [SerializeField] private PlayerController controller;
         [SerializeField] private Door doorToOpen;
         [SerializeField] private Chair startChair;              // 플레이어가 재시작 할때마다 깨어날 의자 필요
+        [SerializeField] private List<Light> directionalLights = new List<Light>();
+        [SerializeField] private TVController tvController;
+        [SerializeField] private BloodyFloorController floorController;
 
         public Chair StartChair { get => startChair; }
+        public BloodyFloorController FloorController { get => floorController; }
+        public List<Light> DirectionalLights { get => directionalLights; }
 
         [Header("Game Over")]
         [SerializeField] private ScreenBlocker screenBlocker;
@@ -127,7 +131,8 @@ namespace Class
         private void InitScene(Scene scene, LoadSceneMode mode)
         {
             if (scene.name != SceneEnums.Game.ToString()) return;   // 게임씬에만 필요한 Init입니다.
-         
+            directionalLights.Clear();
+
             controller = GameObject.FindGameObjectWithTag(Constants.TAG_PLAYER).GetComponent<PlayerController>();
 
             var initProps = GameObject.FindGameObjectsWithTag(Constants.TAG_INITPROPS);
@@ -135,9 +140,13 @@ namespace Class
             {
                 if (prop.GetComponent<Door>() != null) doorToOpen = prop.GetComponent<Door>();
                 if (prop.GetComponent<Chair>() != null) startChair = prop.GetComponent<Chair>();
+                if (prop.GetComponent<Light>() != null) directionalLights.Add(prop.GetComponent<Light>());
+                if (prop.GetComponent<TVController>() != null) tvController = prop.GetComponent<TVController>();
+                if (prop.GetComponent<BloodyFloorController>() != null) floorController = prop.GetComponent<BloodyFloorController>();
             }
 
             DeskManager.Instance.LoadDesks();
+            SoundManager.Instance.ReleaseSound();
 
             remainedPlayTime = maxRemainedTime;
             isTimerSet = true;
@@ -257,5 +266,22 @@ namespace Class
 
         }
 
+        public void IncreaseThismanProb()
+        {
+            thismanManager.GetComponent<ThismanManager>().IncreaseProb();
+        }
+
+        public void SetLightIntensity(float intensity)
+        {
+            foreach (var light in directionalLights)
+            {
+                light.intensity = intensity;
+            }
+        }
+
+        public void TurnOnOffTV(bool turn)
+        {
+            tvController.OnOffTV(turn);
+        }
     }
 }

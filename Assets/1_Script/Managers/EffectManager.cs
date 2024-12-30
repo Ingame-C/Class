@@ -10,9 +10,9 @@ namespace Class
 
     public class EffectManager : MonoBehaviour
     {
+
         [Header("Effects")]
         [SerializeField] private GameObject[] effects;
-
 
         #region 싱글톤 패턴
 

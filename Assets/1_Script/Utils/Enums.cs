@@ -13,6 +13,7 @@ namespace Class {
         Crayons,
         Pallet,
         ColoredPencil,
+        even-effects,
         Replica,
     }
 
@@ -22,8 +23,6 @@ namespace Class {
         DeskAndChairEffect,
         ApproachingWall,
         ArtToolReplicator,
-
-
     }
 
 
