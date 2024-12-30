@@ -13,7 +13,7 @@ namespace Class {
         Crayons,
         Pallet,
         ColoredPencil,
-        even-effects,
+        even_effects,
         Replica,
     }
 
