@@ -2,11 +2,12 @@ using UnityEngine;
 
 namespace Class
 {
-
     public class MirrorController : MonoBehaviour
     {
-
-        [SerializeField] private Transform parentTransform;
+        [Header("Transforms")]
+        [Space]
+        [SerializeField] private Transform parentTransform;  // 거울의 기준이 되는 부모 Transform
+        [SerializeField] private Transform screenTransform;  // 거울의 화면 Transform
 
         private Camera mirrorCam;
 
@@ -24,7 +25,9 @@ namespace Class
             localPlayer.y = 0;
             localPlayer.x = -localPlayer.x;
 
-            transform.LookAt(parentTransform.TransformPoint(localPlayer));
+            var player = GameObject.Find(Constants.NAME_PLAYER).transform;
+            transform.LookAt(player);
+
         }
 
         public void OnPreCull()
@@ -43,7 +46,13 @@ namespace Class
             GL.invertCulling = false;
         }
 
+        [ContextMenu("Equalizing position with screen")]
+        public void EqualizingPositionWithScreen()
+        {
+            if (screenTransform == null) return;
 
+            Vector3 pos = screenTransform.position;
+            transform.position = pos;
+        }
     }
-
 }

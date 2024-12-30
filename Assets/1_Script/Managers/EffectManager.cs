@@ -10,11 +10,14 @@ namespace Class
 
     public class EffectManager : MonoBehaviour
     {
+        [Header("Effects")]
+        [SerializeField] private GameObject[] effects;
+
+
         #region 싱글톤 패턴
 
         private static EffectManager instance;
         public static EffectManager Instance { get { return instance; } }
-
 
         private void Init()
         {
@@ -38,13 +41,15 @@ namespace Class
             }
         }
 
+        private void Awake()
+        {
+            Init();
+            effects = Resources.LoadAll<GameObject>("Prefabs/Effects/");
+
+            //Instantiate(effects[0]);
+        }
+
         #endregion
-
-
-        // TODO: 이펙트의 발동을 다루는 로직을 만들어야 함.
-
-
-
     }
 
 }

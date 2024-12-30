@@ -197,6 +197,16 @@ namespace Class
             Debug.DrawRay(cameraTransform.position, cameraTransform.forward * rayLength, Color.red);
         }
 
+        // 닿아선 안 될 오브젝트에 닿았을 때, 게임 오버 시키는 용도입니다.
+        private void OnCollisionEnter(Collision collision)
+        {
+            if (collision.collider.gameObject.CompareTag(Constants.TAG_LAVAOBJECT))
+            {
+                // TODO: GAMEOVER 시켜야 합니다.
+                Debug.Log("lava wall is comming!");
+            }
+        }
+
         #endregion
 
 
