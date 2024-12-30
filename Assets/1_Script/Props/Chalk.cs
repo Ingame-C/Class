@@ -14,7 +14,7 @@ namespace Class{
         public override void Interact(PlayerController controller)
         {
             var hintScreenAnimator = hintScreen.GetComponent<Animator>();
-            hintScreenAnimator.SetBool(Constants.FLAG_LOCKERDOOR, true);
+            hintScreenAnimator.SetBool(Constants.FLAG_HINTSCREEN, true);
         }
     }
 }

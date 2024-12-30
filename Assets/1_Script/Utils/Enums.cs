@@ -13,12 +13,16 @@ namespace Class {
         Crayons,
         Pallet,
         ColoredPencil,
+        even-effects,
+        Replica,
     }
 
     public enum EffectTypes
     {
         None = 0,
-
+        DeskAndChairEffect,
+        ApproachingWall,
+        ArtToolReplicator,
     }
 
 

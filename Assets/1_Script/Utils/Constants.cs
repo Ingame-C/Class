@@ -12,17 +12,19 @@ public static class Constants
 
     public const string TAG_INITPROPS = "InitProps";
     public const string TAG_PLAYER = "Player";
+    public const string TAG_LAVAOBJECT = "LavaObject";
 
 
     /** Object Names **/
 
     public const string NAME_PLAYER = "Tmp_Player";
 
-
     /** Anim Flags **/
 
     public const string FLAG_LOCKERDOOR = "IsOpened";
-    public const string FLAG_HINTSCREEN = "IsOpened";
+    public const string FLAG_HINTSCREEN = "IsReleased";
+
+
 
 
 }
