@@ -1,5 +1,3 @@
-
-using System.Collections;
 using UnityEngine;
 
 namespace Class {
@@ -9,19 +7,12 @@ namespace Class {
 
         [SerializeField] private float duration;
 
+        [ContextMenu("Activate")]
         public override void Activate()
         {
-            StartCoroutine(BloodyRainCoroutine());
-        }
-
-        private IEnumerator BloodyRainCoroutine()
-        {
+            // TODO - 발자국 소리를 바꾸는 효과 필요
             GameManagerEx.Instance.Controller.SetBloodyRain(true);
-
-            // TODO - 힌트를 지우거나 발자국 소리를 바꾸는 등의 추가적인 효과 필요
-
-            yield return new WaitForSeconds(duration);
-            GameManagerEx.Instance.Controller.SetBloodyRain(false);
+            GameManagerEx.Instance.FloorController.ShowBlood(duration);
         }
 
     }

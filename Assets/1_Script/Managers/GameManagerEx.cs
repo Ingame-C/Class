@@ -3,10 +3,8 @@ using Class.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
 
 namespace Class
 {
@@ -99,8 +97,10 @@ namespace Class
         [SerializeField] private Chair startChair;              // 플레이어가 재시작 할때마다 깨어날 의자 필요
         [SerializeField] private List<Light> directionalLights = new List<Light>();
         [SerializeField] private TVController tvController;
+        [SerializeField] private BloodyFloorController floorController;
 
         public Chair StartChair { get => startChair; }
+        public BloodyFloorController FloorController { get => floorController; }
         public List<Light> DirectionalLights { get => directionalLights; }
 
         [Header("Game Over")]
@@ -142,6 +142,7 @@ namespace Class
                 if (prop.GetComponent<Chair>() != null) startChair = prop.GetComponent<Chair>();
                 if (prop.GetComponent<Light>() != null) directionalLights.Add(prop.GetComponent<Light>());
                 if (prop.GetComponent<TVController>() != null) tvController = prop.GetComponent<TVController>();
+                if (prop.GetComponent<BloodyFloorController>() != null) floorController = prop.GetComponent<BloodyFloorController>();
             }
 
             DeskManager.Instance.LoadDesks();
