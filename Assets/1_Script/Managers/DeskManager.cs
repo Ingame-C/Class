@@ -14,6 +14,20 @@ namespace Class
         private List<List<PropTypes>> preset = new List<List<PropTypes>>();
         [SerializeField] private int presetIndex;
 
+        [Header("Logics")]
+        [SerializeField] private float heightOfReflectOnly = 1.0f;
+
+        [Header("Prefabs")]
+        [Space]
+        [SerializeField] private GameObject ReflectOnlyCrayon;
+        [SerializeField] private GameObject ReflectOnlyColoredPen;
+        [SerializeField] private GameObject ReflectOnlyPallet;
+
+
+        [Header("Parents")]
+        [Space]
+        [SerializeField] private Transform ReflectOnlyParent;
+
         #region Singleton
         private static DeskManager instance;
         public static DeskManager Instance { get { return instance; } }
@@ -46,15 +60,6 @@ namespace Class
         {
             Init();
             #region initialization preset
-
-            // HACK : 테스트용 케이스입니다. 지워도 상관없습니다.
-            preset.Add(new List<PropTypes>{
-                 PropTypes.Crayons, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None,
-                PropTypes.ColoredPencil, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None,
-                PropTypes.Pallet, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None,
-                PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None,
-            });
-
             preset.Add(new List<PropTypes>
             {
                 PropTypes.None, PropTypes.Crayons, PropTypes.None, PropTypes.None, PropTypes.ColoredPencil,     // 1분단
@@ -151,6 +156,38 @@ namespace Class
         public void SetRandomPreset()
         {
             presetIndex = UnityEngine.Random.Range(0, preset.Count());
+        }
+
+        [ContextMenu("Activate")]
+        public void GenerateReflectionOnly()
+        {
+            List<GameObject> ReflectionOnlys = new List<GameObject>();
+            for (int i = 0; i < Desks.Length; i++)
+            {
+                if (preset[presetIndex][i] == PropTypes.Crayons)
+                {
+                    var obj = Instantiate(ReflectOnlyCrayon);
+                    obj.transform.position = Desks[i].transform.position + Vector3.up * heightOfReflectOnly;
+                    ReflectionOnlys.Add(obj);
+                }
+                else if(preset[presetIndex][i] == PropTypes.ColoredPencil)
+                {
+                    var obj = Instantiate(ReflectOnlyColoredPen);
+                    obj.transform.position = Desks[i].transform.position + Vector3.up * heightOfReflectOnly;
+                    ReflectionOnlys.Add(obj);
+                }
+                else if (preset[presetIndex][i] == PropTypes.Pallet)
+                {
+                    var obj = Instantiate(ReflectOnlyPallet);
+                    obj.transform.position = Desks[i].transform.position + Vector3.up * heightOfReflectOnly;
+                    ReflectionOnlys.Add(obj);
+                }
+            }
+
+
+            ReflectionOnlys.ForEach(i => i.transform.SetParent(ReflectOnlyParent));
+
+
         }
     }
 }
