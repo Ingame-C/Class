@@ -33,7 +33,15 @@ public class MirrorBreakEffect : HorrorEffect
         {
             Activate();
         }
+        else
+        {
+            Reset();
+        }
     }
+
+
+    [ContextMenu("Activate")]
+    
     public override void Activate()
     {
         //TODO: 사운드 추가.
@@ -53,7 +61,16 @@ public class MirrorBreakEffect : HorrorEffect
         Enumerable.Range(0, resultParent.childCount).Select(i => resultParent.GetChild(i)).ToList().ForEach(x => x.localScale = resultScale * Vector3.one);
 
         targetGameObject.SetActive(false);
-        StartCoroutine("Disappear", res);
     }
+
+    [ContextMenu("Reset")]
+    public void Reset()
+    {
+        //Enumerable.Range(0,breakPointsParent.childCount).Select(i=>breakPointsParent.GetChild(i)).ToList().ForEach(x=>DestroyImmediate(x.gameObject));
+        Enumerable.Range(0, resultParent.childCount).Select(i => resultParent.GetChild(i)).ToList().ForEach(x => DestroyImmediate(x.gameObject));
+
+        targetGameObject.SetActive(true);
+    }
+
 
 }
