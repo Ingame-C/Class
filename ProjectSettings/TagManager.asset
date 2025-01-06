@@ -18,8 +18,8 @@ TagManager:
   - 
   - Interactables
   - Wall
-  - 
-  - 
+  - Player
+  - ReflectionOnly
   - 
   - 
   - 
