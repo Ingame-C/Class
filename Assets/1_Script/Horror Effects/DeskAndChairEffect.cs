@@ -49,10 +49,6 @@ public class DeskAndChairEffect : HorrorEffect
             deskTargeted.Add(desks[j]);
             chairTargeted.Add(chairs[j]);
         }
-
-
-        Activate();
-
     }
 
 

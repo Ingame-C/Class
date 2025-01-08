@@ -158,7 +158,6 @@ namespace Class
             presetIndex = UnityEngine.Random.Range(0, preset.Count());
         }
 
-        [ContextMenu("Activate")]
         public void GenerateReflectionOnly()
         {
             List<GameObject> ReflectionOnlys = new List<GameObject>();
