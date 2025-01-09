@@ -22,6 +22,7 @@ namespace Class
 
         public void GrabObject()
         {
+            SoundManager.Instance.CreateAudioSource(controller.transform.position, SfxClipTypes.Grab_Object, 1.0f);
             if (controller.IsGrabbing)
             {
                 return;
@@ -40,6 +41,7 @@ namespace Class
 
         public void ReleaseObject()
         {
+            SoundManager.Instance.CreateAudioSource(controller.transform.position, SfxClipTypes.Release_Object, 1.0f);
             float distance = 1.0f;
 
             Vector3 releasePosion = controller.CameraTransform.position;

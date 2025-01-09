@@ -169,7 +169,7 @@ namespace Class
                 controller.transform.position + controller.transform.forward, Quaternion.identity);
             firework.GetComponent<ParticleSystem>().Simulate(1f, true, true, false);
             firework.GetComponent<ParticleSystem>().Play();
-            // TODO : SOUND - 폭죽 펑
+            SoundManager.Instance.CreateAudioSource(firework.transform.position, SfxClipTypes.Firework, 1.0f);
             yield return new WaitForSeconds(0.3f);
             OnStageClearAction.Invoke();
 

@@ -30,6 +30,7 @@ public class ArtToolReplicator : HorrorEffect
         List<GameObject> replicas = new List<GameObject>();
         foreach(var tool in artTools)
         {
+            SoundManager.Instance.CreateAudioSource(tool.transform.position, SfxClipTypes.Replica, 1.0f);
             if(tool.TryGetComponent(out ColoredPencil coloredPencil))
             {
                 var copy = makeReplica(PropTypes.ColoredPencil);

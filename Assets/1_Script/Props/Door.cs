@@ -41,6 +41,7 @@ namespace Class {
         private void ToggleDoor()
         {
             // TODO : SOUND - 문 열리는 소리
+            SoundManager.Instance.CreateAudioSource(transform.position, SfxClipTypes.Door_open, 1.0f);
             if (isCoroutineRunning) StopCoroutine(runningCoroutine);
 
             if (isOpened)   runningCoroutine = StartCoroutine(CloseDoor());

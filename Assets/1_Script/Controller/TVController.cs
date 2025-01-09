@@ -14,6 +14,8 @@ namespace Class
 
 
         private float timeValue = 0f;
+        private float lastSoundTime = -Mathf.Infinity;
+        private float soundInterval = 120.0f;
 
         private void Start()
         {
@@ -54,8 +56,14 @@ namespace Class
 
         private void SetNoiseAlpha(float alpha)
         {
-            // TODO : TV 치지직 소리 볼륨 연결
+            if (Time.time - lastSoundTime >= soundInterval)
+            {
+                SoundManager.Instance.CreateAudioSource(transform.position, SfxClipTypes.TV_Noise, 1.0f);
+                lastSoundTime = Time.time; // 마지막 재생 시간 업데이트
+            }
+
             alpha = Mathf.Clamp01(alpha);
+
             tvNoiseMaterial.SetFloat("_Alpha", alpha);
         }
     }

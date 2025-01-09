@@ -52,6 +52,8 @@ namespace Class {
             float fadeDuration = 1.0f;  // Fade In 시간
             float elapsedTime = 0f;
 
+            Debug.Log(position);
+            SoundManager.Instance.CreateAudioSource(position, SfxClipTypes.Hint, 1.0f);
             while (elapsedTime < fadeDuration)
             {
                 elapsedTime += Time.deltaTime;
