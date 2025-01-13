@@ -46,6 +46,8 @@ namespace Class {
         Player_Walk_3 = 15,
         Release_Object = 16,
         Grab_Object = 17,
+        Mirror_Break = 18,
+        Player_Rain_Walk = 19,
         Add = 100,
     }
 
