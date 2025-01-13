@@ -258,7 +258,7 @@ namespace Class
             }
             if (remainedPlayTime < maxRemainedTime - horrorEffectTime && isTimerSet && !isEffectActivated)
             {
-                EffectManager.Instance.ActivateRandomEffect();
+                // TODO - Effect발생
                 isEffectActivated = true;
 			}
 

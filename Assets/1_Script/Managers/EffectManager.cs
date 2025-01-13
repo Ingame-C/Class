@@ -44,17 +44,6 @@ namespace Class
 
         #endregion
 
-        [ContextMenu("ACTIVATE")]
-        public void ActivateRandomEffect()
-        {
-            var effQuery = from effect in GetComponents<HorrorEffect>()
-                           orderby Guid.NewGuid()
-                           select effect;
-
-            effQuery.First().Activate();
-
-            Debug.Log(effQuery.First().GetType());
-        }
     }
 
 }
