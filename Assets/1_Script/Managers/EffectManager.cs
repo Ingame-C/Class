@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+using System;
 using UnityEngine;
+using System.Linq;
 
 namespace Class
 {
@@ -10,9 +9,6 @@ namespace Class
 
     public class EffectManager : MonoBehaviour
     {
-
-        [Header("Effects")]
-        [SerializeField] private GameObject[] effects;
 
         #region 싱글톤 패턴
 
@@ -44,12 +40,21 @@ namespace Class
         private void Awake()
         {
             Init();
-            effects = Resources.LoadAll<GameObject>("Prefabs/Effects/");
-
-            //Instantiate(effects[0]);
         }
 
         #endregion
+
+        [ContextMenu("ACTIVATE")]
+        public void ActivateRandomEffect()
+        {
+            var effQuery = from effect in GetComponents<HorrorEffect>()
+                           orderby Guid.NewGuid()
+                           select effect;
+
+            effQuery.First().Activate();
+
+            Debug.Log(effQuery.First().GetType());
+        }
     }
 
 }

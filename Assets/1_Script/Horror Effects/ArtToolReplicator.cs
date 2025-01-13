@@ -36,21 +36,21 @@ public class ArtToolReplicator : HorrorEffect
                 var copy = makeReplica(PropTypes.ColoredPencil);
                 copy.transform.position = tool.transform.position;
                 replicas.Add(copy);
-                Debug.Log("Detected! colored");
+                //Debug.Log("Detected! colored");
             }
             else if (tool.TryGetComponent(out Crayons crayons))
             {
                 var copy = makeReplica(PropTypes.Crayons);
                 copy.transform.position = tool.transform.position;
                 replicas.Add(copy);
-                Debug.Log("Detected! crayon");
+                //Debug.Log("Detected! crayon");
             }
             else if (tool.TryGetComponent(out Pallet pallet))
             {
                 var copy = makeReplica(PropTypes.Pallet);
                 copy.transform.position = tool.transform.position;
                 replicas.Add(copy);
-                Debug.Log("Detected! pallet");
+                //Debug.Log("Detected! pallet");
             }
             
         }

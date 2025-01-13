@@ -23,6 +23,7 @@ namespace Class {
         DeskAndChairEffect,
         ApproachingWall,
         ArtToolReplicator,
+        MirrorBreak,
     }
 
 

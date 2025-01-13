@@ -50,9 +50,6 @@ public class ApproachingWall : HorrorEffect
 
         #endregion;
 
-
-        Activate();
-
     }
 
     public override void Activate()
