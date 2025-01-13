@@ -53,35 +53,43 @@ public class ArtToolReplicator : HorrorEffect
 
     public override void Activate()
     {
+        StartCoroutine(makeReplicaMany());
+    }
+
+    private IEnumerator makeReplicaMany()
+    {
         var artTools = Enumerable.Range(0, artToolsParent.childCount).Select(i => artToolsParent.GetChild(i).gameObject);
         List<GameObject> replicas = new List<GameObject>();
-        foreach (var tool in artTools)
+
+        for(int i = 0; i < 5; i++)
         {
-            if (tool.TryGetComponent(out ColoredPencil coloredPencil))
+            foreach (var tool in artTools)
             {
-                var copy = makeReplica(PropTypes.ColoredPencil);
-                copy.transform.position = tool.transform.position;
-                replicas.Add(copy);
-                //Debug.Log("Detected! colored");
+                if (tool.TryGetComponent(out ColoredPencil coloredPencil))
+                {
+                    var copy = makeReplica(PropTypes.ColoredPencil);
+                    copy.transform.position = tool.transform.position;
+                    replicas.Add(copy);
+                    //Debug.Log("Detected! colored");
+                }
+                else if (tool.TryGetComponent(out Crayons crayons))
+                {
+                    var copy = makeReplica(PropTypes.Crayons);
+                    copy.transform.position = tool.transform.position;
+                    replicas.Add(copy);
+                    //Debug.Log("Detected! crayon");
+                }
+                else if (tool.TryGetComponent(out Pallet pallet))
+                {
+                    var copy = makeReplica(PropTypes.Pallet);
+                    copy.transform.position = tool.transform.position;
+                    replicas.Add(copy);
+                    //Debug.Log("Detected! pallet");
+                }
             }
-            else if (tool.TryGetComponent(out Crayons crayons))
-            {
-                var copy = makeReplica(PropTypes.Crayons);
-                copy.transform.position = tool.transform.position;
-                replicas.Add(copy);
-                //Debug.Log("Detected! crayon");
-            }
-            else if (tool.TryGetComponent(out Pallet pallet))
-            {
-                var copy = makeReplica(PropTypes.Pallet);
-                copy.transform.position = tool.transform.position;
-                replicas.Add(copy);
-                //Debug.Log("Detected! pallet");
-            }
-
+            replicas.ForEach(i => i.transform.SetParent(replicasParent));
+            yield return new WaitForSeconds(2);
         }
-
-        replicas.ForEach(i => i.transform.SetParent(replicasParent));
     }
 
 
