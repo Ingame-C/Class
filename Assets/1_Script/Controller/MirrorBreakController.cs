@@ -28,7 +28,7 @@ public class MirrorBreakController : MonoBehaviour
     [ContextMenu("Demolish")]
     public void Demolish()
     {
-        //TODO: 사운드 추가.
+        SoundManager.Instance.CreateAudioSource(transform.position, SfxClipTypes.Mirror_Break, 1.0f);
         Enumerable.Range(0, resultParent.childCount).Select(i => resultParent.GetChild(i)).ToList().ForEach(x => DestroyImmediate(x.gameObject));
         List<Transform> breakPoints = Enumerable.Range(0, breakPointsParent.childCount).Select(x => breakPointsParent.GetChild(x)).ToList();
 

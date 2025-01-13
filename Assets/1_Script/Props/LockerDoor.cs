@@ -29,6 +29,19 @@ namespace Class
         {
             state = (state + 1) % 2;
             animator.SetBool(Constants.FLAG_LOCKERDOOR, IsOpened);
+            if (state == 1)
+            {
+                SoundManager.Instance.CreateAudioSource(transform.position, SfxClipTypes.Locker_open, 1.0f);
+            }
+            else
+            {
+                Invoke("LockerClose", 1.0f);
+            }
+        }
+
+        private void LockerClose()
+        {
+            SoundManager.Instance.CreateAudioSource(transform.position, SfxClipTypes.Locker_close, 1.0f);
         }
     }
 }

@@ -99,7 +99,7 @@ namespace Class {
 
         private bool isBlockSound = false;
 
-        public void CreateAudioSource(Vector3 pos, SfxClipTypes clipIdx)
+        public void CreateAudioSource(Vector3 pos, SfxClipTypes clipIdx, float sound3d)
         {
             if (isBlockSound) return;
 
@@ -107,6 +107,7 @@ namespace Class {
             audioSource.transform.position = pos;
             audioSource.clip = sfxClips[(int)clipIdx];
             audioSource.volume = 1f;
+            audioSource.spatialBlend = sound3d;
             audioSource.Play();
 
             StartCoroutine(PushAfterDelay(audioSource, audioSource.clip.length));

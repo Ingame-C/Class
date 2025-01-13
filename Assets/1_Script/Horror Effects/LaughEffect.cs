@@ -8,7 +8,7 @@ namespace Class
 
         public override void Activate()
         {
-            // TODO : SOUND - 디스맨 웃는 소리
+            SoundManager.Instance.CreateAudioSource(transform.position, SfxClipTypes.Thisman_Laugh, 1.0f);
             GameManagerEx.Instance.IncreaseThismanProb();
         }
     }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using Class;
 using UnityEngine;
 
@@ -12,14 +10,15 @@ public class BreakMirrorEffect : HorrorEffect
 
     private void Start()
     {
-        
+
     }
 
     [ContextMenu("Activate")]
     public override void Activate()
     {
-        if(m_Controllers.Length == 0) { return; }
+        if (m_Controllers.Length == 0) { return; }
 
+        SoundManager.Instance.CreateAudioSource(transform.position, SfxClipTypes.Mirror_Break, 1.0f);
         for (int i = 0; i < 3; i++)
         {
             int j = UnityEngine.Random.Range(0, 5);

@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Class;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class ArtToolReplicator : HorrorEffect
@@ -26,6 +25,34 @@ public class ArtToolReplicator : HorrorEffect
 
     private void Start()
     {
+        var artTools = Enumerable.Range(0, artToolsParent.childCount).Select(i => artToolsParent.GetChild(i).gameObject);
+        List<GameObject> replicas = new List<GameObject>();
+        foreach(var tool in artTools)
+        {
+            SoundManager.Instance.CreateAudioSource(tool.transform.position, SfxClipTypes.Replica, 1.0f);
+            if(tool.TryGetComponent(out ColoredPencil coloredPencil))
+            {
+                var copy = makeReplica(PropTypes.ColoredPencil);
+                copy.transform.position = tool.transform.position;
+                replicas.Add(copy);
+                //Debug.Log("Detected! colored");
+            }
+            else if (tool.TryGetComponent(out Crayons crayons))
+            {
+                var copy = makeReplica(PropTypes.Crayons);
+                copy.transform.position = tool.transform.position;
+                replicas.Add(copy);
+                //Debug.Log("Detected! crayon");
+            }
+            else if (tool.TryGetComponent(out Pallet pallet))
+            {
+                var copy = makeReplica(PropTypes.Pallet);
+                copy.transform.position = tool.transform.position;
+                replicas.Add(copy);
+                //Debug.Log("Detected! pallet");
+            }
+            
+        }
 
 
     }

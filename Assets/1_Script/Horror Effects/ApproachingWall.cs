@@ -61,6 +61,7 @@ public class ApproachingWall : HorrorEffect
     float elapsedTime = 0;
     private IEnumerator SetWallApproach()
     {
+        SoundManager.Instance.CreateAudioSource(transform.position, SfxClipTypes.Wall_move, 0.0f);
         for (int i = 0; i < 2; i++)
         {
             var wall = walls[i].GetComponentsInChildren<Transform>();

@@ -19,8 +19,7 @@ namespace Class
 
         private IEnumerator LightBlinkCoroutine()
         {
-            // TODO : SOUND - 스파크 터지는 소리
-
+            SoundManager.Instance.CreateAudioSource(transform.position, SfxClipTypes.Blink, 1.0f);
             // 스파크
             GameManagerEx.Instance.SetLightIntensity(5.0f);
             yield return new WaitForSeconds(0.4f);

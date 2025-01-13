@@ -68,7 +68,7 @@ public class DeskAndChairEffect : HorrorEffect
 
     private IEnumerator EnlargementObject()
     {
-
+        SoundManager.Instance.CreateAudioSource(transform.position, SfxClipTypes.Change_chair_size, 1.0f);
         while (elapsedTime < duration)
         {
             elapsedTime += Time.deltaTime;
