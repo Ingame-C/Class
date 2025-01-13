@@ -7,11 +7,10 @@ namespace Class
     {
         [SerializeField] private float fadeInDuration;
 
-        public override EffectTypes EffectType => throw new System.NotImplementedException();
+		public override EffectTypes EffectType { get => EffectTypes.LightBlink; }
 
-        private PixelationEffect pixelize;
+		private PixelationEffect pixelize;
 
-        [ContextMenu("Activation")]
         public override void Activate()
         {
             pixelize = Camera.main.GetComponent<PixelationEffect>();

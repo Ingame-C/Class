@@ -3,9 +3,9 @@ using UnityEngine;
 namespace Class {
     public class BloodyRainEffect :HorrorEffect
     {
-        public override EffectTypes EffectType => throw new System.NotImplementedException();
+		public override EffectTypes EffectType { get => EffectTypes.BloodyRain; }
 
-        [SerializeField] private float duration;
+		[SerializeField] private float duration;
 
         [ContextMenu("Activate")]
         public override void Activate()

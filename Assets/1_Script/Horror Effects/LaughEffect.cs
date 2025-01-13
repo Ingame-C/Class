@@ -4,7 +4,7 @@ namespace Class
 {
     public class LaughEffect : HorrorEffect
     {
-        public override EffectTypes EffectType => throw new System.NotImplementedException();
+        public override EffectTypes EffectType { get => EffectTypes.Laugh; }
 
         public override void Activate()
         {

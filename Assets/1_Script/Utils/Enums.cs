@@ -24,6 +24,9 @@ namespace Class {
         ApproachingWall,
         ArtToolReplicator,
         MirrorBreak,
+        LightBlink,
+        Laugh,
+        BloodyRain,
     }
 
 

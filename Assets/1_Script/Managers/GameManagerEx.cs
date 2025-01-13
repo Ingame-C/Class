@@ -45,6 +45,8 @@ namespace Class
         {
             OnStageStartAction -= InitThismanManager;
             OnStageStartAction += InitThismanManager;
+			OnStageStartAction -= DeskManager.Instance.GenerateReflectionOnly;
+			OnStageStartAction += DeskManager.Instance.GenerateReflectionOnly;
 
             OnStageStartAction.Invoke();
         }
@@ -112,6 +114,7 @@ namespace Class
         [Header("Timer")]
         [SerializeField] private float maxRemainedTime;
         [SerializeField] private float remainedPlayTime;
+        [SerializeField] private float horrorEffectTime;
 
         /** Actions **/
         public Action OnStageFailAction { get; set; }
@@ -232,6 +235,8 @@ namespace Class
         private bool isTimerSet = false;
         public bool IsTimerSet {  get { return isTimerSet; }  }
 
+        private bool isEffectActivated = false;
+
         // HACK : 테스트 코드입니다.
         private void Update()
         {
@@ -251,6 +256,11 @@ namespace Class
                 if(thismanManager != null &&
                         !thismanManager.GetComponent<ThismanManager>().IsComing) OnStageFailed(currentStage);
             }
+            if (remainedPlayTime < maxRemainedTime - horrorEffectTime && isTimerSet && !isEffectActivated)
+            {
+                EffectManager.Instance.ActivateRandomEffect();
+                isEffectActivated = true;
+			}
 
             remainedPlayTime -= Time.deltaTime;
 
