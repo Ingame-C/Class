@@ -6,7 +6,7 @@ using Hanzzz.MeshDemolisher;
 using TMPro;
 using UnityEngine;
 
-public class MirrorBreakEffect : HorrorEffect
+public class BreakMirrorEffect : HorrorEffect
 {
     public override EffectTypes EffectType => throw new System.NotImplementedException();
    
