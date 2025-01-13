@@ -6,16 +6,13 @@ using Hanzzz.MeshDemolisher;
 using TMPro;
 using UnityEngine;
 
-public class MirrorBreakEffect : HorrorEffect
+public class MirrorBreakController : MonoBehaviour
 {
-    public override EffectTypes EffectType => throw new System.NotImplementedException();
    
     [Space]
     [SerializeField] private GameObject targetGameObject;
     [SerializeField] private Transform breakPointsParent;
     [SerializeField] private Material interiorMaterial;
-
-    [SerializeField] private KeyCode demolishKey;
 
     [SerializeField][Range(0f, 1f)] private float resultScale;
     [SerializeField] private Transform resultParent;
@@ -24,17 +21,12 @@ public class MirrorBreakEffect : HorrorEffect
 
     private void Update()
     {
-        if (!Input.GetKeyDown(demolishKey))
-        {
-            return;
-        }
 
-        if (targetGameObject.activeSelf)
-        {
-            Activate();
-        }
     }
-    public override void Activate()
+
+
+    [ContextMenu("Demolish")]
+    public void Demolish()
     {
         //TODO: 사운드 추가.
         Enumerable.Range(0, resultParent.childCount).Select(i => resultParent.GetChild(i)).ToList().ForEach(x => DestroyImmediate(x.gameObject));
@@ -53,7 +45,16 @@ public class MirrorBreakEffect : HorrorEffect
         Enumerable.Range(0, resultParent.childCount).Select(i => resultParent.GetChild(i)).ToList().ForEach(x => x.localScale = resultScale * Vector3.one);
 
         targetGameObject.SetActive(false);
-        StartCoroutine("Disappear", res);
     }
+
+    [ContextMenu("Reset")]
+    public void Reset()
+    {
+        //Enumerable.Range(0,breakPointsParent.childCount).Select(i=>breakPointsParent.GetChild(i)).ToList().ForEach(x=>DestroyImmediate(x.gameObject));
+        Enumerable.Range(0, resultParent.childCount).Select(i => resultParent.GetChild(i)).ToList().ForEach(x => DestroyImmediate(x.gameObject));
+
+        targetGameObject.SetActive(true);
+    }
+
 
 }
