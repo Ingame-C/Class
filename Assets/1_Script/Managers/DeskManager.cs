@@ -13,6 +13,7 @@ namespace Class
 
         private List<List<PropTypes>> preset = new List<List<PropTypes>>();
         [SerializeField] private int presetIndex;
+        public int PresetIndex { get { return presetIndex; } }
 
         [Header("Logics")]
         [SerializeField] private float heightOfReflectOnly = 1.0f;

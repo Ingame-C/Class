@@ -9,8 +9,8 @@ public class ArtToolReplicator : HorrorEffect
 
     [Header("Parents")]
     [Space]
-    [SerializeField] private Transform artToolsParent;
-    [SerializeField] private Transform replicasParent;
+    [SerializeField] private GameObject artToolsParent;
+    [SerializeField] private GameObject replicasParent;
 
     [Header("Prefabs")]
     [Space]
@@ -25,35 +25,14 @@ public class ArtToolReplicator : HorrorEffect
 
     private void Start()
     {
-        var artTools = Enumerable.Range(0, artToolsParent.childCount).Select(i => artToolsParent.GetChild(i).gameObject);
-        List<GameObject> replicas = new List<GameObject>();
-        foreach(var tool in artTools)
+        if(artToolsParent == null)
         {
-            SoundManager.Instance.CreateAudioSource(tool.transform.position, SfxClipTypes.Replica, 1.0f);
-            if(tool.TryGetComponent(out ColoredPencil coloredPencil))
-            {
-                var copy = makeReplica(PropTypes.ColoredPencil);
-                copy.transform.position = tool.transform.position;
-                replicas.Add(copy);
-                //Debug.Log("Detected! colored");
-            }
-            else if (tool.TryGetComponent(out Crayons crayons))
-            {
-                var copy = makeReplica(PropTypes.Crayons);
-                copy.transform.position = tool.transform.position;
-                replicas.Add(copy);
-                //Debug.Log("Detected! crayon");
-            }
-            else if (tool.TryGetComponent(out Pallet pallet))
-            {
-                var copy = makeReplica(PropTypes.Pallet);
-                copy.transform.position = tool.transform.position;
-                replicas.Add(copy);
-                //Debug.Log("Detected! pallet");
-            }
-            
+            artToolsParent = GameObject.Find(Constants.NAME_ARTTOOLSPARENT);
         }
-
+        if(replicasParent == null)
+        {
+            replicasParent = GameObject.Find(Constants.NAME_REPLICASPARENT);
+        }
 
     }
 
@@ -85,7 +64,7 @@ public class ArtToolReplicator : HorrorEffect
 
     private IEnumerator makeReplicaMany()
     {
-        var artTools = Enumerable.Range(0, artToolsParent.childCount).Select(i => artToolsParent.GetChild(i).gameObject);
+        var artTools = Enumerable.Range(0, artToolsParent.transform.childCount).Select(i => artToolsParent.transform.GetChild(i).gameObject);
         List<GameObject> replicas = new List<GameObject>();
 
         for(int i = 0; i < 5; i++)
@@ -114,7 +93,7 @@ public class ArtToolReplicator : HorrorEffect
                     //Debug.Log("Detected! pallet");
                 }
             }
-            replicas.ForEach(i => i.transform.SetParent(replicasParent));
+            replicas.ForEach(i => i.transform.SetParent(replicasParent.transform));
             yield return new WaitForSeconds(2);
         }
     }

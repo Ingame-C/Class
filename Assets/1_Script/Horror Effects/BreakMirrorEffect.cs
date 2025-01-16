@@ -10,7 +10,13 @@ public class BreakMirrorEffect : HorrorEffect
 
     private void Start()
     {
-
+        for(int i = 0; i < 5; i++)
+        {
+            if (m_Controllers[i] == null)
+            {
+                m_Controllers[i] = GameObject.Find("Demolisher Script" + "_" + (i + 1))?.GetComponent<MirrorBreakController>();
+            }
+        }
     }
 
     [ContextMenu("Activate")]
@@ -22,7 +28,7 @@ public class BreakMirrorEffect : HorrorEffect
         for (int i = 0; i < 3; i++)
         {
             int j = UnityEngine.Random.Range(0, 5);
-            m_Controllers[i].Demolish();
+            m_Controllers[j].Demolish();
         }
     }
 }

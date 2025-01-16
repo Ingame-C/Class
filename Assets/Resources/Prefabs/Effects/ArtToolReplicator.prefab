@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2026920218785010961
+--- !u!1 &7062711723162873994
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2762420191388020794}
-  - component: {fileID: 2319519840440601163}
+  - component: {fileID: 3960930075729208112}
+  - component: {fileID: 8982602348276972097}
   m_Layer: 0
   m_Name: ArtToolReplicator
   m_TagString: Untagged
@@ -17,13 +17,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2762420191388020794
+--- !u!4 &3960930075729208112
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2026920218785010961}
+  m_GameObject: {fileID: 7062711723162873994}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.13465995, y: 2.3316302, z: 4.5073047}
@@ -32,13 +32,13 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2319519840440601163
+--- !u!114 &8982602348276972097
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2026920218785010961}
+  m_GameObject: {fileID: 7062711723162873994}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7dfd73e6440470e4eb36892b7dccc05e, type: 3}
@@ -46,6 +46,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   artToolsParent: {fileID: 0}
   replicasParent: {fileID: 0}
-  crayonReplica: {fileID: 7750526891651350674, guid: 17aeaa2b3e2ba0f4b913d203a412ad3b, type: 3}
-  coloredPenReplica: {fileID: 7750526891651350674, guid: 17aeaa2b3e2ba0f4b913d203a412ad3b, type: 3}
-  palletReplica: {fileID: 7750526891651350674, guid: 17aeaa2b3e2ba0f4b913d203a412ad3b, type: 3}
+  crayonReplica: {fileID: 913882807890839438, guid: 9c56440bf22575f4ba57f0d58bd46ac3, type: 3}
+  coloredPenReplica: {fileID: 9021398456690027224, guid: b7ed63be14591bc49a7b59250b5e4563, type: 3}
+  palletReplica: {fileID: 8220874838481119713, guid: 6010c2cef0e414c4ea3615971eaec77e, type: 3}
