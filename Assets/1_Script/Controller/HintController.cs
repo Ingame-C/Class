@@ -10,18 +10,20 @@ namespace Class {
         [SerializeField] private GameObject blackBoard;
         [SerializeField] private GameObject hintGuard;
         [Space]
-        [Header("Factor")]
+        [Header("Hint Gaurd Factor")]
         [SerializeField] private float endTime = 3f;
         [SerializeField] float speed = 3f;
+        [Space]
+        [Header("Tv Screen Factor")]
+        [SerializeField] private GameObject tvScreen;
+        [SerializeField] private Material[] Images;
 
-
-        Vector3 size = new Vector3();
+        private int currentStage;
+        
 
         private void Start()
         {
-            size.Set(8.22f, 1.81f, 0.16f);
-
-            hintGuard.transform.localScale = size;
+            currentStage = GameManagerEx.Instance.CurrentStage;
         }
 
 
@@ -39,7 +41,16 @@ namespace Class {
 
         public void SetHintAppear()
         {
-            StartCoroutine(setHintGuardMove());
+            if(currentStage == 1)
+            {
+                int imageIndex = DeskManager.Instance.PresetIndex;
+                tvScreen.GetComponent<MeshRenderer>().material = Images[imageIndex];
+            }
+            else
+            {
+                StartCoroutine(setHintGuardMove());
+            }
+            
         }
 
 

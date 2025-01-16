@@ -18,6 +18,8 @@ public static class Constants
     /** Object Names **/
 
     public const string NAME_PLAYER = "Tmp_Player";
+    public const string NAME_ARTTOOLSPARENT = "Original props";
+    public const string NAME_REPLICASPARENT = "Replica";
 
     /** Anim Flags **/
 
