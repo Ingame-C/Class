@@ -87,6 +87,8 @@ namespace Class
                 if (item.EffectType == effectTypes)
                 {
                     item.Activate();
+                    isAlreadyActivated = true;
+                    break;
                 }
             }
         }
