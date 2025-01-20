@@ -49,6 +49,22 @@ namespace Class
 			OnStageStartAction += DeskManager.Instance.GenerateReflectionOnly;
 
             OnStageStartAction.Invoke();
+
+            // HACK - SO 로드 테스트입니다.
+            LoadPropsSO(Managers.Resource.GetStagePropsSO(0));
+
+		}
+
+        private void LoadPropsSO(StagePropsSO so)
+        {
+            foreach (StagePropData data in so.propDatas)
+            {
+                Transform parent = new GameObject { name = data.name }.transform;
+                for (int i = 0; i < data.transforms.Count; i++) {
+                    Debug.Log(data.transforms[i].Pos);
+                    Instantiate(data.prefab, data.transforms[i].Pos, Quaternion.Euler(data.transforms[i].Rot), parent);
+                }
+            }
         }
 
         // TODO : 정확한 스테이지 이동이 구현되어야합니다.

@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65c5b7ea82be4c8449d74fb7c82b5a91, type: 3}
+  m_Name: 1_Stage
+  m_EditorClassIdentifier: 
+  propDatas:
+  - name: ColorPencil
+    prefab: {fileID: 7939636324828678154, guid: 2d4a58fb68ce9ca4199e2803e8098d42, type: 3}
+    transforms:
+    - Pos: {x: -4.5, y: 1.7, z: 6.87}
+      Rot: {x: 0, y: 0, z: 0}
+    - Pos: {x: -4.5, y: 1.9, z: 6.87}
+      Rot: {x: 0, y: 0, z: 0}
+    - Pos: {x: -4.5, y: 2.1, z: 6.87}
+      Rot: {x: 0, y: 0, z: 0}
+  - name: Crayon
+    prefab: {fileID: 9296889360997099, guid: 3cd8f146dbf16774aba8e26fec96efbf, type: 3}
+    transforms:
+    - Pos: {x: -4.13, y: 1.7, z: 6.87}
+      Rot: {x: 0, y: 0, z: 0}
+    - Pos: {x: -4.13, y: 1.9, z: 6.87}
+      Rot: {x: 0, y: 0, z: 0}
+    - Pos: {x: -4.13, y: 2.1, z: 6.87}
+      Rot: {x: 0, y: 0, z: 0}
+  - name: Pallet
+    prefab: {fileID: 485297126277782113, guid: 58c97c0f41dd05c459c061e870523905, type: 3}
+    transforms:
+    - Pos: {x: -3.5, y: 1.7, z: 6.87}
+      Rot: {x: 0, y: 0, z: 0}
+    - Pos: {x: -3.5, y: 1.9, z: 6.87}
+      Rot: {x: 0, y: 0, z: 0}
+    - Pos: {x: -3.5, y: 2.1, z: 6.87}
+      Rot: {x: 0, y: 0, z: 0}

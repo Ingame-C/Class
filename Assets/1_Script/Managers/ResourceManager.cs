@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using System.Linq;
+using JetBrains.Annotations;
 
 namespace Class.Manager
 {
@@ -25,13 +26,17 @@ namespace Class.Manager
     {
         /** Json file Paths**/ 
         private string stageInfoPath = "JsonData/StageData";
+        private string stagePropSOPath = "ScriptableObject/StageData/";
 
         /** Data Containers **/
         private StageInfos stageInfos = new StageInfos();
 
+        private StagePropsSO[] stagePropsSOs;
+
         public void Init()
         {
             stageInfos = JsonUtility.FromJson<StageInfos>(Resources.Load<TextAsset>(stageInfoPath).text);
+            stagePropsSOs = Resources.LoadAll<StagePropsSO>(stagePropSOPath);
         }
 
         /** Getter Functions **/
@@ -50,6 +55,15 @@ namespace Class.Manager
             return stageInfos.stageInfo.Length;
         }
         
+        public StagePropsSO GetStagePropsSO(int id)
+        {
+            if (stagePropsSOs.Count() <= id)
+            {
+                Debug.LogError("Out Of Index : Insufficient StagePropSOs.");
+                return null;
+            }
+            return stagePropsSOs[id];
+        }
 
     }
 
