@@ -58,14 +58,17 @@ namespace Class
 
         private void Update()
         {
+            // 이펙트가 실행 불가한 시간이거나, 이미 실행됐다면 return
             if (!isEffectActivatable || !isAlreadyActivated) return;
 
             timer += Time.deltaTime;
+            // checkTerm이 아니라면 return
             if (timer <= checkTerm) return;
 
             var rand = UnityEngine.Random.Range(0f, 1f);
             timer = 0;
 
+            // 확률을 뚫지 못했다면 return
             if (rand >= (probability - Mathf.Epsilon)) return;
 
             int curStage = GameManagerEx.Instance.CurrentStage;

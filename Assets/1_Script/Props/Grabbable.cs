@@ -59,13 +59,14 @@ namespace Class
                 this.desk = desk;
                 this.desk.props.Add(this.PropType);
                 upDistance = 0.1f;
+                Debug.Log("놓임");
             }
             else if (controller.RecentlyDetectedProp is Lectern lectern)
             {
                 distance = Vector3.Distance(controller.transform.position, lectern.transform.position);
                 this.lectern = lectern;
                 lectern.Grabbable = this;
-                upDistance = 0.5f;
+                upDistance = 0.3f;
                 
             }
 
