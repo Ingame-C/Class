@@ -63,8 +63,8 @@ namespace Class
             timer += Time.deltaTime;
             if (timer <= checkTerm) return;
 
-
             var rand = UnityEngine.Random.Range(0f, 1f);
+            timer = 0;
 
             if (rand >= (probability - Mathf.Epsilon)) return;
 

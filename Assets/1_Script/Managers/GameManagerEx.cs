@@ -235,8 +235,6 @@ namespace Class
         private bool isTimerSet = false;
         public bool IsTimerSet {  get { return isTimerSet; }  }
 
-        private bool isEffectActivated = false;
-
         // HACK : 테스트 코드입니다.
         private void Update()
         {
@@ -256,11 +254,6 @@ namespace Class
                 if(thismanManager != null &&
                         !thismanManager.GetComponent<ThismanManager>().IsComing) OnStageFailed(currentStage);
             }
-            if (remainedPlayTime < maxRemainedTime - horrorEffectTime && isTimerSet && !isEffectActivated)
-            {
-                // TODO - Effect발생
-                isEffectActivated = true;
-			}
 
             remainedPlayTime -= Time.deltaTime;
 
