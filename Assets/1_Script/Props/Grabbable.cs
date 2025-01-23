@@ -7,9 +7,11 @@ namespace Class
     {
         private Rigidbody rigid = null;
         private Desk desk = null;
+        private Lectern lectern = null;
         private PlayerController controller = null;
 
         public Desk TheDeskBelow { get => desk; }
+        public Lectern TheLecternBelow { get => lectern; }
         private void Awake()
         {
             rigid = GetComponent<Rigidbody>();
@@ -50,15 +52,24 @@ namespace Class
             {
                 return;
             }
-
+            float upDistance = 0.1f;
             if (controller.RecentlyDetectedProp is Desk desk)
             {
                 distance = Vector3.Distance(controller.transform.position, desk.transform.position);
                 this.desk = desk;
                 this.desk.props.Add(this.PropType);
+                upDistance = 0.1f;
+            }
+            else if (controller.RecentlyDetectedProp is Lectern lectern)
+            {
+                distance = Vector3.Distance(controller.transform.position, lectern.transform.position);
+                this.lectern = lectern;
+                lectern.Grabbable = this;
+                upDistance = 0.5f;
+                
             }
 
-            releasePosion += controller.CameraTransform.forward * distance + Vector3.up * 0.1f;
+            releasePosion += controller.CameraTransform.forward * distance + Vector3.up * upDistance;
 
             controller.InteractableGrabbing.transform.position = releasePosion;
             controller.InteractableGrabbing.GetComponent<BoxCollider>().isTrigger = false;

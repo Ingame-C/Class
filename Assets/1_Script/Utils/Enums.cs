@@ -8,6 +8,7 @@ namespace Class {
         Door,
         LockerDoor,
         Desk,
+        Lectern,
         Chalk,
         Pencil = 100,
         Crayons,
@@ -15,6 +16,7 @@ namespace Class {
         ColoredPencil,
         even_effects,
         Replica,
+        OMRCard,
     }
 
     public enum EffectTypes
