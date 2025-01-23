@@ -96,7 +96,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: f8c4ec6db4f7d1546a0867c46d6e0a43, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -3141,12 +3141,9 @@ MonoBehaviour:
   endTime: 3
   speed: 3
   tvScreen: {fileID: 1185202429}
-  Images:
-  - {fileID: 2100000, guid: 8a60356e5ad7ccd4e85902ee631c877e, type: 2}
-  - {fileID: 2100000, guid: 1d958920a369f5a42866359cb133bb60, type: 2}
-  - {fileID: 2100000, guid: 285edcdbd9da99646b38b527ebe240f3, type: 2}
-  - {fileID: 2100000, guid: 101971563ad33964f864682523adb5df, type: 2}
-  - {fileID: 2100000, guid: 8e19704ec3bc4744aa92493af1bafeec, type: 2}
+  DesksImages: []
+  Lectern: {fileID: 156640555}
+  emissiveLecternMaterial: {fileID: 2100000, guid: 95c62ed1daa562c42bd85dbfff7bd2fe, type: 2}
 --- !u!4 &502819026 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4000011483901460, guid: e52890ebb21e7704b8a5193fa0865463, type: 3}
@@ -9987,7 +9984,7 @@ MonoBehaviour:
   - {fileID: 686694228}
   - {fileID: 1619246234}
   - {fileID: 1385977895}
-  presetIndex: 0
+  presetIndex: 1
   heightOfReflectOnly: 0.55
   ReflectOnlyCrayon: {fileID: 1116672766662771572, guid: 6d5966a298e03c34b9f667fcad86a892, type: 3}
   ReflectOnlyColoredPen: {fileID: 2519373555547889866, guid: 167368c61fc9a324ab5524bc684968ff, type: 3}

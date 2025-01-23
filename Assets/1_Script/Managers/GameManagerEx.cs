@@ -271,7 +271,7 @@ namespace Class
             /** Check clear condition **/
             // HACK : 해당 부분 Func< ... , bool> 사용해서 여러 조건들을 담을 수 있도록 해야합니다.
             // 담는 방식에 대해서는 좀 더 고민해야 할 것 같습니다.
-            if (stageClearConditions[1]() && isTimerSet)
+            if (stageClearConditions[currentStage]() && isTimerSet)
             {
                 isTimerSet = false;
                 OnStageClear(currentStage);

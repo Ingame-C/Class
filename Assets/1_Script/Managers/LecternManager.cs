@@ -44,7 +44,7 @@ namespace Class
         public bool CheckCleared()
         {
             //TODO: 클리어 조건을 달성했는 지의 여부를 확인하는 로직이 필요합니다.
-            return true;
+            return false;
         }
 
     }
