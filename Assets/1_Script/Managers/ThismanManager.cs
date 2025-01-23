@@ -12,7 +12,13 @@ namespace Class
         [SerializeField] private float moveInTime;                      // 걸어오는 시간. 알아채기 + 숨기까지 충분한 시간 필요.
         [SerializeField] private float moveOutTime;                     // 걸어가는 시간
 
-        [SerializeField] private bool isPlayerHide;
+        [Header("Timer")]
+        [SerializeField] private float patrolStart;
+        [SerializeField] private float patrolEnd;
+        [SerializeField] private float generalStart;
+        [SerializeField] private float generalEnd;
+
+        private bool isPlayerHide;
 
         private bool isChecking = false;
         private bool isComing = false;
@@ -28,23 +34,40 @@ namespace Class
             isComing = false;
         }
 
-        private void Update()
-        {
-            if (!isChecking || isComing) return;
+		private void Update()
+		{
+			if (!isChecking || isComing) return;
 
+
+			CheckPatrolThisman();
+            CheckGeneralThisman();
+		}
+
+		public void CheckPatrolThisman()
+		{
+            if (GameManagerEx.Instance.ElapsedPlayTime < patrolStart || GameManagerEx.Instance.ElapsedPlayTime > patrolEnd) return;
+			
             thismanTimer += Time.deltaTime;
+			if (thismanTimer > checkTerm)
+			{
+				float rand = UnityEngine.Random.Range(0f, 1f);
+				Debug.Log($"RANDOM CHECK : {rand}, {(probability - Mathf.Epsilon)}");
+				if (rand < (probability - Mathf.Epsilon))
+				{
+					StartCoroutine(ExecuteEarlySign());
+				}
+				thismanTimer = 0f;
+			}
+		}
 
-            if (thismanTimer > checkTerm)
-            {
-                float rand = UnityEngine.Random.Range(0f, 1f);
-                Debug.Log($"RANDOM CHECK : {rand}, {(probability - Mathf.Epsilon)}");
-                if (rand < (probability - Mathf.Epsilon))
-                {
-                    StartCoroutine(ExecuteEarlySign());
-                }
-                thismanTimer = 0f;
-            }
+        public void CheckGeneralThisman() {
+
+            if (GameManagerEx.Instance.ElapsedPlayTime < generalStart) return;
+            
+            // TODO - GeneralEnd 까지 발자국 소리 키우기
+            // TODO - 숨는거 무시하는 디스맨 생성
         }
+
 
         // 디스맨이 나타나기 전의 전조 증상입니다.
         private IEnumerator ExecuteEarlySign()

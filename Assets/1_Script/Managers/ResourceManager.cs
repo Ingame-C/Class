@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 using System.Linq;
-using JetBrains.Annotations;
 
 namespace Class.Manager
 {

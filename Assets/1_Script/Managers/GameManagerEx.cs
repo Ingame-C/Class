@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 namespace Class
 {
@@ -55,22 +56,32 @@ namespace Class
 
 		}
 
+        private List<GameObject> stageProps = new List<GameObject>();
         private void LoadPropsSO(StagePropsSO so)
         {
             foreach (StagePropData data in so.propDatas)
             {
                 Transform parent = new GameObject { name = data.name }.transform;
                 for (int i = 0; i < data.transforms.Count; i++) {
-                    Debug.Log(data.transforms[i].Pos);
-                    Instantiate(data.prefab, data.transforms[i].Pos, Quaternion.Euler(data.transforms[i].Rot), parent);
+					stageProps.Add(Instantiate(data.prefab, data.transforms[i].Pos, Quaternion.Euler(data.transforms[i].Rot), parent));
                 }
             }
         }
 
-        // TODO : 정확한 스테이지 이동이 구현되어야합니다.
-        // 해당 함수들은 현재 실패한/클리어한 스테이지 ID를 받고 다음에 이동할 스테이지ID를 구해야합니다.
+        // Scene Clear 할때 호출됩니다.
+        private void DestroyStageProps()
+        {
+            for (int i = 0; i < stageProps.Count; i++)
+            {
+                Destroy(stageProps[i]);
+            }
+            stageProps.Clear();
+        }
 
-        private int currentStage = 1;
+		// TODO : 정확한 스테이지 이동이 구현되어야합니다.
+		// 해당 함수들은 현재 실패한/클리어한 스테이지 ID를 받고 다음에 이동할 스테이지ID를 구해야합니다.
+
+		private int currentStage = 1;
         public int CurrentStage {  get { return currentStage; } }
 
         public bool OnStageClear(int clearStageId)
@@ -132,6 +143,8 @@ namespace Class
         [SerializeField] private float remainedPlayTime;
         [SerializeField] private float horrorEffectTime;
 
+        public float ElapsedPlayTime { get => (maxRemainedTime - remainedPlayTime); }
+
         /** Actions **/
         public Action OnStageFailAction { get; set; }
         public Action OnStageClearAction { get; set; }
@@ -174,11 +187,10 @@ namespace Class
         private void ClearScene(Scene scene)
         {
             if (scene.name != SceneEnums.Game.ToString()) return;
-            OnStageClearAction = null;
+            DestroyStageProps();
+			OnStageClearAction = null;
             OnStageFailAction = null;
         }
-
-
 
         private IEnumerator LoadSceneAfterClear(SceneEnums sceneEnum)
         {
