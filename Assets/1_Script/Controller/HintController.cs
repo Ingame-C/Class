@@ -27,6 +27,7 @@ namespace Class {
         private void Start()
         {
             currentStage = GameManagerEx.Instance.CurrentStage;
+
         }
 
 

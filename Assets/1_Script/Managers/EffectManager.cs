@@ -83,6 +83,10 @@ namespace Class
                 if (rand2 == 0) effectTypes = EffectTypes.ArtToolReplicator;
                 else if (rand2 == 1) effectTypes = EffectTypes.MirrorBreak;
             }
+            else if (curStage == 2)
+            {
+
+            }
 
             // 효과 발동
             foreach (var item in horrorEffects)

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class BreakMirrorEffect : HorrorEffect
 {
-    public override EffectTypes EffectType => throw new System.NotImplementedException();
+    public override EffectTypes EffectType => EffectTypes.MirrorBreak;
 
     [SerializeField]
     MirrorBreakController[] m_Controllers;
