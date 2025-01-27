@@ -10,14 +10,15 @@ namespace Class
 {
     public class GameManagerEx : MonoBehaviour
     {
-
-        #region Singleton
+        // 클리어의 조건들을 담을 Func의 List입니다. Init 함수에 초기화 해 두도록 하겠습니다.
+        private List<Func<bool>> stageClearConditions;
         private static GameManagerEx instance;
         public static GameManagerEx Instance { get { return instance; } }
 
 
         private void Init()
         {
+            #region Singleton
             if (instance == null)
             {
                 instance = this;
@@ -28,13 +29,22 @@ namespace Class
                 Destroy(this.gameObject);
                 return;
             }
+            #endregion
+
+            stageClearConditions = new List<Func<bool>>
+            {
+                () => true,     // 스테이지와 인덱스를 일치시키기 위한 선언입니다.
+                () => DeskManager.Instance.CheckCleared(),
+                () => LecternManager.Instance.CheckCleared(),
+            };
 
             SceneManager.sceneLoaded += InitScene;
             SceneManager.sceneUnloaded += ClearScene;
         }
 
-        #endregion
+        
 
+        
 
         private void Awake()
         {
@@ -235,8 +245,6 @@ namespace Class
         private bool isTimerSet = false;
         public bool IsTimerSet {  get { return isTimerSet; }  }
 
-        private bool isEffectActivated = false;
-
         // HACK : 테스트 코드입니다.
         private void Update()
         {
@@ -256,11 +264,6 @@ namespace Class
                 if(thismanManager != null &&
                         !thismanManager.GetComponent<ThismanManager>().IsComing) OnStageFailed(currentStage);
             }
-            if (remainedPlayTime < maxRemainedTime - horrorEffectTime && isTimerSet && !isEffectActivated)
-            {
-                // TODO - Effect발생
-                isEffectActivated = true;
-			}
 
             remainedPlayTime -= Time.deltaTime;
 
@@ -268,7 +271,7 @@ namespace Class
             /** Check clear condition **/
             // HACK : 해당 부분 Func< ... , bool> 사용해서 여러 조건들을 담을 수 있도록 해야합니다.
             // 담는 방식에 대해서는 좀 더 고민해야 할 것 같습니다.
-            if (DeskManager.Instance.CheckCleared() && isTimerSet)
+            if (stageClearConditions[currentStage]() && isTimerSet)
             {
                 isTimerSet = false;
                 OnStageClear(currentStage);

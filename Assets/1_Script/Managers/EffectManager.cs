@@ -1,6 +1,8 @@
 using System;
 using UnityEngine;
 using System.Linq;
+using System.Collections.Generic;
+using System.Collections;
 
 namespace Class
 {
@@ -9,14 +11,24 @@ namespace Class
 
     public class EffectManager : MonoBehaviour
     {
+        [Header("Random Factor")]
+        [SerializeField, Range(0f, 1f)] private float probability;
+        [SerializeField] private float checkTerm;
+
+        private float timer = 0f;
+        private bool isEffectActivatable = false;
+        private bool isAlreadyActivated = false;
 
         #region 싱글톤 패턴
 
         private static EffectManager instance;
         public static EffectManager Instance { get { return instance; } }
 
+        private List<HorrorEffect> horrorEffects;
         private void Init()
         {
+            horrorEffects = Resources.LoadAll<HorrorEffect>("Prefabs/Effects").ToList();
+
             if (instance == null)
             {
                 GameObject go = GameObject.Find("@EffectManager");
@@ -36,13 +48,59 @@ namespace Class
                 return;
             }
         }
+        #endregion
 
         private void Awake()
         {
             Init();
+            StartCoroutine(SetActivateEffect());
         }
 
-        #endregion
+        private void Update()
+        {
+            // 이펙트가 실행 불가한 시간이거나, 이미 실행됐다면 return
+            if (!isEffectActivatable || !isAlreadyActivated) return;
+
+            timer += Time.deltaTime;
+            // checkTerm이 아니라면 return
+            if (timer <= checkTerm) return;
+
+            var rand = UnityEngine.Random.Range(0f, 1f);
+            timer = 0;
+
+            // 확률을 뚫지 못했다면 return
+            if (rand >= (probability - Mathf.Epsilon)) return;
+
+            int curStage = GameManagerEx.Instance.CurrentStage;
+            EffectTypes effectTypes = EffectTypes.None;
+
+            // 1 스테이지
+            // 파경, 학용품 복사
+            if (curStage == 1)
+            {
+                var rand2 = UnityEngine.Random.Range(0, 2);
+
+                if (rand2 == 0) effectTypes = EffectTypes.ArtToolReplicator;
+                else if (rand2 == 1) effectTypes = EffectTypes.MirrorBreak;
+            }
+
+            // 효과 발동
+            foreach (var item in horrorEffects)
+            {
+                if (item.EffectType == effectTypes)
+                {
+                    item.Activate();
+                    isAlreadyActivated = true;
+                    break;
+                }
+            }
+        }
+
+        IEnumerator SetActivateEffect()
+        {
+            yield return new WaitForSeconds(150f);
+            isEffectActivatable = true;
+        }
 
     }
 

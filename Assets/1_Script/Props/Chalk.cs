@@ -16,6 +16,7 @@ namespace Class{
             if (hintController != null)
             {
                 hintController.SetHintAppear();
+                this.gameObject.SetActive(false);
             }
         }
     }

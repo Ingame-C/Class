@@ -14,10 +14,13 @@ namespace Class {
         [SerializeField] private float endTime = 3f;
         [SerializeField] float speed = 3f;
         [Space]
-        [Header("Tv Screen Factor")]
+        [Header("Stage 1's Tv Screen Factor")]
         [SerializeField] private GameObject tvScreen;
-        [SerializeField] private Material[] Images;
-
+        [SerializeField] private Material[] DesksImages;
+        [Space]
+        [Header("Stage 2's Lectern Factor")]
+        [SerializeField] private GameObject Lectern;
+        [SerializeField] private Material emissiveLecternMaterial;
         private int currentStage;
         
 
@@ -44,7 +47,11 @@ namespace Class {
             if(currentStage == 1)
             {
                 int imageIndex = DeskManager.Instance.PresetIndex;
-                tvScreen.GetComponent<MeshRenderer>().material = Images[imageIndex];
+                tvScreen.GetComponent<MeshRenderer>().material = DesksImages[imageIndex];
+            }
+            else if (currentStage == 2)
+            {
+                Lectern.GetComponent<MeshRenderer>().material = emissiveLecternMaterial;
             }
             else
             {
@@ -53,6 +60,11 @@ namespace Class {
             
         }
 
+        [ContextMenu("stage 2 test")]
+        public void testtest()
+        {
+            Lectern.GetComponent<MeshRenderer>().material = emissiveLecternMaterial;
+        }
 
     }
 
