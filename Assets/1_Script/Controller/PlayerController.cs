@@ -184,6 +184,9 @@ namespace Class
         private PropsBase recentlyDetectedProp = null;
         public PropsBase RecentlyDetectedProp { get => recentlyDetectedProp; }
 
+        private PropsBase prevDetectedProp = null;
+
+
         public void RaycastInteractableObject()
         {
             RaycastHit hit;
@@ -193,9 +196,34 @@ namespace Class
             {
                 isDetectInteractable = true;
                 recentlyDetectedProp = hit.transform.GetComponent<PropsBase>();
+
+                if (prevDetectedProp != null && recentlyDetectedProp != prevDetectedProp) 
+                {
+                    if (prevDetectedProp.gameObject.TryGetComponent<Outline>(out Outline outline1))
+                    {
+                        outline1.OutlineMode = Outline.Mode.OutlineHidden;
+                        outline1.OutlineWidth = 0f;
+                    }
+                }
+
+                if (recentlyDetectedProp.gameObject.TryGetComponent<Outline>(out Outline outline))
+                {
+                    outline.OutlineMode = Outline.Mode.OutlineAll;
+                    outline.OutlineColor = Color.red;
+                    outline.OutlineWidth = 5f;
+                }
+
+                prevDetectedProp = recentlyDetectedProp;
+
             }
             else
-            {
+            {                
+                if (recentlyDetectedProp != null && recentlyDetectedProp.gameObject.TryGetComponent<Outline>(out Outline outline)) 
+                {
+                    outline.OutlineMode = Outline.Mode.OutlineHidden;
+                    outline.OutlineWidth = 0f;
+                }
+
                 isDetectInteractable = false;
                 recentlyDetectedProp = null;
             }
