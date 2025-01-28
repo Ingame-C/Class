@@ -133,9 +133,6 @@ PrefabInstance:
       addedObject: {fileID: 7464670387828963793}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 168ed40e07fef9447ba201226dfd1f69, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8477507978362691168}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 168ed40e07fef9447ba201226dfd1f69, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 8621775478512561802}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 168ed40e07fef9447ba201226dfd1f69, type: 3}
       insertIndex: -1
@@ -188,27 +185,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &8477507978362691168
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8220874838481119713}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &8621775478512561802
 Rigidbody:
   m_ObjectHideFlags: 0

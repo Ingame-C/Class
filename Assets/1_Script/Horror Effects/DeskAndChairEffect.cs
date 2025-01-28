@@ -12,15 +12,15 @@ public class DeskAndChairEffect : HorrorEffect
     public override EffectTypes EffectType { get => effecttype; }
 
 
-    private GameObject desksParent;
-    private GameObject chairsParent;
+    [SerializeField] private GameObject desksParent;
+    [SerializeField] private GameObject chairsParent;
 
     private Desk[] desks;
     private Chair[] chairs;
 
     //효과의 타겟이 될 책상과 의자 List
-    private List<Desk> deskTargeted = new List<Desk>();
-    private List<Chair> chairTargeted = new List<Chair>();
+    [SerializeField] private List<Desk> deskTargeted = new List<Desk>();
+    [SerializeField] private List<Chair> chairTargeted = new List<Chair>();
 
     [SerializeField] private int aNumberOfProps = 3;
 
@@ -51,7 +51,7 @@ public class DeskAndChairEffect : HorrorEffect
         }
     }
 
-
+    [ContextMenu("Activate")]
     public override void Activate()
     {
         StartCoroutine(EnlargementObject());

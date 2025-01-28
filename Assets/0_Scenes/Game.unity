@@ -7192,6 +7192,14 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6433436501655454493, guid: dc34baeb426c3584f8e53a8a10bc09b3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7063360304746733190, guid: dc34baeb426c3584f8e53a8a10bc09b3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -14261,8 +14269,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d22e7f2766a6747be914c25dc4764e42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  probability: 0.05
-  checkTerm: 10
+  probability: 1
+  checkTerm: 1
+  startTime: 1
 --- !u!4 &1840230667
 Transform:
   m_ObjectHideFlags: 0
