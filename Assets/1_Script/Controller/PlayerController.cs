@@ -190,7 +190,7 @@ namespace Class
         public void RaycastInteractableObject()
         {
             RaycastHit hit;
-            int targetLayer = Constants.LAYER_INTERACTABLE;
+            int targetLayer = Constants.LAYER_INTERACTABLE + Constants.LAYER_STAGE1SCHOOLSUPPLIES + Constants.LAYER_COLLISIONIMPOSSIBLE;
 
             if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out hit, rayLength, targetLayer))
             {
@@ -214,7 +214,6 @@ namespace Class
                 }
 
                 prevDetectedProp = recentlyDetectedProp;
-
             }
             else
             {                
@@ -237,7 +236,7 @@ namespace Class
             if (collision.collider.gameObject.CompareTag(Constants.TAG_LAVAOBJECT))
             {
                 // TODO: GAMEOVER 시켜야 합니다.
-                Debug.Log("lava wall is comming!");
+                
             }
         }
 

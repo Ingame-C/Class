@@ -11,15 +11,19 @@ namespace Class
 
     public class EffectManager : MonoBehaviour
     {
-        [Header("Random Factor")]
+        [Header("Probability")]
         [SerializeField, Range(0f, 1f)] private float probability;
+        [Space]
+        [Header("Check term")]
         [SerializeField] private float checkTerm;
+        [Space]
+        [Header("Start time")]
+        [SerializeField, Range(0f, 300f)] private float startTime = 150f;
 
         private float timer = 0f;
         private bool isEffectActivatable = false;
         private bool isAlreadyActivated = false;
-
-        #region 싱글톤 패턴
+        private List<EffectTypes> commonHorrorEffects = new List<EffectTypes>();
 
         private static EffectManager instance;
         public static EffectManager Instance { get { return instance; } }
@@ -47,8 +51,14 @@ namespace Class
                 Destroy(this.gameObject);
                 return;
             }
+
+            // 공용 효과를 추가하는 로직입니다.
+            for (EffectTypes effectType = EffectTypes.None + 1; effectType != EffectTypes.CommonEnd; effectType++)
+            {
+                commonHorrorEffects.Add(effectType);
+            }
+            
         }
-        #endregion
 
         private void Awake()
         {
@@ -58,55 +68,69 @@ namespace Class
 
         private void Update()
         {
+            
             // 이펙트가 실행 불가한 시간이거나, 이미 실행됐다면 return
-            if (!isEffectActivatable || !isAlreadyActivated) return;
-
+            if (!isEffectActivatable || isAlreadyActivated) return;
+            
             timer += Time.deltaTime;
             // checkTerm이 아니라면 return
             if (timer <= checkTerm) return;
 
             var rand = UnityEngine.Random.Range(0f, 1f);
             timer = 0;
+            Debug.Log($"EFFECT RANDOM CHECK : {rand}, {(probability - Mathf.Epsilon)}");
 
             // 확률을 뚫지 못했다면 return
             if (rand >= (probability - Mathf.Epsilon)) return;
 
-            int curStage = GameManagerEx.Instance.CurrentStage;
-            EffectTypes effectTypes = EffectTypes.None;
+            // 이펙트 실행!
+            GetRandomEffectActivate();
+        }
 
-            // 1 스테이지
-            // 파경, 학용품 복사
-            if (curStage == 1)
+        
+        public void GetRandomEffectActivate()
+        {
+            var currentStage = GameManagerEx.Instance.CurrentStage;
+            List<EffectTypes> effects = new List<EffectTypes>(commonHorrorEffects);
+
+            // 스테이지 별로 EffectTypes를 추가하는 로직이 필요합니다.
+            if (currentStage == 1)
             {
-                var rand2 = UnityEngine.Random.Range(0, 2);
-
-                if (rand2 == 0) effectTypes = EffectTypes.ArtToolReplicator;
-                else if (rand2 == 1) effectTypes = EffectTypes.MirrorBreak;
+                effects.Add(EffectTypes.ApproachingWall);
+                effects.Add(EffectTypes.ArtToolReplicator);
             }
-            else if (curStage == 2)
-            {
 
-            }
+            var random = UnityEngine.Random.Range(0, effects.Count());
+            var randomEffect = effects[random];
 
-            // 효과 발동
-            foreach (var item in horrorEffects)
+            foreach (HorrorEffect effect in horrorEffects)
             {
-                if (item.EffectType == effectTypes)
+                if(effect.EffectType == randomEffect)
                 {
-                    item.Activate();
-                    isAlreadyActivated = true;
+                    var summonedEffect = Instantiate(effect);
+                    StartCoroutine(ActivateEffectCoroutine(summonedEffect.gameObject));
                     break;
                 }
             }
+
+
+            isAlreadyActivated = true;
         }
 
         IEnumerator SetActivateEffect()
         {
-            yield return new WaitForSeconds(150f);
+            yield return new WaitForSeconds(startTime);
             isEffectActivatable = true;
         }
 
-    }
+        IEnumerator ActivateEffectCoroutine(GameObject gameObject)
+        {
+            yield return new WaitForSeconds(0.5f);
+            gameObject.GetComponent<HorrorEffect>()?.Activate();
+            Debug.Log(gameObject.GetComponent<HorrorEffect>()?.EffectType);
+            Destroy(gameObject, 5f);
+        }
 
+    }
 }
 

@@ -23,12 +23,13 @@ namespace Class {
     {
         None = 0,
         DeskAndChairEffect,
-        ApproachingWall,
-        ArtToolReplicator,
         MirrorBreak,
         LightBlink,
         Laugh,
         BloodyRain,
+        CommonEnd,              // 공용 효과의 끝을 나타냅니다.
+        ApproachingWall = 100,      
+        ArtToolReplicator,
     }
 
 

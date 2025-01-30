@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4076492442204624612}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: crayon1 (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 3392150338376136204}
   - component: {fileID: 468610542062153434}
   - component: {fileID: 1445314003519917302}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: pCylinder2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127,7 +127,7 @@ GameObject:
   - component: {fileID: 6466913882158845596}
   - component: {fileID: 641515040324294803}
   - component: {fileID: 7005594644268947363}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: pCylinder1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -210,8 +210,8 @@ GameObject:
   - component: {fileID: 5082880901727302451}
   - component: {fileID: 998193902029848018}
   - component: {fileID: 2685963413002113486}
-  - component: {fileID: 1750404812714646673}
-  m_Layer: 0
+  - component: {fileID: 5325814190357097597}
+  m_Layer: 13
   m_Name: Replica_crayon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -259,7 +259,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &2685963413002113486
 MonoBehaviour:
@@ -273,7 +273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 311c399ce0246dc43b6c9b7e24b2f117, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!65 &1750404812714646673
+--- !u!65 &5325814190357097597
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -292,8 +292,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.25, y: 0.05, z: 0.21}
+  m_Center: {x: 0.03, y: 0, z: 0}
 --- !u!1 &1057073884649455715
 GameObject:
   m_ObjectHideFlags: 0
@@ -305,7 +305,7 @@ GameObject:
   - component: {fileID: 5192191019860459484}
   - component: {fileID: 8495956479071025440}
   - component: {fileID: 4679697175262082964}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: pCylinder1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -388,7 +388,7 @@ GameObject:
   - component: {fileID: 5471875364686795501}
   - component: {fileID: 1528992232414339041}
   - component: {fileID: 6257057697150738846}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: pCylinder1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -471,7 +471,7 @@ GameObject:
   - component: {fileID: 637209072503777720}
   - component: {fileID: 1016300363110722689}
   - component: {fileID: 478258075470252010}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: pCylinder1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -554,7 +554,7 @@ GameObject:
   - component: {fileID: 2305516093970634803}
   - component: {fileID: 3723338097034519854}
   - component: {fileID: 5028565550889145459}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: pCylinder2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -635,7 +635,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1574955958671419890}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: case1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -668,7 +668,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1392383569363707292}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: crayon1 (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -703,7 +703,7 @@ GameObject:
   - component: {fileID: 354797730217682673}
   - component: {fileID: 4410734255477480450}
   - component: {fileID: 6313930057804610307}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: pCube2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -786,7 +786,7 @@ GameObject:
   - component: {fileID: 3094378174955855092}
   - component: {fileID: 7118362204170801222}
   - component: {fileID: 7205404871245700538}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: pCylinder2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -869,7 +869,7 @@ GameObject:
   - component: {fileID: 3616964890111623714}
   - component: {fileID: 6718694232553548347}
   - component: {fileID: 1086120487506167750}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: pCylinder2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -950,7 +950,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5793554406706368640}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: crayon.mod1 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -994,7 +994,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 670841621339880039}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: crayon1 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1027,7 +1027,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 206477809694396875}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: crayon1 (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1060,7 +1060,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5548138472165660523}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: crayon1 (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1095,7 +1095,7 @@ GameObject:
   - component: {fileID: 7749180209800701228}
   - component: {fileID: 6885009569158005370}
   - component: {fileID: 3716373383652878269}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: pCylinder2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1176,7 +1176,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 728073955451607726}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: crayon1 (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1211,7 +1211,7 @@ GameObject:
   - component: {fileID: 8684156510055937179}
   - component: {fileID: 2859331829123044621}
   - component: {fileID: 7751890787207036188}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: pCylinder2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1294,7 +1294,7 @@ GameObject:
   - component: {fileID: 7140199404048637473}
   - component: {fileID: 3111086517604474667}
   - component: {fileID: 50316861463110538}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: pCylinder1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1375,7 +1375,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4598030368516659642}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: crayon1 (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1408,7 +1408,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4875180986430729665}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: crayon1 (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1441,7 +1441,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7321755422485388099}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: crayon1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1474,7 +1474,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7736504490425925012}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: crayon1 (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1509,7 +1509,7 @@ GameObject:
   - component: {fileID: 8806309968244487801}
   - component: {fileID: 5886459314991381618}
   - component: {fileID: 7945951419676578168}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: pCylinder2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1592,7 +1592,7 @@ GameObject:
   - component: {fileID: 5034604104551090233}
   - component: {fileID: 5661447518526280324}
   - component: {fileID: 8189738606760421842}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: pCylinder1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1675,7 +1675,7 @@ GameObject:
   - component: {fileID: 3476495397355487995}
   - component: {fileID: 5150780982481261090}
   - component: {fileID: 4551455617660807553}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: pCylinder1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1758,7 +1758,7 @@ GameObject:
   - component: {fileID: 2974181008038525625}
   - component: {fileID: 329391397768673249}
   - component: {fileID: 3603059628959996911}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: pCylinder2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1841,7 +1841,7 @@ GameObject:
   - component: {fileID: 4620324949189695724}
   - component: {fileID: 5466698234255836043}
   - component: {fileID: 4481166495337359101}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: pCube2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1924,7 +1924,7 @@ GameObject:
   - component: {fileID: 9010574402818523839}
   - component: {fileID: 7753440528486277275}
   - component: {fileID: 7336024397386010990}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: pCylinder1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2007,7 +2007,7 @@ GameObject:
   - component: {fileID: 3490870138555294713}
   - component: {fileID: 1339226716791753611}
   - component: {fileID: 6393121678127454734}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: pCylinder1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2088,7 +2088,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6458859992920500658}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: crayon1 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2123,7 +2123,7 @@ GameObject:
   - component: {fileID: 5794432601332320710}
   - component: {fileID: 612139067660645250}
   - component: {fileID: 4527531145603395251}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: pCylinder1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2204,7 +2204,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1710638671218190460}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: crayon1 (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2239,7 +2239,7 @@ GameObject:
   - component: {fileID: 7630508493501366008}
   - component: {fileID: 7718575155421230523}
   - component: {fileID: 5058953099170839818}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: pCylinder2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2322,7 +2322,7 @@ GameObject:
   - component: {fileID: 5946552273943206194}
   - component: {fileID: 2983744814641840515}
   - component: {fileID: 5831477912441152997}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: pCylinder2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2405,7 +2405,7 @@ GameObject:
   - component: {fileID: 1777512857953472922}
   - component: {fileID: 6956066929755077822}
   - component: {fileID: 4788801169435064799}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: pCylinder1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2488,7 +2488,7 @@ GameObject:
   - component: {fileID: 3417400423989987584}
   - component: {fileID: 4834290576530494021}
   - component: {fileID: 5541918045314539725}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: pCylinder2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2571,7 +2571,7 @@ GameObject:
   - component: {fileID: 6305089644589020341}
   - component: {fileID: 1445175798771718396}
   - component: {fileID: 4430509633867092815}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: pCylinder1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2654,7 +2654,7 @@ GameObject:
   - component: {fileID: 3665037591251389114}
   - component: {fileID: 3054323894528909910}
   - component: {fileID: 2218209334241905434}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: pCylinder2
   m_TagString: Untagged
   m_Icon: {fileID: 0}

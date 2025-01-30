@@ -56,7 +56,7 @@ public class ArtToolReplicator : HorrorEffect
         }
         return null;
     }
-
+    [ContextMenu("Activate")]
     public override void Activate()
     {
         StartCoroutine(makeReplicaMany());
