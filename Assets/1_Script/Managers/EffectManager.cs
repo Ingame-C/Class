@@ -108,7 +108,7 @@ namespace Class
                 if(effect.EffectType == randomEffect)
                 {
                     var summonedEffect = Instantiate(effect);
-                    StartCoroutine(ActivateEffect(summonedEffect.gameObject));
+                    StartCoroutine(ActivateEffectCoroutine(summonedEffect.gameObject));
                     break;
                 }
             }
@@ -123,7 +123,7 @@ namespace Class
             isEffectActivatable = true;
         }
 
-        IEnumerator ActivateEffect(GameObject gameObject)
+        IEnumerator ActivateEffectCoroutine(GameObject gameObject)
         {
             yield return new WaitForSeconds(0.5f);
             gameObject.GetComponent<HorrorEffect>()?.Activate();
@@ -132,6 +132,5 @@ namespace Class
         }
 
     }
-
 }
 
