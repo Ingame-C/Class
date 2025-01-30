@@ -6,6 +6,8 @@ public static class Constants
 
     public const int LAYER_INTERACTABLE = 1 << 8;
     public const int LAYER_WALL = 1 << 9;
+    public const int LAYER_COLLISIONIMPOSSIBLE = 1 << 13;
+    public const int LAYER_STAGE1SCHOOLSUPPLIES = 1 << 14;
 
 
     /** Tag Names **/
