@@ -81,6 +81,12 @@ namespace Class.StateMachine
                     SoundManager.Instance.CreateAudioSource(controller.transform.position, SfxClipTypes.Player_Walk_3, 1.0f);
                     soundInterval = 0.382f;
                 }
+
+                if(vertInput < 0)
+                {
+                    soundInterval *= 1.2f;
+                }
+
                 lastSoundTime = Time.time; // 마지막 재생 시간 업데이트
             }
             base.PhysicsUpdate();

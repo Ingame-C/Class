@@ -91,7 +91,8 @@ namespace Class
         {
             isAlreadyActivated = false;
             isEffectActivatable = false;
-            SetActivateEffect();
+            Debug.Log("Effect Logic is reseted");
+            StartCoroutine(SetActivateEffect());
         }
 
 
@@ -136,7 +137,6 @@ namespace Class
             yield return new WaitForSeconds(0.5f);
             gameObject.GetComponent<HorrorEffect>()?.Activate();
             Debug.Log(gameObject.GetComponent<HorrorEffect>()?.EffectType);
-            Destroy(gameObject, 5f);
         }
 
     }

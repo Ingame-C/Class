@@ -177,7 +177,15 @@ namespace Class
         {
             Vector3 moveDir = (transform.forward * horzInputRaw + transform.right * vertInputRaw);
 
-            rigid.MovePosition(transform.position + moveDir * diag * walkSpeed * Time.fixedDeltaTime);
+            if(horzInputRaw > 0)
+            {
+                rigid.MovePosition(transform.position + moveDir * diag * walkSpeed * Time.fixedDeltaTime);
+            }
+            else
+            {
+                rigid.MovePosition(transform.position + moveDir * diag * walkSpeed * 0.5f * Time.fixedDeltaTime);
+            }
+            
 
         }
 

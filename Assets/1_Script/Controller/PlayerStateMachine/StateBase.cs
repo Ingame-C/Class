@@ -16,6 +16,13 @@ namespace Class.StateMachine
         protected float mouseX = 0f;
         protected float mouseY = 0f;
 
+        public float VertInput { get => vertInput; }
+        public float HorzInput { get => horzInput; }
+        public float VertInputRaw { get => vertInputRaw; }
+        public float HorzInputRaw { get => horzInputRaw; }
+        public float MouseX { get => mouseX; }
+        public float MouseY { get => mouseY; }
+
         protected bool isESCPressed = false;
 
         public StateBase(PlayerController controller, PlayerStateMachine stateMachine)
@@ -78,9 +85,8 @@ namespace Class.StateMachine
                 {
                     usable.Interact(controller);
                 }
-
                 // Grabbalbe Object는 일괄적으로 관리할 예정.
-                if(controller.RecentlyDetectedProp is Grabbable grabbable)
+                else if(controller.RecentlyDetectedProp is Grabbable grabbable)
                 {
                     grabbable.GrabObject();
                 }

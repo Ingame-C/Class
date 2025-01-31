@@ -35,6 +35,7 @@ MonoBehaviour:
     assemblyNames:
     - Assembly-CSharp
     - Assembly-CSharp-firstpass
+    - AssetInventory.Examples
     - Cinemachine
     showAdvancedSettings: 0
   addMgrToSceneAutomatically: 0
