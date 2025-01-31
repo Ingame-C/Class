@@ -51,5 +51,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Dream_Escape.sln"
+    "dotnet.defaultSolution": "Endless_Study.sln"
 }
