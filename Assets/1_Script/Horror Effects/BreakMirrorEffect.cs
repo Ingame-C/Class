@@ -25,7 +25,7 @@ public class BreakMirrorEffect : HorrorEffect
         if (m_Controllers.Length == 0) { return; }
 
         SoundManager.Instance.CreateAudioSource(transform.position, SfxClipTypes.Mirror_Break, 1.0f);
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 4; i++)
         {
             int j = UnityEngine.Random.Range(0, 5);
             m_Controllers[j].Demolish();

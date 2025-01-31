@@ -22,10 +22,11 @@ public class ApproachingWall : HorrorEffect
     };
 
     [SerializeField] float speed = 3f;
+    [SerializeField] private float endTime = 50f;
 
     private GameObject wallsParent = null;
 
-    private float endTime = 50f;
+    
 
 
     private void Start()
@@ -52,6 +53,7 @@ public class ApproachingWall : HorrorEffect
 
     }
 
+    [ContextMenu("Activate")]
     public override void Activate()
     {
         StartCoroutine(SetWallApproach());

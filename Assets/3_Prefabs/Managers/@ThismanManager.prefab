@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   checkTerm: 10
-  probability: 0.02
+  probability: 0.05
   moveInTime: 5
   moveOutTime: 5
   isPlayerHide: 0

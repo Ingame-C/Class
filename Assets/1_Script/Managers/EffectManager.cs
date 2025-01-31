@@ -87,7 +87,15 @@ namespace Class
             GetRandomEffectActivate();
         }
 
-        
+        public void ResetEffectLogic()
+        {
+            isAlreadyActivated = false;
+            isEffectActivatable = false;
+            SetActivateEffect();
+        }
+
+
+
         public void GetRandomEffectActivate()
         {
             var currentStage = GameManagerEx.Instance.CurrentStage;
