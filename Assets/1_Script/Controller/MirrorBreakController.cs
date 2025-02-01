@@ -13,14 +13,34 @@ public class MirrorBreakController : MonoBehaviour
     [SerializeField] private GameObject targetGameObject;
     [SerializeField] private Transform breakPointsParent;
     [SerializeField] private Material interiorMaterial;
+    [SerializeField] private GameObject _camera;
+    [SerializeField] private int index;
 
     [SerializeField][Range(0f, 1f)] private float resultScale;
     [SerializeField] private Transform resultParent;
 
     private static MeshDemolisher meshDemolisher = new MeshDemolisher();
 
-    private void Update()
+
+    private Vector3 prevPosition;
+
+    private void Start()
     {
+        prevPosition = targetGameObject.transform.position;
+
+        if(_camera == null)
+        {
+            _camera = GameObject.Find("Mirror Camera " + index);
+        }
+    }
+    private void FixedUpdate()
+    {
+        Vector3 deltaPosition = targetGameObject.transform.position - prevPosition;
+        if(deltaPosition.magnitude > 0f)
+        {
+            _camera.transform.position += deltaPosition;
+        }
+        prevPosition = targetGameObject.transform.position;
 
     }
 

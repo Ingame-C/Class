@@ -19,18 +19,18 @@ namespace Class.StateMachine
             base.Enter();
             SoundManager.Instance.CreateAudioSource(controller.transform.position, SfxClipTypes.Sweep, 1.0f);
             controller.IsSitting = true;
-          
+            controller.GetComponent<CapsuleCollider>().isTrigger = true;
             if (controller.RecentlyDetectedProp != null)
                 chair = controller.RecentlyDetectedProp;
             else
             {
                 chair = GameManagerEx.Instance.StartChair;
             }
-            controller.GetComponent<CapsuleCollider>().isTrigger = true;
+            
             chair.GetComponent<MeshCollider>().isTrigger = true;
 
             returnPosition = chair.transform.position + new Vector3(-chair.transform.localScale.x, controller.transform.position.y-chair.transform.position.y, 0);
-            controller.SetPlayerPosition(chair.transform.position + Vector3.up * 0.55f);
+            controller.transform.position = (chair.transform.position + Vector3.up * 0.55f);
             controller.SetPlayerRotation(chair.transform.rotation);
         }
 

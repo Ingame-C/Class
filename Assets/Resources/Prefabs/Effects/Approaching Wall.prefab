@@ -45,5 +45,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walls: []
-  speed: 0.05
-  endTime: 50
+  speed: 0.01
+  endTime: 120

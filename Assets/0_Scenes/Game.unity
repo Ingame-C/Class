@@ -1909,7 +1909,7 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 0
   m_IsKinematic: 1
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!65 &245726166
@@ -2240,6 +2240,8 @@ MonoBehaviour:
   targetGameObject: {fileID: 545636517}
   breakPointsParent: {fileID: 494528613}
   interiorMaterial: {fileID: 2100000, guid: 6133cbf62f298ec4e84942caa751ecb4, type: 2}
+  _camera: {fileID: 0}
+  index: 3
   resultScale: 0.744
   resultParent: {fileID: 1718088514}
 --- !u!1 &313633611 stripped
@@ -3255,6 +3257,8 @@ MonoBehaviour:
   targetGameObject: {fileID: 1612625770}
   breakPointsParent: {fileID: 149892203}
   interiorMaterial: {fileID: 2100000, guid: 6133cbf62f298ec4e84942caa751ecb4, type: 2}
+  _camera: {fileID: 0}
+  index: 4
   resultScale: 0.744
   resultParent: {fileID: 1035842391}
 --- !u!1001 &487716149
@@ -4376,6 +4380,10 @@ PrefabInstance:
     - target: {fileID: 6892463432421902726, guid: fc04cd5b3399f3641b620a47bed63474, type: 3}
       propertyPath: m_Layer
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6926060529558372783, guid: fc04cd5b3399f3641b620a47bed63474, type: 3}
+      propertyPath: m_Name
+      value: Mirror Camera 4
       objectReference: {fileID: 0}
     - target: {fileID: 6926060529558372783, guid: fc04cd5b3399f3641b620a47bed63474, type: 3}
       propertyPath: m_Layer
@@ -5616,6 +5624,10 @@ PrefabInstance:
     - target: {fileID: 6892463432421902726, guid: fc04cd5b3399f3641b620a47bed63474, type: 3}
       propertyPath: m_Layer
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6926060529558372783, guid: fc04cd5b3399f3641b620a47bed63474, type: 3}
+      propertyPath: m_Name
+      value: Mirror Camera 5
       objectReference: {fileID: 0}
     - target: {fileID: 6926060529558372783, guid: fc04cd5b3399f3641b620a47bed63474, type: 3}
       propertyPath: m_Layer
@@ -10274,6 +10286,8 @@ MonoBehaviour:
   targetGameObject: {fileID: 1379763348}
   breakPointsParent: {fileID: 1685544683}
   interiorMaterial: {fileID: 2100000, guid: 6133cbf62f298ec4e84942caa751ecb4, type: 2}
+  _camera: {fileID: 0}
+  index: 1
   resultScale: 0.744
   resultParent: {fileID: 1222045452}
 --- !u!1 &1220483585 stripped
@@ -11999,7 +12013,7 @@ MonoBehaviour:
   - {fileID: 1619246234}
   - {fileID: 1385977895}
   presetIndex: 1
-  heightOfReflectOnly: 0.55
+  heightOfReflectOnly: 0.7
   ReflectOnlyCrayon: {fileID: 1116672766662771572, guid: 6d5966a298e03c34b9f667fcad86a892, type: 3}
   ReflectOnlyColoredPen: {fileID: 2519373555547889866, guid: 167368c61fc9a324ab5524bc684968ff, type: 3}
   ReflectOnlyPallet: {fileID: 4952879886409985723, guid: 1a9acfeacfbe03d4a9fecb4fb24d6ab4, type: 3}
@@ -12920,10 +12934,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.7
-  m_Height: 3
+  m_Radius: 0.31
+  m_Height: 2.34
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0.04, y: -0.18, z: 0}
 --- !u!23 &1558934134
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -14560,6 +14574,10 @@ PrefabInstance:
       value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 6926060529558372783, guid: fc04cd5b3399f3641b620a47bed63474, type: 3}
+      propertyPath: m_Name
+      value: Mirror Camera 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6926060529558372783, guid: fc04cd5b3399f3641b620a47bed63474, type: 3}
       propertyPath: m_Layer
       value: 15
       objectReference: {fileID: 0}
@@ -16120,6 +16138,10 @@ PrefabInstance:
       value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 6926060529558372783, guid: fc04cd5b3399f3641b620a47bed63474, type: 3}
+      propertyPath: m_Name
+      value: Mirror Camera 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6926060529558372783, guid: fc04cd5b3399f3641b620a47bed63474, type: 3}
       propertyPath: m_Layer
       value: 15
       objectReference: {fileID: 0}
@@ -16274,9 +16296,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d22e7f2766a6747be914c25dc4764e42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  probability: 1
+  probability: 0.04
   checkTerm: 10
-  startTime: 2
+  startTime: 150
 --- !u!4 &1840230667
 Transform:
   m_ObjectHideFlags: 0
@@ -16312,6 +16334,8 @@ MonoBehaviour:
   targetGameObject: {fileID: 524515438}
   breakPointsParent: {fileID: 1460673735}
   interiorMaterial: {fileID: 2100000, guid: 6133cbf62f298ec4e84942caa751ecb4, type: 2}
+  _camera: {fileID: 0}
+  index: 2
   resultScale: 0.744
   resultParent: {fileID: 1339089306}
 --- !u!1001 &1841183651
@@ -16859,6 +16883,8 @@ MonoBehaviour:
   targetGameObject: {fileID: 1852318981}
   breakPointsParent: {fileID: 2014957838}
   interiorMaterial: {fileID: 2100000, guid: 6133cbf62f298ec4e84942caa751ecb4, type: 2}
+  _camera: {fileID: 0}
+  index: 5
   resultScale: 0.744
   resultParent: {fileID: 1574224081}
 --- !u!1001 &1913707338
@@ -19907,6 +19933,10 @@ PrefabInstance:
     - target: {fileID: 6892463432421902726, guid: fc04cd5b3399f3641b620a47bed63474, type: 3}
       propertyPath: m_Layer
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6926060529558372783, guid: fc04cd5b3399f3641b620a47bed63474, type: 3}
+      propertyPath: m_Name
+      value: Mirror Camera 1
       objectReference: {fileID: 0}
     - target: {fileID: 6926060529558372783, guid: fc04cd5b3399f3641b620a47bed63474, type: 3}
       propertyPath: m_Layer
