@@ -57,6 +57,17 @@ namespace Class.StateMachine
         public override void LogicUpdate()
         {
             base.LogicUpdate();
+            
+            if (!controller.UIisSet)
+            {
+                controller.RotateWithMouse(mouseX, mouseY);
+            }
+            else if (isESCPressed)
+            {
+                controller.CurrentUI = null;
+                isESCPressed = false;
+                return;
+            }
 
             if (isESCPressed && !controller.IsGrabbing)
             {
@@ -64,7 +75,6 @@ namespace Class.StateMachine
                 isESCPressed = false;
             }
 
-            controller.RotateWithMouse(mouseX, mouseY);
         }
 
         public override void PhysicsUpdate()

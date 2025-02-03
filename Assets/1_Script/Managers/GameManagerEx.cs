@@ -40,8 +40,7 @@ namespace Class
 
             SceneManager.sceneLoaded += InitScene;
             SceneManager.sceneUnloaded += ClearScene;
-
-
+            
         }
 
         

@@ -1,3 +1,4 @@
+using Class.StateMachine;
 using UnityEngine;
 
 namespace Class
@@ -16,7 +17,8 @@ namespace Class
 
         public override void Interact(PlayerController controller)
         {
-            controller.StateMachine.ChangeState(controller.sitState);
+            if (controller.StateMachine.CurState is not SitState)
+                controller.StateMachine.ChangeState(controller.sitState);
         }
     }
 

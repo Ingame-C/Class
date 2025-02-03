@@ -15,15 +15,29 @@ namespace Class
         private Rigidbody rigid;
         private CapsuleCollider capsuleColl;
         private Animator animator;
-
+        
 
         /** Properties **/
         public Rigidbody Rigidbody { get => rigid; }
         public CapsuleCollider CapsuleColl {  get { return capsuleColl; } }
         public Animator Animator { get => animator; }
-
-
-
+        public UI.UI CurrentUI
+        {
+            get => currentUI;
+            set
+            {
+                if (value == null)
+                {
+                    currentUI.gameObject.SetActive(false);
+                }
+                else
+                {
+                    value.gameObject.SetActive(true);
+                }
+                currentUI = value;
+            } 
+        }
+        private UI.UI currentUI;
 
         [Header("Player Move Args")]
         [SerializeField] private float crouchSpeed;
@@ -55,6 +69,7 @@ namespace Class
 
         private Grabbable interactableGrabbing = null;
 
+        public bool UIisSet { get => CurrentUI != null; }
         private bool isDetectInteractable = false;
         private bool isSitting = false;
         private bool isGrabbing = false;
@@ -74,6 +89,7 @@ namespace Class
         private void Awake()
         {
             recentlyDetectedProp = null;
+            currentUI = null;
 
             rigid = GetComponent<Rigidbody>();
             capsuleColl = GetComponent<CapsuleCollider>();
