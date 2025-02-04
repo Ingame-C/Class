@@ -27,6 +27,7 @@ namespace Class.StateMachine
         {
             base.HandleInput();
 
+            GetInteractOutInput(out isESCPressed);
             GetMovementInputRaw(out vertInputRaw, out horzInputRaw);
             GetMouseInput(out mouseX, out mouseY);
             GetInteractableInput();
@@ -41,7 +42,17 @@ namespace Class.StateMachine
                 stateMachine.ChangeState(controller.walkState);
             }
 
-            controller.RotateWithMouse(mouseX, mouseY);
+
+            if (isESCPressed && controller.UIisSet)
+            {
+                controller.CurrentUI = null;
+                isESCPressed = false;
+            }
+            
+            if (!controller.UIisSet)
+            {
+                controller.RotateWithMouse(mouseX, mouseY);
+            }
         }
 
         public override void PhysicsUpdate()

@@ -40,6 +40,7 @@ namespace Class
 
             SceneManager.sceneLoaded += InitScene;
             SceneManager.sceneUnloaded += ClearScene;
+            
         }
 
         
@@ -55,9 +56,17 @@ namespace Class
         {
             OnStageStartAction -= InitThismanManager;
             OnStageStartAction += InitThismanManager;
-			OnStageStartAction -= DeskManager.Instance.GenerateReflectionOnly;
-			OnStageStartAction += DeskManager.Instance.GenerateReflectionOnly;
+            OnStageStartAction -= EffectManager.Instance.ResetEffectLogic;
+            OnStageStartAction += EffectManager.Instance.ResetEffectLogic;
+            
 
+            if (currentStage == 1)
+            {
+                OnStageStartAction -= DeskManager.Instance.GenerateReflectionOnly;
+                OnStageStartAction += DeskManager.Instance.GenerateReflectionOnly;
+                OnStageStartAction -= DeskManager.Instance.SetRandomPreset;
+                OnStageStartAction += DeskManager.Instance.SetRandomPreset;
+            }
             OnStageStartAction.Invoke();
         }
 

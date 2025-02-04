@@ -38,7 +38,7 @@ namespace Class.StateMachine
         {
             base.HandleInput();
 
-
+            GetInteractOutInput(out isESCPressed);
             GetMovementInput(out vertInput, out horzInput);
             GetMovementInputRaw(out vertInputRaw, out horzInputRaw);
             GetMouseInput(out mouseX, out mouseY);
@@ -56,13 +56,23 @@ namespace Class.StateMachine
             {
                 stateMachine.ChangeState(controller.idleState);
             }
-
-            controller.RotateWithMouse(mouseX, mouseY);
+            
+            if (isESCPressed && controller.UIisSet)
+            {
+                controller.CurrentUI = null;
+                isESCPressed = false;
+            }
+            
+            if (!controller.UIisSet)
+            {
+                controller.RotateWithMouse(mouseX, mouseY);
+            }
+            
         }
 
         public override void PhysicsUpdate()
         {
-            if (Time.time - lastSoundTime >= soundInterval)
+            if (Time.time - lastSoundTime >= soundInterval && !controller.UIisSet)
             {
                 randomWalk = Random.Range(1, 4);
 
@@ -81,13 +91,20 @@ namespace Class.StateMachine
                     SoundManager.Instance.CreateAudioSource(controller.transform.position, SfxClipTypes.Player_Walk_3, 1.0f);
                     soundInterval = 0.382f;
                 }
+
+                if(vertInput < 0)
+                {
+                    soundInterval *= 1.2f;
+                }
+
                 lastSoundTime = Time.time; // 마지막 재생 시간 업데이트
             }
             base.PhysicsUpdate();
             controller.RaycastInteractableObject();
 
             diagW = (Mathf.Abs(horzInput) > 0.5f && Mathf.Abs(vertInput) > 0.5f) ? 0.71f : 1.0f;
-            controller.WalkWithArrow(horzInputRaw, vertInputRaw, diagW);
+            if(!controller.UIisSet)
+                controller.WalkWithArrow(horzInputRaw, vertInputRaw, diagW);
         }
     }
 

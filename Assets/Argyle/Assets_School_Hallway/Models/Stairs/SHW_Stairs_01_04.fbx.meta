@@ -1,0 +1,424 @@
+fileFormatVersion: 2
+guid: 21e44dbbaf1d4a540a5ffd9133ab03a4
+timeCreated: 1485767466
+licenseType: Store
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: ceiling_01
+    100002: ceiling_02
+    100004: ceiling_03
+    100006: door01_L1
+    100008: door01_R
+    100010: door_01
+    100012: door_05
+    100014: door_L
+    100016: door_R
+    100018: fire_door_01
+    100020: fire_door_01 1
+    100022: floor_01
+    100024: floor_02
+    100026: floor_03
+    100028: glass01
+    100030: glass01 1
+    100032: glass01 2
+    100034: glass01 3
+    100036: glass02
+    100038: glass02 1
+    100040: glass02 2
+    100042: glass02 3
+    100044: glass_01
+    100046: glass_02
+    100048: handrail_01
+    100050: handrail_02
+    100052: handrail_03
+    100054: //RootNode
+    100056: key1
+    100058: key2
+    100060: light01
+    100062: light02
+    100064: light_01
+    100066: pillar_01
+    100068: pillar_02
+    100070: polySurface315
+    100072: polySurface318
+    100074: stairs_01
+    100076: stairs_02_DUP
+    100078: wall_01
+    100080: wall_01 1
+    100082: wall_01 2
+    100084: wall_02
+    100086: wall_03
+    100088: window
+    100090: window02_01
+    100092: window02_02
+    100094: window02_03
+    100096: window02_04
+    100098: window_01
+    100100: door01
+    100102: door_frame01
+    100104: HW_door_01_02
+    100106: door_frame02_DUP
+    100108: ceiling_038_DUP
+    100110: HW_door_01_01
+    100112: polySurface322
+    100114: polySurface324
+    100116: HW_stairs01_04_col01
+    100118: door2_R
+    100120: SHW_door_01_01
+    100122: pillar_03
+    100124: wall_02 1
+    100126: wall_04
+    100128: wall_05
+    100130: doorknob
+    100132: key
+    100134: doorknob 1
+    100136: doorknob 2
+    100138: doorknob 3
+    100140: nob01
+    100142: nob01 1
+    100144: nob01 2
+    100146: nob02
+    100148: nob02 1
+    100150: nob02 2
+    400000: ceiling_01
+    400002: ceiling_02
+    400004: ceiling_03
+    400006: door01_L1
+    400008: door01_R
+    400010: door_01
+    400012: door_05
+    400014: door_L
+    400016: door_R
+    400018: fire_door_01
+    400020: fire_door_01 1
+    400022: floor_01
+    400024: floor_02
+    400026: floor_03
+    400028: glass01
+    400030: glass01 1
+    400032: glass01 2
+    400034: glass01 3
+    400036: glass02
+    400038: glass02 1
+    400040: glass02 2
+    400042: glass02 3
+    400044: glass_01
+    400046: glass_02
+    400048: handrail_01
+    400050: handrail_02
+    400052: handrail_03
+    400054: //RootNode
+    400056: key1
+    400058: key2
+    400060: light01
+    400062: light02
+    400064: light_01
+    400066: pillar_01
+    400068: pillar_02
+    400070: polySurface315
+    400072: polySurface318
+    400074: stairs_01
+    400076: stairs_02_DUP
+    400078: wall_01
+    400080: wall_01 1
+    400082: wall_01 2
+    400084: wall_02
+    400086: wall_03
+    400088: window
+    400090: window02_01
+    400092: window02_02
+    400094: window02_03
+    400096: window02_04
+    400098: window_01
+    400100: door01
+    400102: door_frame01
+    400104: HW_door_01_02
+    400106: door_frame02_DUP
+    400108: ceiling_038_DUP
+    400110: HW_door_01_01
+    400112: polySurface322
+    400114: polySurface324
+    400116: HW_stairs01_04_col01
+    400118: door2_R
+    400120: SHW_door_01_01
+    400122: pillar_03
+    400124: wall_02 1
+    400126: wall_04
+    400128: wall_05
+    400130: doorknob
+    400132: key
+    400134: doorknob 1
+    400136: doorknob 2
+    400138: doorknob 3
+    400140: nob01
+    400142: nob01 1
+    400144: nob01 2
+    400146: nob02
+    400148: nob02 1
+    400150: nob02 2
+    2300000: ceiling_01
+    2300002: ceiling_02
+    2300004: ceiling_03
+    2300006: door01_L1
+    2300008: door01_R
+    2300010: door_01
+    2300012: door_L
+    2300014: door_R
+    2300016: fire_door_01 1
+    2300018: floor_01
+    2300020: floor_02
+    2300022: floor_03
+    2300024: glass01
+    2300026: glass01 1
+    2300028: glass01 2
+    2300030: glass01 3
+    2300032: glass02
+    2300034: glass02 1
+    2300036: glass02 2
+    2300038: glass02 3
+    2300040: glass_01
+    2300042: glass_02
+    2300044: handrail_01
+    2300046: handrail_02
+    2300048: handrail_03
+    2300050: key1
+    2300052: key2
+    2300054: light01
+    2300056: light02
+    2300058: pillar_01
+    2300060: pillar_02
+    2300062: polySurface315
+    2300064: polySurface318
+    2300066: stairs_01
+    2300068: stairs_02_DUP
+    2300070: wall_01
+    2300072: wall_01 1
+    2300074: wall_01 2
+    2300076: wall_02
+    2300078: wall_03
+    2300080: window
+    2300082: window02_01
+    2300084: window02_02
+    2300086: window02_03
+    2300088: window02_04
+    2300090: door01
+    2300092: door_frame01
+    2300094: ceiling_038_DUP
+    2300096: polySurface322
+    2300098: polySurface324
+    2300100: HW_stairs01_04_col01
+    2300102: door2_R
+    2300104: pillar_03
+    2300106: wall_02 1
+    2300108: wall_04
+    2300110: wall_05
+    2300112: doorknob
+    2300114: key
+    2300116: doorknob 1
+    2300118: doorknob 2
+    2300120: doorknob 3
+    2300122: nob01
+    2300124: nob01 1
+    2300126: nob01 2
+    2300128: nob02
+    2300130: nob02 1
+    2300132: nob02 2
+    3300000: ceiling_01
+    3300002: ceiling_02
+    3300004: ceiling_03
+    3300006: door01_L1
+    3300008: door01_R
+    3300010: door_01
+    3300012: door_L
+    3300014: door_R
+    3300016: fire_door_01 1
+    3300018: floor_01
+    3300020: floor_02
+    3300022: floor_03
+    3300024: glass01
+    3300026: glass01 1
+    3300028: glass01 2
+    3300030: glass01 3
+    3300032: glass02
+    3300034: glass02 1
+    3300036: glass02 2
+    3300038: glass02 3
+    3300040: glass_01
+    3300042: glass_02
+    3300044: handrail_01
+    3300046: handrail_02
+    3300048: handrail_03
+    3300050: key1
+    3300052: key2
+    3300054: light01
+    3300056: light02
+    3300058: pillar_01
+    3300060: pillar_02
+    3300062: polySurface315
+    3300064: polySurface318
+    3300066: stairs_01
+    3300068: stairs_02_DUP
+    3300070: wall_01
+    3300072: wall_01 1
+    3300074: wall_01 2
+    3300076: wall_02
+    3300078: wall_03
+    3300080: window
+    3300082: window02_01
+    3300084: window02_02
+    3300086: window02_03
+    3300088: window02_04
+    3300090: door01
+    3300092: door_frame01
+    3300094: ceiling_038_DUP
+    3300096: polySurface322
+    3300098: polySurface324
+    3300100: HW_stairs01_04_col01
+    3300102: door2_R
+    3300104: pillar_03
+    3300106: wall_02 1
+    3300108: wall_04
+    3300110: wall_05
+    3300112: doorknob
+    3300114: key
+    3300116: doorknob 1
+    3300118: doorknob 2
+    3300120: doorknob 3
+    3300122: nob01
+    3300124: nob01 1
+    3300126: nob01 2
+    3300128: nob02
+    3300130: nob02 1
+    3300132: nob02 2
+    4300000: pillar_01
+    4300002: pillar_02
+    4300004: wall_01
+    4300006: wall_02
+    4300008: wall_03
+    4300010: handrail_01
+    4300012: handrail_02
+    4300014: handrail_03
+    4300016: floor_01
+    4300018: floor_02
+    4300020: floor_03
+    4300022: ceiling_01
+    4300024: ceiling_02
+    4300026: ceiling_03
+    4300028: stairs_01
+    4300030: wall_01
+    4300032: window
+    4300034: window02_01
+    4300036: glass02
+    4300038: glass01
+    4300040: key1
+    4300042: window02_02
+    4300044: glass02
+    4300046: glass01
+    4300048: window02_04
+    4300050: glass02
+    4300052: glass01
+    4300054: window02_03
+    4300056: glass02
+    4300058: key2
+    4300060: glass01
+    4300062: light01
+    4300064: light02
+    4300066: door_L
+    4300068: door_R
+    4300070: polySurface315
+    4300072: fire_door_01
+    4300074: stairs_02_DUP
+    4300076: polySurface318
+    4300078: door_01
+    4300080: wall_01
+    4300082: door01_R
+    4300084: glass_01
+    4300086: door01_L1
+    4300088: glass_02
+    4300090: door_frame01
+    4300092: door01
+    4300094: polySurface322
+    4300096: ceiling_038_DUP
+    4300098: polySurface324
+    4300100: HW_stairs01_04_col01
+    4300102: door2_R
+    4300104: pillar_03
+    4300106: wall_04
+    4300108: wall_05
+    4300110: wall_02
+    4300112: doorknob
+    4300114: key
+    4300116: doorknob
+    4300118: nob01
+    4300120: nob02
+    4300122: doorknob
+    4300124: nob01
+    4300126: nob02
+    4300128: doorknob
+    4300130: nob01
+    4300132: nob02
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -99,19 +99,21 @@ namespace Class {
 
         private bool isBlockSound = false;
 
-        public void CreateAudioSource(Vector3 pos, SfxClipTypes clipIdx, float sound3d)
+        public void CreateAudioSource(Vector3 pos, SfxClipTypes clipIdx, float sound3d, float volume = 1f)
         {
             if (isBlockSound) return;
 
             AudioSource audioSource = Pop();
             audioSource.transform.position = pos;
             audioSource.clip = sfxClips[(int)clipIdx];
-            audioSource.volume = 1f;
+            audioSource.volume = volume;
             audioSource.spatialBlend = sound3d;
             audioSource.Play();
 
             StartCoroutine(PushAfterDelay(audioSource, audioSource.clip.length));
         }
+
+
 
         public void BlockSound()
         {

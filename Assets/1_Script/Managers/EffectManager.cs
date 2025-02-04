@@ -87,7 +87,16 @@ namespace Class
             GetRandomEffectActivate();
         }
 
-        
+        public void ResetEffectLogic()
+        {
+            isAlreadyActivated = false;
+            isEffectActivatable = false;
+            Debug.Log("Effect Logic is reseted");
+            StartCoroutine(SetActivateEffect());
+        }
+
+
+
         public void GetRandomEffectActivate()
         {
             var currentStage = GameManagerEx.Instance.CurrentStage;
@@ -128,7 +137,6 @@ namespace Class
             yield return new WaitForSeconds(0.5f);
             gameObject.GetComponent<HorrorEffect>()?.Activate();
             Debug.Log(gameObject.GetComponent<HorrorEffect>()?.EffectType);
-            Destroy(gameObject, 5f);
         }
 
     }

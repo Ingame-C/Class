@@ -17,6 +17,7 @@ namespace Class {
         even_effects,
         Replica,
         OMRCard,
+        TestPaper
     }
 
     public enum EffectTypes

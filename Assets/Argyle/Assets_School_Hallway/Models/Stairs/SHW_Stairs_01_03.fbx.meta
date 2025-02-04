@@ -1,0 +1,768 @@
+fileFormatVersion: 2
+guid: 6d8e1df224ef4c54fa431ac091a3475a
+timeCreated: 1484298088
+licenseType: Store
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: ceiling_041
+    100002: ceiling_042
+    100004: ceiling_043
+    100006: ceiling_044
+    100008: ceiling_045
+    100010: ceiling_046
+    100012: ceiling_047
+    100014: ceiling_048
+    100016: ceiling_049
+    100018: ceiling_050
+    100020: ceiling_051
+    100022: door01_L
+    100024: door01_L1
+    100026: door01_R
+    100028: door_01
+    100030: door_04
+    100032: floor_056
+    100034: floor_057
+    100036: floor_058
+    100038: floor_059
+    100040: floor_060
+    100042: floor_061
+    100044: floor_062
+    100046: floor_063
+    100048: glass_01
+    100050: glass_01 1
+    100052: glass_01 2
+    100054: glass_01 3
+    100056: glass_02
+    100058: glass_02 1
+    100060: glass_02 2
+    100062: glass_02 3
+    100064: group10
+    100066: group10 1
+    100068: group11
+    100070: group11 1
+    100072: group19
+    100074: group20
+    100076: //RootNode
+    100078: pCylinder1
+    100080: pCylinder1 1
+    100082: pillar_046
+    100084: pillar_047
+    100086: pillar_051
+    100088: polySurface171
+    100090: polySurface183
+    100092: polySurface200
+    100094: polySurface202
+    100096: polySurface203
+    100098: polySurface210
+    100100: polySurface217
+    100102: polySurface218
+    100104: polySurface219
+    100106: polySurface232
+    100108: polySurface244
+    100110: polySurface30
+    100112: polySurface30 1
+    100114: polySurface38
+    100116: polySurface38 1
+    100118: polySurface48
+    100120: polySurface48 1
+    100122: polySurface49
+    100124: polySurface49 1
+    100126: polySurface49 2
+    100128: polySurface49 3
+    100130: polySurface59
+    100132: polySurface59 1
+    100134: polySurface59 2
+    100136: polySurface59 3
+    100138: polySurface60
+    100140: polySurface60 1
+    100142: polySurface60 2
+    100144: polySurface60 3
+    100146: polySurface61
+    100148: polySurface61 1
+    100150: polySurface61 2
+    100152: polySurface61 3
+    100154: polySurface62
+    100156: polySurface62 1
+    100158: polySurface62 2
+    100160: polySurface62 3
+    100162: polySurface63
+    100164: polySurface63 1
+    100166: polySurface64
+    100168: polySurface64 1
+    100170: wall_01
+    100172: wall_01_B_073
+    100174: wall_01_B_078
+    100176: wall_01_B_079
+    100178: wall_01_B_080
+    100180: wall_01_B_081
+    100182: wall_059
+    100184: wall_060
+    100186: window01_01
+    100188: window01_02
+    100190: ceiling_053
+    100192: ceiling_01
+    100194: ceiling_02
+    100196: ceiling_03
+    100198: floor_01
+    100200: handrail_01
+    100202: handrail_02
+    100204: handrail_03
+    100206: pillar_01
+    100208: Stairs_01
+    100210: wall_02
+    100212: wall_03
+    100214: door_L
+    100216: door_L 1
+    100218: door_R
+    100220: door_R 1
+    100222: fire_door_01
+    100224: fire_door_01 1
+    100226: fire_door_01 2
+    100228: fire_door_02
+    100230: floor_02
+    100232: floor_03
+    100234: pillar_02
+    100236: polySurface315
+    100238: polySurface315 1
+    100240: HW_stairs01_03_col01
+    100242: door2_R
+    100244: door2_R 1
+    100246: pillar_03
+    100248: shw_stairs_01_03
+    100250: wall_04
+    100252: wall_05
+    100254: wall_06
+    100256: doorknob
+    100258: doorknob 1
+    100260: doorknob 2
+    100262: doorknob 3
+    100264: doorknob 4
+    100266: doorknob 5
+    100268: nob01
+    100270: nob01 1
+    100272: nob01 2
+    100274: nob01 3
+    100276: nob01 4
+    100278: nob01 5
+    100280: nob02
+    100282: nob02 1
+    100284: nob02 2
+    100286: nob02 3
+    100288: nob02 4
+    100290: nob02 5
+    400000: ceiling_041
+    400002: ceiling_042
+    400004: ceiling_043
+    400006: ceiling_044
+    400008: ceiling_045
+    400010: ceiling_046
+    400012: ceiling_047
+    400014: ceiling_048
+    400016: ceiling_049
+    400018: ceiling_050
+    400020: ceiling_051
+    400022: door01_L
+    400024: door01_L1
+    400026: door01_R
+    400028: door_01
+    400030: door_04
+    400032: floor_056
+    400034: floor_057
+    400036: floor_058
+    400038: floor_059
+    400040: floor_060
+    400042: floor_061
+    400044: floor_062
+    400046: floor_063
+    400048: glass_01
+    400050: glass_01 1
+    400052: glass_01 2
+    400054: glass_01 3
+    400056: glass_02
+    400058: glass_02 1
+    400060: glass_02 2
+    400062: glass_02 3
+    400064: group10
+    400066: group10 1
+    400068: group11
+    400070: group11 1
+    400072: group19
+    400074: group20
+    400076: //RootNode
+    400078: pCylinder1
+    400080: pCylinder1 1
+    400082: pillar_046
+    400084: pillar_047
+    400086: pillar_051
+    400088: polySurface171
+    400090: polySurface183
+    400092: polySurface200
+    400094: polySurface202
+    400096: polySurface203
+    400098: polySurface210
+    400100: polySurface217
+    400102: polySurface218
+    400104: polySurface219
+    400106: polySurface232
+    400108: polySurface244
+    400110: polySurface30
+    400112: polySurface30 1
+    400114: polySurface38
+    400116: polySurface38 1
+    400118: polySurface48
+    400120: polySurface48 1
+    400122: polySurface49
+    400124: polySurface49 1
+    400126: polySurface49 2
+    400128: polySurface49 3
+    400130: polySurface59
+    400132: polySurface59 1
+    400134: polySurface59 2
+    400136: polySurface59 3
+    400138: polySurface60
+    400140: polySurface60 1
+    400142: polySurface60 2
+    400144: polySurface60 3
+    400146: polySurface61
+    400148: polySurface61 1
+    400150: polySurface61 2
+    400152: polySurface61 3
+    400154: polySurface62
+    400156: polySurface62 1
+    400158: polySurface62 2
+    400160: polySurface62 3
+    400162: polySurface63
+    400164: polySurface63 1
+    400166: polySurface64
+    400168: polySurface64 1
+    400170: wall_01
+    400172: wall_01_B_073
+    400174: wall_01_B_078
+    400176: wall_01_B_079
+    400178: wall_01_B_080
+    400180: wall_01_B_081
+    400182: wall_059
+    400184: wall_060
+    400186: window01_01
+    400188: window01_02
+    400190: ceiling_053
+    400192: ceiling_01
+    400194: ceiling_02
+    400196: ceiling_03
+    400198: floor_01
+    400200: handrail_01
+    400202: handrail_02
+    400204: handrail_03
+    400206: pillar_01
+    400208: Stairs_01
+    400210: wall_02
+    400212: wall_03
+    400214: door_L
+    400216: door_L 1
+    400218: door_R
+    400220: door_R 1
+    400222: fire_door_01
+    400224: fire_door_01 1
+    400226: fire_door_01 2
+    400228: fire_door_02
+    400230: floor_02
+    400232: floor_03
+    400234: pillar_02
+    400236: polySurface315
+    400238: polySurface315 1
+    400240: HW_stairs01_03_col01
+    400242: door2_R
+    400244: door2_R 1
+    400246: pillar_03
+    400248: shw_stairs_01_03
+    400250: wall_04
+    400252: wall_05
+    400254: wall_06
+    400256: doorknob
+    400258: doorknob 1
+    400260: doorknob 2
+    400262: doorknob 3
+    400264: doorknob 4
+    400266: doorknob 5
+    400268: nob01
+    400270: nob01 1
+    400272: nob01 2
+    400274: nob01 3
+    400276: nob01 4
+    400278: nob01 5
+    400280: nob02
+    400282: nob02 1
+    400284: nob02 2
+    400286: nob02 3
+    400288: nob02 4
+    400290: nob02 5
+    2300000: ceiling_041
+    2300002: ceiling_042
+    2300004: ceiling_043
+    2300006: ceiling_044
+    2300008: ceiling_045
+    2300010: ceiling_046
+    2300012: ceiling_047
+    2300014: ceiling_048
+    2300016: ceiling_049
+    2300018: ceiling_050
+    2300020: ceiling_051
+    2300022: door01_L
+    2300024: door01_L1
+    2300026: door01_R
+    2300028: door_01
+    2300030: floor_056
+    2300032: floor_057
+    2300034: floor_058
+    2300036: floor_059
+    2300038: floor_060
+    2300040: floor_061
+    2300042: floor_062
+    2300044: floor_063
+    2300046: glass_01
+    2300048: glass_01 1
+    2300050: glass_01 2
+    2300052: glass_01 3
+    2300054: glass_02
+    2300056: glass_02 1
+    2300058: glass_02 2
+    2300060: glass_02 3
+    2300062: pCylinder1
+    2300064: pCylinder1 1
+    2300066: pillar_046
+    2300068: pillar_047
+    2300070: pillar_051
+    2300072: polySurface171
+    2300074: polySurface183
+    2300076: polySurface200
+    2300078: polySurface202
+    2300080: polySurface203
+    2300082: polySurface210
+    2300084: polySurface217
+    2300086: polySurface218
+    2300088: polySurface219
+    2300090: polySurface232
+    2300092: polySurface244
+    2300094: polySurface30
+    2300096: polySurface30 1
+    2300098: polySurface38
+    2300100: polySurface38 1
+    2300102: polySurface48
+    2300104: polySurface48 1
+    2300106: polySurface49
+    2300108: polySurface49 1
+    2300110: polySurface49 2
+    2300112: polySurface49 3
+    2300114: polySurface59
+    2300116: polySurface59 1
+    2300118: polySurface59 2
+    2300120: polySurface59 3
+    2300122: polySurface60
+    2300124: polySurface60 1
+    2300126: polySurface60 2
+    2300128: polySurface60 3
+    2300130: polySurface61
+    2300132: polySurface61 1
+    2300134: polySurface61 2
+    2300136: polySurface61 3
+    2300138: polySurface62
+    2300140: polySurface62 1
+    2300142: polySurface62 2
+    2300144: polySurface62 3
+    2300146: polySurface63
+    2300148: polySurface63 1
+    2300150: polySurface64
+    2300152: polySurface64 1
+    2300154: wall_01
+    2300156: wall_01_B_073
+    2300158: wall_01_B_078
+    2300160: wall_01_B_079
+    2300162: wall_01_B_080
+    2300164: wall_01_B_081
+    2300166: wall_059
+    2300168: wall_060
+    2300170: window01_01
+    2300172: window01_02
+    2300174: ceiling_053
+    2300176: ceiling_01
+    2300178: ceiling_02
+    2300180: ceiling_03
+    2300182: floor_01
+    2300184: handrail_01
+    2300186: handrail_02
+    2300188: handrail_03
+    2300190: pillar_01
+    2300192: Stairs_01
+    2300194: wall_02
+    2300196: wall_03
+    2300198: door_L
+    2300200: door_L 1
+    2300202: door_R
+    2300204: door_R 1
+    2300206: fire_door_01 1
+    2300208: fire_door_01 2
+    2300210: floor_02
+    2300212: floor_03
+    2300214: pillar_02
+    2300216: polySurface315
+    2300218: polySurface315 1
+    2300220: HW_stairs01_03_col01
+    2300222: door2_R
+    2300224: door2_R 1
+    2300226: pillar_03
+    2300228: wall_04
+    2300230: wall_05
+    2300232: wall_06
+    2300234: doorknob
+    2300236: doorknob 1
+    2300238: doorknob 2
+    2300240: doorknob 3
+    2300242: doorknob 4
+    2300244: doorknob 5
+    2300246: nob01
+    2300248: nob01 1
+    2300250: nob01 2
+    2300252: nob01 3
+    2300254: nob01 4
+    2300256: nob01 5
+    2300258: nob02
+    2300260: nob02 1
+    2300262: nob02 2
+    2300264: nob02 3
+    2300266: nob02 4
+    2300268: nob02 5
+    3300000: ceiling_041
+    3300002: ceiling_042
+    3300004: ceiling_043
+    3300006: ceiling_044
+    3300008: ceiling_045
+    3300010: ceiling_046
+    3300012: ceiling_047
+    3300014: ceiling_048
+    3300016: ceiling_049
+    3300018: ceiling_050
+    3300020: ceiling_051
+    3300022: door01_L
+    3300024: door01_L1
+    3300026: door01_R
+    3300028: door_01
+    3300030: floor_056
+    3300032: floor_057
+    3300034: floor_058
+    3300036: floor_059
+    3300038: floor_060
+    3300040: floor_061
+    3300042: floor_062
+    3300044: floor_063
+    3300046: glass_01
+    3300048: glass_01 1
+    3300050: glass_01 2
+    3300052: glass_01 3
+    3300054: glass_02
+    3300056: glass_02 1
+    3300058: glass_02 2
+    3300060: glass_02 3
+    3300062: pCylinder1
+    3300064: pCylinder1 1
+    3300066: pillar_046
+    3300068: pillar_047
+    3300070: pillar_051
+    3300072: polySurface171
+    3300074: polySurface183
+    3300076: polySurface200
+    3300078: polySurface202
+    3300080: polySurface203
+    3300082: polySurface210
+    3300084: polySurface217
+    3300086: polySurface218
+    3300088: polySurface219
+    3300090: polySurface232
+    3300092: polySurface244
+    3300094: polySurface30
+    3300096: polySurface30 1
+    3300098: polySurface38
+    3300100: polySurface38 1
+    3300102: polySurface48
+    3300104: polySurface48 1
+    3300106: polySurface49
+    3300108: polySurface49 1
+    3300110: polySurface49 2
+    3300112: polySurface49 3
+    3300114: polySurface59
+    3300116: polySurface59 1
+    3300118: polySurface59 2
+    3300120: polySurface59 3
+    3300122: polySurface60
+    3300124: polySurface60 1
+    3300126: polySurface60 2
+    3300128: polySurface60 3
+    3300130: polySurface61
+    3300132: polySurface61 1
+    3300134: polySurface61 2
+    3300136: polySurface61 3
+    3300138: polySurface62
+    3300140: polySurface62 1
+    3300142: polySurface62 2
+    3300144: polySurface62 3
+    3300146: polySurface63
+    3300148: polySurface63 1
+    3300150: polySurface64
+    3300152: polySurface64 1
+    3300154: wall_01
+    3300156: wall_01_B_073
+    3300158: wall_01_B_078
+    3300160: wall_01_B_079
+    3300162: wall_01_B_080
+    3300164: wall_01_B_081
+    3300166: wall_059
+    3300168: wall_060
+    3300170: window01_01
+    3300172: window01_02
+    3300174: ceiling_053
+    3300176: ceiling_01
+    3300178: ceiling_02
+    3300180: ceiling_03
+    3300182: floor_01
+    3300184: handrail_01
+    3300186: handrail_02
+    3300188: handrail_03
+    3300190: pillar_01
+    3300192: Stairs_01
+    3300194: wall_02
+    3300196: wall_03
+    3300198: door_L
+    3300200: door_L 1
+    3300202: door_R
+    3300204: door_R 1
+    3300206: fire_door_01 1
+    3300208: fire_door_01 2
+    3300210: floor_02
+    3300212: floor_03
+    3300214: pillar_02
+    3300216: polySurface315
+    3300218: polySurface315 1
+    3300220: HW_stairs01_03_col01
+    3300222: door2_R
+    3300224: door2_R 1
+    3300226: pillar_03
+    3300228: wall_04
+    3300230: wall_05
+    3300232: wall_06
+    3300234: doorknob
+    3300236: doorknob 1
+    3300238: doorknob 2
+    3300240: doorknob 3
+    3300242: doorknob 4
+    3300244: doorknob 5
+    3300246: nob01
+    3300248: nob01 1
+    3300250: nob01 2
+    3300252: nob01 3
+    3300254: nob01 4
+    3300256: nob01 5
+    3300258: nob02
+    3300260: nob02 1
+    3300262: nob02 2
+    3300264: nob02 3
+    3300266: nob02 4
+    3300268: nob02 5
+    4300000: pillar_046
+    4300002: pillar_047
+    4300004: wall_01_B_079
+    4300006: wall_059
+    4300008: wall_01_B_080
+    4300010: wall_01_B_081
+    4300012: wall_060
+    4300014: pillar_051
+    4300016: polySurface200
+    4300018: polySurface218
+    4300020: polySurface217
+    4300022: polySurface202
+    4300024: polySurface232
+    4300026: wall_01_B_078
+    4300028: polySurface203
+    4300030: wall_01_B_073
+    4300032: polySurface210
+    4300034: polySurface219
+    4300036: door_01
+    4300038: wall_01
+    4300040: window01_01
+    4300042: glass_01
+    4300044: glass_02
+    4300046: window01_02
+    4300048: glass_01
+    4300050: glass_02
+    4300052: door01_R
+    4300054: glass_01
+    4300056: door01_L1
+    4300058: glass_02
+    4300060: door01_L
+    4300062: glass_01
+    4300064: glass_02
+    4300066: ceiling_041
+    4300068: ceiling_042
+    4300070: ceiling_043
+    4300072: ceiling_044
+    4300074: ceiling_045
+    4300076: ceiling_049
+    4300078: ceiling_050
+    4300080: ceiling_051
+    4300082: polySurface244
+    4300084: polySurface183
+    4300086: pCylinder1
+    4300088: polySurface49
+    4300090: polySurface59
+    4300092: polySurface60
+    4300094: polySurface61
+    4300096: polySurface62
+    4300098: pCylinder1
+    4300100: polySurface49
+    4300102: polySurface59
+    4300104: polySurface60
+    4300106: polySurface61
+    4300108: polySurface62
+    4300110: polySurface49
+    4300112: polySurface59
+    4300114: polySurface60
+    4300116: polySurface61
+    4300118: polySurface62
+    4300120: polySurface63
+    4300122: polySurface64
+    4300124: polySurface48
+    4300126: polySurface30
+    4300128: polySurface38
+    4300130: polySurface49
+    4300132: polySurface59
+    4300134: polySurface60
+    4300136: polySurface61
+    4300138: polySurface62
+    4300140: polySurface63
+    4300142: polySurface64
+    4300144: polySurface48
+    4300146: polySurface30
+    4300148: polySurface38
+    4300150: floor_057
+    4300152: polySurface171
+    4300154: floor_061
+    4300156: floor_058
+    4300158: floor_059
+    4300160: floor_062
+    4300162: floor_063
+    4300164: floor_060
+    4300166: ceiling_046
+    4300168: ceiling_047
+    4300170: ceiling_048
+    4300172: floor_056
+    4300174: ceiling_053
+    4300176: pillar_01
+    4300178: wall_02
+    4300180: wall_03
+    4300182: Stairs_01
+    4300184: handrail_01
+    4300186: handrail_02
+    4300188: handrail_03
+    4300190: floor_01
+    4300192: ceiling_01
+    4300194: ceiling_02
+    4300196: ceiling_03
+    4300198: pillar_02
+    4300200: floor_02
+    4300202: floor_03
+    4300204: door_L
+    4300206: door_R
+    4300208: polySurface315
+    4300210: fire_door_01
+    4300212: door_L
+    4300214: door_R
+    4300216: polySurface315
+    4300218: fire_door_01
+    4300220: HW_stairs01_03_col01
+    4300222: door2_R
+    4300224: door2_R
+    4300226: pillar_03
+    4300228: wall_04
+    4300230: wall_05
+    4300232: wall_06
+    4300234: doorknob
+    4300236: nob01
+    4300238: nob02
+    4300240: doorknob
+    4300242: nob01
+    4300244: nob02
+    4300246: doorknob
+    4300248: nob01
+    4300250: nob02
+    4300252: doorknob
+    4300254: nob01
+    4300256: nob02
+    4300258: doorknob
+    4300260: nob01
+    4300262: nob02
+    4300264: doorknob
+    4300266: nob01
+    4300268: nob02
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -19,18 +19,18 @@ namespace Class.StateMachine
             base.Enter();
             SoundManager.Instance.CreateAudioSource(controller.transform.position, SfxClipTypes.Sweep, 1.0f);
             controller.IsSitting = true;
-          
+            controller.GetComponent<CapsuleCollider>().isTrigger = true;
             if (controller.RecentlyDetectedProp != null)
                 chair = controller.RecentlyDetectedProp;
             else
             {
                 chair = GameManagerEx.Instance.StartChair;
             }
-
+            
             chair.GetComponent<MeshCollider>().isTrigger = true;
 
             returnPosition = chair.transform.position + new Vector3(-chair.transform.localScale.x, controller.transform.position.y-chair.transform.position.y, 0);
-            controller.SetPlayerPosition(chair.transform.position);
+            controller.transform.position = (chair.transform.position + Vector3.up * 0.55f);
             controller.SetPlayerRotation(chair.transform.rotation);
         }
 
@@ -40,6 +40,7 @@ namespace Class.StateMachine
             SoundManager.Instance.CreateAudioSource(controller.transform.position, SfxClipTypes.Sweep, 1.0f);
             controller.IsSitting = false;
             controller.SetPlayerPosition(returnPosition);
+            controller.GetComponent<CapsuleCollider>().isTrigger = false;
             chair.GetComponent<MeshCollider>().isTrigger = false;
         }
 
@@ -56,6 +57,17 @@ namespace Class.StateMachine
         public override void LogicUpdate()
         {
             base.LogicUpdate();
+            
+            if (!controller.UIisSet)
+            {
+                controller.RotateWithMouse(mouseX, mouseY);
+            }
+            else if (isESCPressed)
+            {
+                controller.CurrentUI = null;
+                isESCPressed = false;
+                return;
+            }
 
             if (isESCPressed && !controller.IsGrabbing)
             {
@@ -63,7 +75,6 @@ namespace Class.StateMachine
                 isESCPressed = false;
             }
 
-            controller.RotateWithMouse(mouseX, mouseY);
         }
 
         public override void PhysicsUpdate()

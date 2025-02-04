@@ -47,6 +47,7 @@ namespace Class
             float distance = 1.0f;
 
             Vector3 releasePosion = controller.CameraTransform.position;
+            controller.InteractableGrabbing.GetComponent<BoxCollider>().isTrigger = false;
 
             if (controller.InteractableGrabbing == null || !controller.IsGrabbing)
             {
@@ -73,7 +74,6 @@ namespace Class
             releasePosion += controller.CameraTransform.forward * distance + Vector3.up * upDistance;
 
             controller.InteractableGrabbing.transform.position = releasePosion;
-            controller.InteractableGrabbing.GetComponent<BoxCollider>().isTrigger = false;
             controller.InteractableGrabbing = null;
 
             Invoke("DelaySetFlag", 0.3f);

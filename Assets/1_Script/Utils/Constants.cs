@@ -22,6 +22,7 @@ public static class Constants
     public const string NAME_PLAYER = "Tmp_Player";
     public const string NAME_ARTTOOLSPARENT = "Original props";
     public const string NAME_REPLICASPARENT = "Replica";
+    public const string NAME_TESTPAPERUI = "Test Paper UI";
 
     /** Anim Flags **/
 

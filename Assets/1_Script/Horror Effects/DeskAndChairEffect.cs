@@ -24,6 +24,8 @@ public class DeskAndChairEffect : HorrorEffect
 
     [SerializeField] private int aNumberOfProps = 3;
 
+    private GameObject replicasParent;
+
 
     private void Start()
     {
@@ -49,12 +51,24 @@ public class DeskAndChairEffect : HorrorEffect
             deskTargeted.Add(desks[j]);
             chairTargeted.Add(chairs[j]);
         }
+
+        if (replicasParent == null)
+        {
+            replicasParent = GameObject.Find(Constants.NAME_REPLICASPARENT);
+        }
+
     }
 
     [ContextMenu("Activate")]
     public override void Activate()
     {
         StartCoroutine(EnlargementObject());
+        var replicas = replicasParent.GetComponentsInChildren<Rigidbody>();
+
+        foreach (var item in replicas)
+        {
+            item.AddForce(Vector3.up * 3f);
+        }
     }
 
 

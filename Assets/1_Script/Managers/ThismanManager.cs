@@ -74,8 +74,8 @@ namespace Class
             {
                 // TODO : 걷는 소리. 점점 크게
                 Debug.Log("뚜벅");
-                SoundManager.Instance.CreateAudioSource(transform.position, SfxClipTypes.Thisman_Walk, 0.0f);
-                yield return new WaitForSeconds(2.638f); // 걷는clip Length 를 받아와야 합니다.
+                SoundManager.Instance.CreateAudioSource(transform.position, SfxClipTypes.Thisman_Walk, 0.0f, elapsedTime * 0.07f);
+                yield return new WaitForSeconds(2.338f); // 걷는clip Length 를 받아와야 합니다.
                 elapsedTime += 0.6f;
             }
 

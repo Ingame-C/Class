@@ -18,8 +18,6 @@ public class ArtToolReplicator : HorrorEffect
     [SerializeField] private GameObject coloredPenReplica;
     [SerializeField] private GameObject palletReplica;
 
-
-
     private EffectTypes effecttype = EffectTypes.ArtToolReplicator;
     public override EffectTypes EffectType { get => effecttype; }
 
