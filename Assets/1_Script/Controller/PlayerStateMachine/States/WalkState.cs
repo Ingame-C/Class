@@ -72,7 +72,7 @@ namespace Class.StateMachine
 
         public override void PhysicsUpdate()
         {
-            if (Time.time - lastSoundTime >= soundInterval)
+            if (Time.time - lastSoundTime >= soundInterval && !controller.UIisSet)
             {
                 randomWalk = Random.Range(1, 4);
 
