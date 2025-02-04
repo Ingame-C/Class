@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace Class
@@ -33,6 +34,11 @@ namespace Class
 
             return new Vector3(startX, startV.y, startZ);
 
+        }
+
+        public static IEnumerator WaitSeconds(float seconds)
+        {
+            yield return new WaitForSeconds(seconds);
         }
 
     }

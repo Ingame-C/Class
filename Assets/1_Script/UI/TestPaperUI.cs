@@ -28,16 +28,24 @@ namespace  Class.UI
             // TODO: 종이 넘기는 소리 추가
             image.material = materials[index];
         }
-
+        
+        private float timer = 0f;
+        private float checkTerm = 0.3f;
         public override void LogicUpdate()
         {
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(rt, Input.mousePosition, mainCamera, out mousePosition);
-            
-            if (Math.Abs(mousePosition.y) > 400f)
+            if (mousePosition.y > 400f)
             {
                 RectTransform rt_image = image.GetComponent<RectTransform>();
-                float y = mousePosition.y * -1f;
-                rt_image.anchoredPosition = new Vector3(0, rt_image.anchoredPosition.y + (y * 0.005f), 0);
+                Vector3 vector3 = new Vector3(0f, -136.5f, 0f);
+                
+                rt_image.anchoredPosition = Vector3.Lerp(rt_image.anchoredPosition, vector3, Time.deltaTime);
+            }
+            else if (mousePosition.y < -400f)
+            {
+                RectTransform rt_image = image.GetComponent<RectTransform>();
+                Vector3 vector3 = new Vector3(0f, 135.5f, 0f);
+                
+                rt_image.anchoredPosition = Vector3.Lerp(rt_image.anchoredPosition, vector3, Time.deltaTime);
             }
 
             if (Input.GetKeyDown(KeyCode.LeftArrow))
@@ -48,8 +56,11 @@ namespace  Class.UI
             {
                 changePage(1);
             }
-            Debug.Log(index);
-
+            
+            timer += Time.deltaTime;
+            if (timer <= checkTerm) return;
+            timer = 0;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(rt, Input.mousePosition, mainCamera, out mousePosition);
         }
     }
 }

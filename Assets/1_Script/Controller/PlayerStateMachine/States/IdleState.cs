@@ -41,8 +41,7 @@ namespace Class.StateMachine
             {
                 stateMachine.ChangeState(controller.walkState);
             }
-
-
+            
             if (isESCPressed && controller.UIisSet)
             {
                 controller.CurrentUI = null;
