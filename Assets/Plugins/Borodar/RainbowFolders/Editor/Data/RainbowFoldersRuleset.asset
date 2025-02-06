@@ -413,11 +413,11 @@ MonoBehaviour:
     Key: Assets/Argyle
     Ordinal: 33
     Priority: 0
-    IconType: 10
+    IconType: 2110
     SmallIcon: {fileID: 0}
     LargeIcon: {fileID: 0}
     IsIconRecursive: 0
-    BackgroundType: 0
+    BackgroundType: 10
     BackgroundTexture: {fileID: 0}
     IsBackgroundRecursive: 0
     IsHidden: 0
@@ -425,11 +425,11 @@ MonoBehaviour:
     Key: Assets/Arquebuse
     Ordinal: 34
     Priority: 0
-    IconType: 10
+    IconType: 2070
     SmallIcon: {fileID: 0}
     LargeIcon: {fileID: 0}
     IsIconRecursive: 0
-    BackgroundType: 0
+    BackgroundType: 10
     BackgroundTexture: {fileID: 0}
     IsBackgroundRecursive: 0
     IsHidden: 0
@@ -437,11 +437,107 @@ MonoBehaviour:
     Key: Assets/Nimikko_JapaneseClassroom
     Ordinal: 35
     Priority: 0
-    IconType: 10
+    IconType: 2110
     SmallIcon: {fileID: 0}
     LargeIcon: {fileID: 0}
     IsIconRecursive: 0
-    BackgroundType: 0
+    BackgroundType: 10
+    BackgroundTexture: {fileID: 0}
+    IsBackgroundRecursive: 0
+    IsHidden: 0
+  - Type: 1
+    Key: Assets/Opsive
+    Ordinal: 36
+    Priority: 0
+    IconType: 2010
+    SmallIcon: {fileID: 0}
+    LargeIcon: {fileID: 0}
+    IsIconRecursive: 0
+    BackgroundType: 10
+    BackgroundTexture: {fileID: 0}
+    IsBackgroundRecursive: 0
+    IsHidden: 0
+  - Type: 1
+    Key: Assets/UniformGirl
+    Ordinal: 37
+    Priority: 0
+    IconType: 2110
+    SmallIcon: {fileID: 0}
+    LargeIcon: {fileID: 0}
+    IsIconRecursive: 0
+    BackgroundType: 10
+    BackgroundTexture: {fileID: 0}
+    IsBackgroundRecursive: 0
+    IsHidden: 0
+  - Type: 1
+    Key: Assets/Padlock
+    Ordinal: 38
+    Priority: 0
+    IconType: 2110
+    SmallIcon: {fileID: 0}
+    LargeIcon: {fileID: 0}
+    IsIconRecursive: 0
+    BackgroundType: 10
+    BackgroundTexture: {fileID: 0}
+    IsBackgroundRecursive: 0
+    IsHidden: 0
+  - Type: 1
+    Key: Assets/pallet.sub
+    Ordinal: 39
+    Priority: 0
+    IconType: 2110
+    SmallIcon: {fileID: 0}
+    LargeIcon: {fileID: 0}
+    IsIconRecursive: 0
+    BackgroundType: 10
+    BackgroundTexture: {fileID: 0}
+    IsBackgroundRecursive: 0
+    IsHidden: 0
+  - Type: 1
+    Key: Assets/Technical laboratory designer-V1_Room
+    Ordinal: 40
+    Priority: 0
+    IconType: 2110
+    SmallIcon: {fileID: 0}
+    LargeIcon: {fileID: 0}
+    IsIconRecursive: 0
+    BackgroundType: 10
+    BackgroundTexture: {fileID: 0}
+    IsBackgroundRecursive: 0
+    IsHidden: 0
+  - Type: 1
+    Key: Assets/hackyongpum_duplicate
+    Ordinal: 41
+    Priority: 0
+    IconType: 2110
+    SmallIcon: {fileID: 0}
+    LargeIcon: {fileID: 0}
+    IsIconRecursive: 0
+    BackgroundType: 10
+    BackgroundTexture: {fileID: 0}
+    IsBackgroundRecursive: 0
+    IsHidden: 0
+  - Type: 1
+    Key: Assets/Hanzzz
+    Ordinal: 42
+    Priority: 0
+    IconType: 2160
+    SmallIcon: {fileID: 0}
+    LargeIcon: {fileID: 0}
+    IsIconRecursive: 0
+    BackgroundType: 10
+    BackgroundTexture: {fileID: 0}
+    IsBackgroundRecursive: 0
+    IsHidden: 0
+  - Type: 1
+    Key: Assets/_Creepy_Cat
+    Ordinal: 43
+    Priority: 0
+    IconType: 2110
+    SmallIcon: {fileID: 0}
+    LargeIcon: {fileID: 0}
+    IsIconRecursive: 0
+    BackgroundType: 10
     BackgroundTexture: {fileID: 0}
     IsBackgroundRecursive: 0
     IsHidden: 0

@@ -15,7 +15,6 @@ namespace Class.StateMachine
         protected float horzInputRaw = 0f;
         protected float mouseX = 0f;
         protected float mouseY = 0f;
-        protected UI.UI currentUI;
 
         public float VertInput { get => vertInput; }
         public float HorzInput { get => horzInput; }
@@ -39,9 +38,8 @@ namespace Class.StateMachine
         public virtual void LogicUpdate()           // Logic Update
         {         
             HoldGrabbable();
-            if (controller.CurrentUI != null)
-                controller?.CurrentUI.LogicUpdate();
-            if (Input.GetMouseButtonDown(1) && controller.InteractableGrabbing is Grabbable grabbable)
+
+            if (Input.GetMouseButtonDown(1) && controller.InteractableGrabbing is Grabbable grabbable && !controller.UIisSet)
             {
                 grabbable.ReleaseObject();
             }
@@ -54,6 +52,9 @@ namespace Class.StateMachine
                     Debug.Log(item);
                 }
             }
+            
+            if (controller.UIisSet)
+                controller.CurrentUI.LogicUpdate();
 
 
         }       
@@ -90,7 +91,7 @@ namespace Class.StateMachine
                     usable.Interact(controller);
                 }
                 // Grabbalbe Object는 일괄적으로 관리할 예정.
-                else if(controller.RecentlyDetectedProp is Grabbable grabbable)
+                if(controller.RecentlyDetectedProp.TryGetComponent<Grabbable>(out Grabbable grabbable))
                 {
                     grabbable.GrabObject();
                 }

@@ -32,6 +32,7 @@ namespace Class.StateMachine
             returnPosition = chair.transform.position + new Vector3(-chair.transform.localScale.x, controller.transform.position.y-chair.transform.position.y, 0);
             controller.transform.position = (chair.transform.position + Vector3.up * 0.55f);
             controller.SetPlayerRotation(chair.transform.rotation);
+            Camera.main.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y - 0.4f, Camera.main.transform.position.z);
         }
 
         public override void Exit()
@@ -42,6 +43,7 @@ namespace Class.StateMachine
             controller.SetPlayerPosition(returnPosition);
             controller.GetComponent<CapsuleCollider>().isTrigger = false;
             chair.GetComponent<MeshCollider>().isTrigger = false;
+            Camera.main.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y + 0.4f, Camera.main.transform.position.z);
         }
 
 

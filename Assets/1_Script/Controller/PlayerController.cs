@@ -1,6 +1,7 @@
 using Class.StateMachine;
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Class
 {
@@ -21,6 +22,8 @@ namespace Class
         public Rigidbody Rigidbody { get => rigid; }
         public CapsuleCollider CapsuleColl {  get { return capsuleColl; } }
         public Animator Animator { get => animator; }
+        
+        
         public UI.UI CurrentUI
         {
             get => currentUI;
@@ -29,6 +32,7 @@ namespace Class
                 if (value == null)
                 {
                     currentUI.gameObject.SetActive(false);
+                    
                 }
                 else
                 {

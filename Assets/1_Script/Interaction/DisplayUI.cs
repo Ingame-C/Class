@@ -14,7 +14,7 @@ namespace Class
         [SerializeReference] private Image viewportCenter;
         [SerializeField] Color originalColor;
         [SerializeField] Color interactableColor;
-
+        [SerializeField] Color transparentColor;
         private void Awake()
         {
             controller = GetComponent<PlayerController>();
@@ -22,6 +22,13 @@ namespace Class
 
         private void Update()
         {
+
+            if (controller.UIisSet)
+            {
+                viewportCenter.color = transparentColor;
+                return;
+            }
+            
             if (controller.IsDetectInteractable)
             { 
                 viewportCenter.color = interactableColor;
