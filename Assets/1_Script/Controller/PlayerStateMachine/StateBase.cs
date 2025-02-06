@@ -39,7 +39,7 @@ namespace Class.StateMachine
         {         
             HoldGrabbable();
 
-            if (Input.GetMouseButtonDown(1) && controller.InteractableGrabbing is Grabbable grabbable)
+            if (Input.GetMouseButtonDown(1) && controller.InteractableGrabbing is Grabbable grabbable && !controller.UIisSet)
             {
                 grabbable.ReleaseObject();
             }
@@ -91,7 +91,7 @@ namespace Class.StateMachine
                     usable.Interact(controller);
                 }
                 // Grabbalbe Object는 일괄적으로 관리할 예정.
-                else if(controller.RecentlyDetectedProp is Grabbable grabbable)
+                if(controller.RecentlyDetectedProp.TryGetComponent<Grabbable>(out Grabbable grabbable))
                 {
                     grabbable.GrabObject();
                 }

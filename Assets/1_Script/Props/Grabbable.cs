@@ -24,12 +24,12 @@ namespace Class
 
         public void GrabObject()
         {
-            SoundManager.Instance.CreateAudioSource(controller.transform.position, SfxClipTypes.Grab_Object, 1.0f);
+            
             if (controller.IsGrabbing)
             {
                 return;
             }
-
+            SoundManager.Instance.CreateAudioSource(controller.transform.position, SfxClipTypes.Grab_Object, 1.0f);
             // 만약 물건이 책상 아래에 놓여져 있었다면, 책상 위 목록에서 grabbable을 삭제.
             if (desk != null)
             {
@@ -60,7 +60,6 @@ namespace Class
                 this.desk = desk;
                 this.desk.props.Add(this.PropType);
                 upDistance = 0.1f;
-                Debug.Log("놓임");
             }
             else if (controller.RecentlyDetectedProp is Lectern lectern)
             {
