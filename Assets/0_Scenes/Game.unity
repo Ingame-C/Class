@@ -13628,7 +13628,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1138218420
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13949,7 +13949,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: c9571e152610b1c40b3e5a0bfb874004, type: 2}
+  m_Material: {fileID: 2100000, guid: 5bcc8db9426325e44a6a15f2de04a7f3, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -25736,6 +25736,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1629243430815637200, guid: 7c43977c3fb0a5d4ca5fd66c9be42833, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5bcc8db9426325e44a6a15f2de04a7f3, type: 2}
     - target: {fileID: 2987289505485657700, guid: 7c43977c3fb0a5d4ca5fd66c9be42833, type: 3}
       propertyPath: m_Constraints
       value: 112
