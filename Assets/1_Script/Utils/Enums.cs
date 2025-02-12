@@ -64,4 +64,11 @@ namespace Class {
         Test
     }
 
+    public enum ThisManEnums
+    {
+        // 경비원 디스맨이 0번 입니다.
+        bouncer = 0,
+        
+    }
+
 }
