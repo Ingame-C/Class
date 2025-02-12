@@ -2,6 +2,8 @@ using UnityEngine;
 
 namespace Class
 {
+    // 경비 디스맨의 콘트롤러 입니다.
+    // SetThismanTarget 함수에 player을 
     public class ThismanController : MonoBehaviour
     {
         private Transform target;
