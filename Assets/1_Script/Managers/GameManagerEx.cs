@@ -15,7 +15,8 @@ namespace Class
         private static GameManagerEx instance;
         public static GameManagerEx Instance { get { return instance; } }
 
-
+        // 싱글톤과 클리어 조건을 제어하는 리전입니다.
+        #region Init and Awake
         private void Init()
         {
             #region Singleton
@@ -42,16 +43,15 @@ namespace Class
             SceneManager.sceneUnloaded += ClearScene;
             
         }
-
         
-
-        
-
         private void Awake()
         {
             Init();
         }
 
+        #endregion
+        
+        // 각 스테이지 시작시 작동시켜야 할 함수들을 담습니다.
         private void Start()
         {
             OnStageStartAction -= InitThismanManager;
@@ -59,7 +59,7 @@ namespace Class
             OnStageStartAction -= EffectManager.Instance.ResetEffectLogic;
             OnStageStartAction += EffectManager.Instance.ResetEffectLogic;
             
-
+            // 스테이지 1.
             if (currentStage == 1)
             {
                 OnStageStartAction -= DeskManager.Instance.GenerateReflectionOnly;
@@ -67,6 +67,7 @@ namespace Class
                 OnStageStartAction -= DeskManager.Instance.SetRandomPreset;
                 OnStageStartAction += DeskManager.Instance.SetRandomPreset;
             }
+            
             OnStageStartAction.Invoke();
         }
 
@@ -86,7 +87,9 @@ namespace Class
             StartCoroutine(LoadSceneAfterClear(SceneEnums.Game));
             return true;
         }
-
+        
+        
+        // 스테이지에서 게임 오버의 경우.
         public bool OnStageFailed(int failedStageId)
         {
             if (SceneManager.GetActiveScene().name != SceneEnums.Game.ToString()) return false;
@@ -182,7 +185,8 @@ namespace Class
         }
 
 
-
+        // 클리어 했을 때 불러오는 코루틴
+        // 폭죽이 터지며 플레이어가 회전함.
         private IEnumerator LoadSceneAfterClear(SceneEnums sceneEnum)
         {
             isLoadingScene = true;
@@ -202,18 +206,25 @@ namespace Class
             isLoadingScene = false;
         }
 
+        // 스테이지 실패후 불러오는 코루틴
+        // 경비 디스맨이 들어오는 로직 포함, 이를 수정해야 함.
         private IEnumerator LoadSceneAfterFail(SceneEnums sceneEnum)
         {
             isLoadingScene = true;
 
-            // 문열고 기다렸다가 Input Block, Spawn Thisman
-            doorToOpen.Interact(controller);
-            yield return new WaitForSeconds(0.8f);
- 
-            SpawnThisman();
-            OnStageFailAction.Invoke();
-            FinThismanManager();
-            yield return new WaitForSeconds(0.8f);
+            // 경비 디스맨의 경우.
+            // 디스맨 마다 각기 다른 로직이 필요합니다. Enum을 함수의 인자로 입력 받아서 분리를 하던.
+            // 부모 디스맨 클래스를 받고 다형성을 이용하던 해야 합니다.
+            {
+                // 문열고 기다렸다가 Input Block, Spawn Thisman
+                doorToOpen.Interact(controller);
+                yield return new WaitForSeconds(0.8f);
+
+                SpawnBouncerThisman();
+                OnStageFailAction.Invoke();
+                FinThismanManager();
+                yield return new WaitForSeconds(0.8f);
+            }
 
             // 씬 전환
             yield return StartCoroutine(screenBlocker.FadeInCoroutine(1.0f));
@@ -225,7 +236,8 @@ namespace Class
             isLoadingScene = false;
         }
 
-        private void SpawnThisman()
+        // 경비 디스맨을 소환하는 로직입니다.
+        private void SpawnBouncerThisman()
         {
             GameObject tmpThis = Instantiate(thismanPrefab, doorToOpen.OriginalPosition, Quaternion.identity);
             tmpThis.GetComponent<ThismanController>().SetThismanTarget(controller.transform);
@@ -234,6 +246,7 @@ namespace Class
 
         }
 
+        // 경비 디스맨 매니저를 추가합니다.
         private void InitThismanManager()
         {
             thismanManager = Instantiate(thismanManagerPrefab, transform);
@@ -241,6 +254,7 @@ namespace Class
         }
 
 
+        // 경비 디스맨 매니저를 삭제.
         private void FinThismanManager()
         {
             if (thismanManager != null)
