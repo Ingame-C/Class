@@ -1,85 +1,139 @@
-using System.Collections;
 using System;
-using System.Collections.Generic;
 using Class.StateMachine;
 using UnityEngine;
 
 namespace Class
 {
-    [RequireComponent (typeof (Animator))]
+    /// <summary>
+    /// 플레이어의 애니메이션을 제어하는 컨트롤러입니다.
+    /// 걷기, 앉기 등의 애니메이션 상태를 관리합니다.
+    /// </summary>
+    [RequireComponent(typeof(Animator))]
     public class PlayerAnimationController : MonoBehaviour
     {
+        #region Animation Parameters
+        private static readonly string IS_WALKING = "IsWalking";
+        private static readonly string IS_WALKING_BACKWARD = "isWalkingBackward";
+        private static readonly string IS_WALKING_FRONT_RIGHT = "IsWalkingFrontRight";
+        private static readonly string IS_WALKING_FRONT_LEFT = "IsWalkingFrontLeft";
+        private static readonly string IS_SITTING = "IsSitting";
+        #endregion
 
-        private Vector3 prevPosition;
+        #region Components
         [SerializeField] private Animator animator;
         [SerializeField] private PlayerController playerController;
+        #endregion
 
-        [SerializeField] private float speed;
-        private bool isWalking = false;
+        #region Movement Parameters
+        [SerializeField] private float walkSpeedThreshold;
+        private Vector3 prevPosition;
+        private bool isWalking;
+        #endregion
 
+        #region Unity Methods
+        private void Start()
+        {
+            InitializeComponents();
+        }
 
-        void Start()
+        private void FixedUpdate()
+        {
+            UpdateMovementState();
+            UpdateAnimationState();
+            prevPosition = transform.position;
+        }
+        #endregion
+
+        #region Initialization
+        private void InitializeComponents()
         {
             prevPosition = transform.position;
+            
             if (!animator)
             {
                 animator = GetComponent<Animator>();
             }
+            
             if (!playerController)
             {
                 playerController = transform.parent.GetComponent<PlayerController>();
             }
         }
-        void FixedUpdate()
+        #endregion
+
+        #region Movement State
+        private void UpdateMovementState()
         {
-            Vector3 deltaPositon = transform.position - prevPosition;
-            isWalking = (deltaPositon.magnitude / Time.deltaTime) > speed;
-
-            // 걷기 애니메이션.
-            if(playerController.StateMachine.CurState is WalkState walkState && isWalking)
-            {
-                animator.SetBool("IsWalking", true);
-                if (playerController.StateMachine.CurState.VertInput < -0.05f)
-                {
-                    animator.SetBool("isWalkingBackward", true);
-                    animator.SetBool("IsWalkingFrontRight", false);
-                    animator.SetBool("IsWalkingFrontLeft", false);
-                }
-                else if (playerController.StateMachine.CurState.HorzInput < -0.05f)
-                {
-                    animator.SetBool("IsWalkingFrontLeft", true);
-                }
-                else if (playerController.StateMachine.CurState.HorzInput > 0.05f)
-                {
-                    animator.SetBool("IsWalkingFrontRight", true);
-                }
-                else
-                {
-                    animator.SetBool("isWalkingBackward", false);
-                    animator.SetBool("IsWalkingFrontRight", false);
-                    animator.SetBool("IsWalkingFrontLeft", false);
-                }
-            }
-            else
-            {
-                animator.SetBool("IsWalkingFrontRight", false);
-                animator.SetBool("IsWalkingFrontLeft", false);
-                animator.SetBool("IsWalking", false);
-                animator.SetBool("isWalkingBackward", false);
-            }
-
-            if (playerController.StateMachine.CurState is SitState)
-            {
-                animator.SetBool("IsSitting", true);
-            }
-            else
-            {
-                animator.SetBool("IsSitting", false);
-            }
-
-
-            prevPosition = transform.position;
+            Vector3 deltaPosition = transform.position - prevPosition;
+            isWalking = (deltaPosition.magnitude / Time.deltaTime) > walkSpeedThreshold;
         }
+        #endregion
+
+        #region Animation State
+        private void UpdateAnimationState()
+        {
+            UpdateWalkAnimation();
+            UpdateSitAnimation();
+        }
+
+        private void UpdateWalkAnimation()
+        {
+            if (playerController.StateMachine.CurrentState is WalkState && isWalking)
+            {
+                animator.SetBool(IS_WALKING, true);
+                UpdateWalkDirectionAnimation();
+            }
+            else
+            {
+                ResetWalkAnimation();
+            }
+        }
+
+        private void UpdateWalkDirectionAnimation()
+        {
+            var currentState = playerController.StateMachine.CurrentState;
+            
+            if (currentState.VertInput < -0.05f)
+            {
+                animator.SetBool(IS_WALKING_BACKWARD, true);
+                animator.SetBool(IS_WALKING_FRONT_RIGHT, false);
+                animator.SetBool(IS_WALKING_FRONT_LEFT, false);
+            }
+            else if (currentState.HorzInput < -0.05f)
+            {
+                animator.SetBool(IS_WALKING_FRONT_LEFT, true);
+            }
+            else if (currentState.HorzInput > 0.05f)
+            {
+                animator.SetBool(IS_WALKING_FRONT_RIGHT, true);
+            }
+            else
+            {
+                ResetWalkDirectionAnimation();
+            }
+        }
+
+        private void ResetWalkAnimation()
+        {
+            animator.SetBool(IS_WALKING_FRONT_RIGHT, false);
+            animator.SetBool(IS_WALKING_FRONT_LEFT, false);
+            animator.SetBool(IS_WALKING, false);
+            animator.SetBool(IS_WALKING_BACKWARD, false);
+        }
+
+        private void ResetWalkDirectionAnimation()
+        {
+            animator.SetBool(IS_WALKING_BACKWARD, false);
+            animator.SetBool(IS_WALKING_FRONT_RIGHT, false);
+            animator.SetBool(IS_WALKING_FRONT_LEFT, false);
+        }
+
+        private void UpdateSitAnimation()
+        {
+            bool isSitting = playerController.StateMachine.CurrentState is SitState;
+            animator.SetBool(IS_SITTING, isSitting);
+        }
+        #endregion
     }
 }
 

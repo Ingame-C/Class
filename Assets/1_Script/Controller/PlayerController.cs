@@ -12,15 +12,15 @@ namespace Class
     public class PlayerController : MonoBehaviour
     {
 
-        /** Components **/
+        #region Components
         private Rigidbody rigid;
         private CapsuleCollider capsuleColl;
         private Animator animator;
-        
+        #endregion
 
         /** Properties **/
         public Rigidbody Rigidbody { get => rigid; }
-        public CapsuleCollider CapsuleColl {  get { return capsuleColl; } }
+        public CapsuleCollider CapsuleColl { get => capsuleColl; }
         public Animator Animator { get => animator; }
         
         
@@ -89,15 +89,44 @@ namespace Class
         public Transform CameraTransform { get => cameraTransform; }
 
 
-
+        #region Unity Methods
         private void Awake()
+        {
+            InitializeVariables();
+            InitializeComponents();
+            InitializeStateMachine();
+        }
+        private void Start()
+        {
+            InitializeStateMachineState();
+            RegisterGameManagerEvents();
+        }
+        private void Update()
+        {
+            stateMachine.CurrentState.HandleInput();
+            stateMachine.CurrentState.LogicUpdate();
+        }
+        private void FixedUpdate()
+        {
+            stateMachine.CurrentState.PhysicsUpdate();
+        }
+        #endregion
+
+        #region Initialize
+        private void InitializeVariables()
         {
             recentlyDetectedProp = null;
             currentUI = null;
+        }
 
+        private void InitializeComponents()
+        {
             rigid = GetComponent<Rigidbody>();
             capsuleColl = GetComponent<CapsuleCollider>();
-            
+        }
+
+        private void InitializeStateMachine()
+        {
             stateMachine = new PlayerStateMachine();
             idleState = new IdleState(this, stateMachine);
             walkState = new WalkState(this, stateMachine);
@@ -106,26 +135,17 @@ namespace Class
             fallState = new FallState(this, StateMachine);
             hideState = new HideState(this, stateMachine);
         }
-
-        private void Start()
+        private void InitializeStateMachineState()
         {
             stateMachine.Init(sitState);
+        }
+
+        private void RegisterGameManagerEvents()
+        {
             GameManagerEx.Instance.OnStageFailAction += ChangeStateToThisman;
             GameManagerEx.Instance.OnStageClearAction += ChangeStateToFall;
         }
-
-        private void Update()
-        {
-            stateMachine.CurState.HandleInput();
-
-            stateMachine.CurState.LogicUpdate();
-        }
-
-        private void FixedUpdate()
-        {
-            stateMachine.CurState.PhysicsUpdate();
-        }
-
+        #endregion
 
         #region Set Funcs
 
@@ -162,7 +182,6 @@ namespace Class
 
         #endregion
 
-
         #region Logic Control Funcs
 
         private float horzRot = 0f;
@@ -187,9 +206,7 @@ namespace Class
 
             return tmpTime;
         }
-
         #endregion
-
 
         #region Physics Control Funcs
 
@@ -205,56 +222,116 @@ namespace Class
             {
                 rigid.MovePosition(transform.position + moveDir * diag * walkSpeed * 0.5f * Time.fixedDeltaTime);
             }
-            
-
         }
 
         private PropsBase recentlyDetectedProp = null;
         public PropsBase RecentlyDetectedProp { get => recentlyDetectedProp; }
-
         private PropsBase prevDetectedProp = null;
 
-
+        /// <summary>
+        /// 상호작용 가능한 오브젝트를 레이캐스트로 감지하고 아웃라인을 처리합니다.
+        /// </summary>
         public void RaycastInteractableObject()
+        {
+            PerformRaycast();
+            DrawDebugRay();
+        }
+
+        /// <summary>
+        /// 레이캐스트를 수행하고 결과를 처리합니다.
+        /// </summary>
+        private void PerformRaycast()
         {
             RaycastHit hit;
             int targetLayer = Constants.LAYER_INTERACTABLE + Constants.LAYER_STAGE1SCHOOLSUPPLIES + Constants.LAYER_COLLISIONIMPOSSIBLE;
 
             if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out hit, rayLength, targetLayer))
             {
-                isDetectInteractable = true;
-                recentlyDetectedProp = hit.transform.GetComponent<PropsBase>();
-
-                if (prevDetectedProp != null && recentlyDetectedProp != prevDetectedProp) 
-                {
-                    if (prevDetectedProp.gameObject.TryGetComponent<Outline>(out Outline outline1))
-                    {
-                        outline1.OutlineMode = Outline.Mode.OutlineHidden;
-                        outline1.OutlineWidth = 0f;
-                    }
-                }
-
-                if (recentlyDetectedProp.gameObject.TryGetComponent<Outline>(out Outline outline))
-                {
-                    outline.OutlineMode = Outline.Mode.OutlineAll;
-                    outline.OutlineColor = Color.red;
-                    outline.OutlineWidth = 5f;
-                }
-
-                prevDetectedProp = recentlyDetectedProp;
+                HandleRaycastHit(hit);
             }
             else
-            {                
-                if (recentlyDetectedProp != null && recentlyDetectedProp.gameObject.TryGetComponent<Outline>(out Outline outline)) 
-                {
-                    outline.OutlineMode = Outline.Mode.OutlineHidden;
-                    outline.OutlineWidth = 0f;
-                }
+            {
+                HandleRaycastMiss();
+            }
+        }
 
-                isDetectInteractable = false;
-                recentlyDetectedProp = null;
+        /// <summary>
+        /// 레이캐스트 히트 시 처리를 담당합니다.
+        /// </summary>
+        private void HandleRaycastHit(RaycastHit hit)
+        {
+            isDetectInteractable = true;
+            recentlyDetectedProp = hit.transform.GetComponent<PropsBase>();
+
+            UpdatePreviousPropOutline();
+            UpdateCurrentPropOutline();
+            
+            prevDetectedProp = recentlyDetectedProp;
+        }
+
+        /// <summary>
+        /// 이전 프롭의 아웃라인을 업데이트합니다.
+        /// </summary>
+        private void UpdatePreviousPropOutline()
+        {
+            if (prevDetectedProp != null && recentlyDetectedProp != prevDetectedProp)
+            {
+                if (prevDetectedProp.gameObject.TryGetComponent<Outline>(out Outline outline))
+                {
+                    HideOutline(outline);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 현재 프롭의 아웃라인을 업데이트합니다.
+        /// </summary>
+        private void UpdateCurrentPropOutline()
+        {
+            if (recentlyDetectedProp.gameObject.TryGetComponent<Outline>(out Outline outline))
+            {
+                ShowOutline(outline);
+            }
+        }
+
+        /// <summary>
+        /// 레이캐스트 미스 시 처리를 담당합니다.
+        /// </summary>
+        private void HandleRaycastMiss()
+        {
+            if (recentlyDetectedProp != null && recentlyDetectedProp.gameObject.TryGetComponent<Outline>(out Outline outline))
+            {
+                HideOutline(outline);
             }
 
+            isDetectInteractable = false;
+            recentlyDetectedProp = null;
+        }
+
+        /// <summary>
+        /// 아웃라인을 표시합니다.
+        /// </summary>
+        private void ShowOutline(Outline outline)
+        {
+            outline.OutlineMode = Outline.Mode.OutlineAll;
+            outline.OutlineColor = Color.red;
+            outline.OutlineWidth = 5f;
+        }
+
+        /// <summary>
+        /// 아웃라인을 숨깁니다.
+        /// </summary>
+        private void HideOutline(Outline outline)
+        {
+            outline.OutlineMode = Outline.Mode.OutlineHidden;
+            outline.OutlineWidth = 0f;
+        }
+
+        /// <summary>
+        /// 디버그 레이를 그립니다.
+        /// </summary>
+        private void DrawDebugRay()
+        {
             Debug.DrawRay(cameraTransform.position, cameraTransform.forward * rayLength, Color.red);
         }
 
@@ -264,14 +341,8 @@ namespace Class
             if (collision.collider.gameObject.CompareTag(Constants.TAG_LAVAOBJECT))
             {
                 // TODO: GAMEOVER 시켜야 합니다.
-                
             }
         }
-
-
-
         #endregion
-
-
     }
 }

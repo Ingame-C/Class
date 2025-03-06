@@ -282,6 +282,7 @@ namespace Class
             thismanManager = Instantiate(thismanManagerPrefab, transform);
             thismanManager.GetComponent<ThismanManager>().Init();
         }
+
         private void FinThismanManager()
         {
             if (thismanManager != null)
@@ -290,15 +291,23 @@ namespace Class
                 thismanManager = null;
             }
         }
+
         private void SpawnBouncerThisman()
         {
-            GameObject tmpThis = Instantiate(thismanPrefab, doorToOpen.OriginalPosition, Quaternion.identity);
-            tmpThis.GetComponent<ThismanController>().SetThismanTarget(controller.transform);
-            controller.GetComponent<PlayerController>().thismanState.Thisman = tmpThis.transform;
+            GameObject thismanObject = Instantiate(thismanPrefab, doorToOpen.OriginalPosition, Quaternion.identity);
+            var thismanController = thismanObject.GetComponent<ThismanController>();
+            var playerController = controller.GetComponent<PlayerController>();
+
+            thismanController.SetThismanTarget(playerController.transform);
+            playerController.thismanState.ThismanTransform = thismanObject.transform;
         }
-                public void IncreaseThismanProb()
+
+        public void IncreaseThismanSpawnProbability()
         {
-            thismanManager.GetComponent<ThismanManager>().IncreaseProb();
+            if (thismanManager != null)
+            {
+                thismanManager.GetComponent<ThismanManager>().IncreaseSpawnProbability();
+            }
         }
         # endregion
     
@@ -321,8 +330,10 @@ namespace Class
             if (remainedPlayTime < 0 && isTimerSet)
             {
                 isTimerSet = false;
-                if(thismanManager != null &&
-                        !thismanManager.GetComponent<ThismanManager>().IsComing) OnStageFailed(currentStage);
+                if (thismanManager != null && !thismanManager.GetComponent<ThismanManager>().IsApproaching)
+                {
+                    OnStageFailed(currentStage);
+                }
             }
 
             remainedPlayTime -= Time.deltaTime;

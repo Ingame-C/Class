@@ -3,67 +3,61 @@ using UnityEngine;
 
 namespace Class.StateMachine
 {
+    /// <summary>
+    /// 플레이어의 모든 상태의 기본 클래스입니다.
+    /// 입력 처리와 기본 동작을 정의합니다.
+    /// </summary>
     public class StateBase
     {
-        protected PlayerController controller;      // Needed to control player (ex. move)
+        #region Constants
+        protected const float GRABBLE_DISTANCE = 0.5f;
+        #endregion
+
+        #region Protected Fields
+        protected PlayerController controller;
         protected PlayerStateMachine stateMachine;
+        #endregion
 
-        /** Input Values **/
-        protected float vertInput = 0f;
-        protected float horzInput = 0f;
-        protected float vertInputRaw = 0f;
-        protected float horzInputRaw = 0f;
-        protected float mouseX = 0f;
-        protected float mouseY = 0f;
+        #region Input Values
+        protected float vertInput;
+        protected float horzInput;
+        protected float vertInputRaw;
+        protected float horzInputRaw;
+        protected float mouseX;
+        protected float mouseY;
+        protected bool isESCPressed;
 
-        public float VertInput { get => vertInput; }
-        public float HorzInput { get => horzInput; }
-        public float VertInputRaw { get => vertInputRaw; }
-        public float HorzInputRaw { get => horzInputRaw; }
-        public float MouseX { get => mouseX; }
-        public float MouseY { get => mouseY; }
-        
+        public float VertInput => vertInput;
+        public float HorzInput => horzInput;
+        public float VertInputRaw => vertInputRaw;
+        public float HorzInputRaw => horzInputRaw;
+        public float MouseX => mouseX;
+        public float MouseY => mouseY;
+        #endregion
 
-
-        protected bool isESCPressed = false;
-
+        #region Constructor
         public StateBase(PlayerController controller, PlayerStateMachine stateMachine)
         {
             this.controller = controller;
             this.stateMachine = stateMachine;
         }
+        #endregion
 
-        public virtual void Enter() { }             // Run once when Enter State
-        public virtual void HandleInput() { }       // Manage Input in particular state
-        public virtual void LogicUpdate()           // Logic Update
+        #region Virtual Methods
+        public virtual void Enter() { }
+        public virtual void HandleInput() { }
+        public virtual void PhysicsUpdate() { }
+        public virtual void Exit() { }
+
+        public virtual void LogicUpdate()
         {         
-            HoldGrabbable();
+            HandleGrabbableObject();
+            HandleInteractionInput();
+            UpdateUI();
+        }
+        #endregion
 
-            if (Input.GetMouseButtonDown(1) && controller.InteractableGrabbing is Grabbable grabbable && !controller.UIisSet)
-            {
-                grabbable.ReleaseObject();
-            }
-
-            // Test
-            if (Input.GetKeyDown(KeyCode.K) && controller.RecentlyDetectedProp is Desk desk)
-            {
-                foreach (var item in desk.props)
-                {
-                    Debug.Log(item);
-                }
-            }
-            
-            if (controller.UIisSet)
-                controller.CurrentUI.LogicUpdate();
-
-
-        }       
-        public virtual void PhysicsUpdate() { }     // Only Physics Update
-        public virtual void Exit() { }              // Run once when Exit State
-
-
-        #region Input Modules
-
+        #region Input Handling
         protected void GetMouseInput(out float mouseX, out float mouseY)
         {
             mouseX = Input.GetAxis("Mouse X");
@@ -84,44 +78,75 @@ namespace Class.StateMachine
 
         protected void GetInteractableInput()
         {
-            if(Input.GetMouseButtonDown(0) && controller.IsDetectInteractable)
+            if (Input.GetMouseButtonDown(0) && controller.IsDetectInteractable)
             {
-                if(controller.RecentlyDetectedProp is Usable usable)
-                {
-                    usable.Interact(controller);
-                }
-                // Grabbalbe Object는 일괄적으로 관리할 예정.
-                if(controller.RecentlyDetectedProp.TryGetComponent<Grabbable>(out Grabbable grabbable))
-                {
-                    grabbable.GrabObject();
-                }
+                HandleInteractableObject();
             }
         }
 
         protected void GetInteractOutInput(out bool isPressed)
         {
-            isPressed = false;
-            if (Input.GetMouseButtonDown(1))
-            {
-                isPressed = true;
-            }
+            isPressed = Input.GetMouseButtonDown(1);
         }
-
-        private void HoldGrabbable()
-        {
-            if (controller.InteractableGrabbing == null)
-            {
-                return;
-            }
-
-            // Grabbalbe의 위치 조정.
-            Vector3 _grabblePosition = controller.CameraTransform.position + controller.CameraTransform.forward * 0.5f;
-            _grabblePosition += controller.CameraTransform.up * controller.GrabbaleHori + controller.CameraTransform.right * controller.GrabbaleVert;
-            controller.InteractableGrabbing.transform.position = _grabblePosition;
-        }
-
         #endregion
-        
-    }
 
+        #region Logic Update Methods
+        private void HandleGrabbableObject()
+        {
+            if (controller.InteractableGrabbing == null) return;
+
+            UpdateGrabbablePosition();
+            HandleGrabbableRelease();
+        }
+
+        private void UpdateGrabbablePosition()
+        {
+            Vector3 grabblePosition = controller.CameraTransform.position + 
+                                    controller.CameraTransform.forward * GRABBLE_DISTANCE +
+                                    controller.CameraTransform.up * controller.GrabbaleHori + 
+                                    controller.CameraTransform.right * controller.GrabbaleVert;
+            
+            controller.InteractableGrabbing.transform.position = grabblePosition;
+        }
+
+        private void HandleGrabbableRelease()
+        {
+            if (Input.GetMouseButtonDown(1) && 
+                controller.InteractableGrabbing is Grabbable grabbable && 
+                !controller.UIisSet)
+            {
+                grabbable.ReleaseObject();
+            }
+        }
+
+        private void HandleInteractionInput()
+        {
+            if (Input.GetMouseButtonDown(0) && controller.IsDetectInteractable)
+            {
+                HandleInteractableObject();
+            }
+        }
+
+        private void HandleInteractableObject()
+        {
+            if (controller.RecentlyDetectedProp is Usable usable)
+            {
+                usable.Interact(controller);
+            }
+
+            if (controller.RecentlyDetectedProp.TryGetComponent<Grabbable>(out Grabbable grabbable))
+            {
+                grabbable.GrabObject();
+            }
+        }
+
+        private void UpdateUI()
+        {
+            if (controller.UIisSet)
+            {
+                controller.CurrentUI.LogicUpdate();
+            }
+        }
+        #endregion
+    }
 }

@@ -5,136 +5,158 @@ using UnityEngine;
 
 namespace Class
 {
-    // 경비 디스맨의 매니저 입니다.
+    /// <summary>
+    /// 경비 디스맨의 등장과 행동을 관리하는 매니저입니다.
+    /// </summary>
     public class ThismanManager : MonoBehaviour
     {
+        #region Spawn Settings
+        [Header("디스맨 등장 설정")]
+        [SerializeField] private float checkInterval = 5f;           // 디스맨 등장 체크 간격
+        [SerializeField, Range(0f, 1f)] private float spawnProbability = 0.3f;  // 등장 확률
+        [SerializeField] private float approachTime = 10f;          // 접근 시간
+        [SerializeField] private float retreatTime = 8f;            // 퇴장 시간
+        #endregion
 
-        [SerializeField] private float checkTerm;                       // checkTerm 마다 디스맨이 등장할지말지 여부 확인
-        [SerializeField, Range(0f, 1f)] private float probability;      // checkTerm 마다 디스맨 전조증상 나타날 확률
-        [SerializeField] private float moveInTime;                      // 걸어오는 시간. 알아채기 + 숨기까지 충분한 시간 필요.
-        [SerializeField] private float moveOutTime;                     // 걸어가는 시간
+        #region Time Settings
+        [Header("시간 설정")]
+        private const float INITIAL_WAIT_TIME = 150f;              // 첫 등장 대기 시간 (2분 30초)
+        private const float ACTIVE_TIME = 180f;                    // 활성화 시간 (3분)
+        private const float FOOTSTEP_INTERVAL = 2.338f;            // 발자국 소리 간격
+        private const float FOOTSTEP_VOLUME_INCREASE = 0.07f;      // 발자국 소리 볼륨 증가율
+        #endregion
 
-        [SerializeField] private bool isPlayerHide;
+        #region State Variables
+        private bool isPlayerHidden;
+        private bool isGameOver;
+        private bool isActiveTime;
+        private bool isChecking;
+        private bool isApproaching;
+        private float checkTimer;
+        private PlayerController playerController;
 
-        
-        private bool isGameOver = false;
-        private bool isTimeToCome = false;
-        private bool isChecking = false;
-        private bool isComing = false;
-        private float thismanTimer = 0f;
-        private PlayerController controller;
+        public bool IsApproaching => isApproaching;
+        #endregion
 
-        public bool IsComing { get { return isComing; } }
-
-
-        public void Init()
-        {
-            isChecking = true;
-            thismanTimer = 0f;
-            isComing = false;
-            controller =  GameObject.Find(Constants.NAME_PLAYER)?.GetComponent<PlayerController>();
-        }
-
+        #region Unity Methods
         private void Start()
         {
-            // 3 스테이지 이전이라면 경비 디스맨은 나타나지 않는다.
             if (GameManagerEx.Instance.CurrentStage < 3) return;
-            
-            StartCoroutine(WaitTimeToCome());
+            StartCoroutine(ManageActiveTime());
         }
 
         private void Update()
         {
-            if (!isTimeToCome) return;
-            if (!isChecking || isComing) return;
+            if (!isActiveTime || !isChecking || isApproaching) return;
 
-            thismanTimer += Time.deltaTime;
-
-            if (thismanTimer > checkTerm)
+            checkTimer += Time.deltaTime;
+            if (checkTimer >= checkInterval)
             {
-                float rand = UnityEngine.Random.Range(0f, 1f);
-                Debug.Log($"RANDOM CHECK : {rand}, {(probability - Mathf.Epsilon)}");
-                if (rand < (probability - Mathf.Epsilon))
-                {
-                    StartCoroutine(ExecuteEarlySign());
-                }
-                thismanTimer = 0f;
+                CheckForSpawn();
+                checkTimer = 0f;
+            }
+        }
+        #endregion
+
+        #region Initialization
+        public void Init()
+        {
+            isChecking = true;
+            checkTimer = 0f;
+            isApproaching = false;
+            playerController = GameObject.Find(Constants.NAME_PLAYER)?.GetComponent<PlayerController>();
+        }
+        #endregion
+
+        #region Spawn Logic
+        private void CheckForSpawn()
+        {
+            float randomValue = UnityEngine.Random.Range(0f, 1f);
+            if (randomValue < (spawnProbability - Mathf.Epsilon))
+            {
+                StartCoroutine(HandleThismanApproach());
             }
         }
 
-        // 디스맨이 나타나기 전의 전조 증상입니다.
-        private IEnumerator ExecuteEarlySign()
+        private IEnumerator HandleThismanApproach()
         {
-            isTimeToCome = false;
-            isComing = true;
-            yield return StartCoroutine(MoveInCoroutine());
+            isActiveTime = false;
+            isApproaching = true;
 
-            isPlayerHide = GameManagerEx.Instance.Controller.StateMachine.CurState == GameManagerEx.Instance.Controller.hideState;
+            yield return StartCoroutine(ApproachCoroutine());
 
-            if (!isPlayerHide || !GameManagerEx.Instance.IsTimerSet) // Player가 안숨음 or Timer Expired
+            isPlayerHidden = GameManagerEx.Instance.Controller.StateMachine.CurrentState == GameManagerEx.Instance.Controller.hideState;
+
+            if (!isPlayerHidden || !GameManagerEx.Instance.IsTimerSet)
             {
                 isGameOver = false;
                 GameManagerEx.Instance.OnStageFailed(-1);
             }
-            else        // 숨음
+            else
             {
-                yield return StartCoroutine(MoveOutCoroutine());
+                yield return StartCoroutine(RetreatCoroutine());
             }
-
         }
+        #endregion
 
-        private IEnumerator MoveInCoroutine()
+        #region Movement Coroutines
+        private IEnumerator ApproachCoroutine()
         {
             float elapsedTime = 0f;
-
-
-            while (elapsedTime < moveInTime)
+            while (elapsedTime < approachTime)
             {
-                SoundManager.Instance.CreateAudioSource(transform.position, SfxClipTypes.Thisman_Walk, 0.0f, elapsedTime * 0.07f);
-                yield return new WaitForSeconds(2.338f); // 걷는clip Length 를 받아와야 합니다.
+                PlayFootstepSound(elapsedTime);
+                yield return new WaitForSeconds(FOOTSTEP_INTERVAL);
                 elapsedTime += 0.6f;
             }
-
         }
 
-        private IEnumerator MoveOutCoroutine()
+        private IEnumerator RetreatCoroutine()
         {
             float elapsedTime = 0f;
-
-            while (elapsedTime < moveOutTime)
+            while (elapsedTime < retreatTime)
             {
-                // TODO : 걷는 소리. 점점 작게
-                Debug.Log("저벅");
-                yield return new WaitForSeconds(0.6f); // 걷는clip Length 를 받아와야 합니다.
+                // TODO: 발자국 소리 점진적 감소 구현
+                yield return new WaitForSeconds(0.6f);
                 elapsedTime += 0.6f;
             }
-            isComing = false;
+            isApproaching = false;
         }
-        
-        private void OnGameEnd()
-        {
-            isChecking = false;
-        }
+        #endregion
 
-        public void IncreaseProb()
+        #region Sound Effects
+        private void PlayFootstepSound(float elapsedTime)
         {
-            probability *= 2;
+            SoundManager.Instance.CreateAudioSource(
+                transform.position, 
+                SfxClipTypes.Thisman_Walk, 
+                0.0f, 
+                elapsedTime * FOOTSTEP_VOLUME_INCREASE
+            );
         }
-        
-        // 경비 디스맨의 등장 가능한 시간대를 조정하는 함수 입니다.
-        IEnumerator WaitTimeToCome()
+        #endregion
+
+        #region Time Management
+        private IEnumerator ManageActiveTime()
         {
-            // 2분 30초부터 5분 30초까지 디스맨이 나타날 수 있음.
-            yield return new WaitForSeconds(150f);
-            isTimeToCome = true;
-            yield return new WaitForSeconds(180f);
-            isTimeToCome = false;
-            // 그 이후 3분 마다 디스맨이 나타날 수도 있음.
+            yield return new WaitForSeconds(INITIAL_WAIT_TIME);
+            isActiveTime = true;
+            yield return new WaitForSeconds(ACTIVE_TIME);
+            isActiveTime = false;
+
             while (!isGameOver)
             {
-                yield return new WaitForSeconds(180f);
-                isTimeToCome = true;
+                yield return new WaitForSeconds(ACTIVE_TIME);
+                isActiveTime = true;
             }
         }
+        #endregion
+
+        #region Public Methods
+        public void IncreaseSpawnProbability()
+        {
+            spawnProbability *= 2;
+        }
+        #endregion
     }
 }

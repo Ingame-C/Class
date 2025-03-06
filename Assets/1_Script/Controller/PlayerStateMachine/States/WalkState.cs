@@ -3,30 +3,38 @@ using UnityEngine;
 
 namespace Class.StateMachine
 {
-
+    /// <summary>
+    /// 플레이어의 이동 상태를 관리합니다.
+    /// </summary>
     public class WalkState : StateBase
     {
+        #region Constants
+        private const float DIAGONAL_MOVEMENT_FACTOR = 0.71f;
+        private const float MOVEMENT_THRESHOLD = 0.5f;
+        private const float BACKWARD_SOUND_MULTIPLIER = 1.2f;
+        private const float DEFAULT_SOUND_INTERVAL = 0.472f;
+        #endregion
 
-        private float diagW;
-        private float speed;
-
+        #region Variables
+        private float diagonalWeight;
+        private float currentSpeed;
         private float lastSoundTime = -Mathf.Infinity;
-        private float soundInterval = 0.472f;
-        private int randomWalk = 1;
+        private float soundInterval = DEFAULT_SOUND_INTERVAL;
+        private int randomWalkSoundIndex = 1;
+        #endregion
 
+        #region Constructor
         public WalkState(PlayerController controller, PlayerStateMachine stateMachine) 
             : base(controller, stateMachine)
         {
-
         }
+        #endregion
 
+        #region State Methods
         public override void Enter()
         {
             base.Enter();
-
-            vertInput = horzInput = vertInputRaw = horzInputRaw = 0f;
-            diagW = 1.0f;
-
+            InitializeWalkState();
         }
 
         public override void Exit()
@@ -37,7 +45,6 @@ namespace Class.StateMachine
         public override void HandleInput()
         {
             base.HandleInput();
-
             GetInteractOutInput(out isESCPressed);
             GetMovementInput(out vertInput, out horzInput);
             GetMovementInputRaw(out vertInputRaw, out horzInputRaw);
@@ -45,18 +52,49 @@ namespace Class.StateMachine
             GetInteractableInput();
         }
 
-
         public override void LogicUpdate()
         {
             base.LogicUpdate();
+            HandleMovementState();
+            HandleUIState();
+        }
 
-            speed = Mathf.Abs(vertInput) + Mathf.Abs(horzInput);
+        public override void PhysicsUpdate()
+        {
+            base.PhysicsUpdate();
+            HandleFootstepSound();
+            controller.RaycastInteractableObject();
+            UpdateDiagonalMovement();
+            HandleMovement();
+        }
+        #endregion
 
-            if (Mathf.Approximately(speed, 0f))
+        #region Private Methods
+        private void InitializeWalkState()
+        {
+            ResetMovementInput();
+            diagonalWeight = 1.0f;
+        }
+
+        private void HandleMovementState()
+        {
+            currentSpeed = Mathf.Abs(vertInput) + Mathf.Abs(horzInput);
+            if (Mathf.Approximately(currentSpeed, 0f))
             {
                 stateMachine.ChangeState(controller.idleState);
             }
-            
+        }
+
+        private void HandleMovement()
+        {
+            if (!controller.UIisSet)
+            {
+                controller.WalkWithArrow(horzInputRaw, vertInputRaw, diagonalWeight);
+            }
+        }
+
+        private void HandleUIState()
+        {
             if (isESCPressed && controller.UIisSet)
             {
                 controller.CurrentUI = null;
@@ -67,45 +105,57 @@ namespace Class.StateMachine
             {
                 controller.RotateWithMouse(mouseX, mouseY);
             }
-            
         }
 
-        public override void PhysicsUpdate()
+        private void HandleFootstepSound()
         {
             if (Time.time - lastSoundTime >= soundInterval && !controller.UIisSet)
             {
-                randomWalk = Random.Range(1, 4);
+                PlayRandomFootstepSound();
+                UpdateSoundInterval();
+                lastSoundTime = Time.time;
+            }
+        }
 
-                if (randomWalk < 2)
-                {
+        private void PlayRandomFootstepSound()
+        {
+            randomWalkSoundIndex = Random.Range(1, 4);
+            switch (randomWalkSoundIndex)
+            {
+                case 1:
                     SoundManager.Instance.CreateAudioSource(controller.transform.position, SfxClipTypes.Player_Walk_1, 1.0f);
                     soundInterval = 0.472f;
-                }
-                else if (randomWalk < 3)
-                {
+                    break;
+                case 2:
                     SoundManager.Instance.CreateAudioSource(controller.transform.position, SfxClipTypes.Player_Walk_2, 1.0f);
                     soundInterval = 0.503f;
-                }
-                else
-                {
+                    break;
+                case 3:
                     SoundManager.Instance.CreateAudioSource(controller.transform.position, SfxClipTypes.Player_Walk_3, 1.0f);
                     soundInterval = 0.382f;
-                }
-
-                if(vertInput < 0)
-                {
-                    soundInterval *= 1.2f;
-                }
-
-                lastSoundTime = Time.time; // 마지막 재생 시간 업데이트
+                    break;
             }
-            base.PhysicsUpdate();
-            controller.RaycastInteractableObject();
-
-            diagW = (Mathf.Abs(horzInput) > 0.5f && Mathf.Abs(vertInput) > 0.5f) ? 0.71f : 1.0f;
-            if(!controller.UIisSet)
-                controller.WalkWithArrow(horzInputRaw, vertInputRaw, diagW);
         }
-    }
 
+        private void UpdateSoundInterval()
+        {
+            if (vertInput < 0)
+            {
+                soundInterval *= BACKWARD_SOUND_MULTIPLIER;
+            }
+        }
+
+        private void UpdateDiagonalMovement()
+        {
+            diagonalWeight = (Mathf.Abs(horzInput) > MOVEMENT_THRESHOLD && 
+                            Mathf.Abs(vertInput) > MOVEMENT_THRESHOLD) ? 
+                            DIAGONAL_MOVEMENT_FACTOR : 1.0f;
+        }
+
+        private void ResetMovementInput()
+        {
+            vertInput = horzInput = vertInputRaw = horzInputRaw = 0f;
+        }
+        #endregion
+    }
 }

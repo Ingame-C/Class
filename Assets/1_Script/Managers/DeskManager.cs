@@ -5,17 +5,26 @@ using UnityEngine;
 
 namespace Class
 {
-    public class DeskManager: MonoBehaviour
+    /// <summary>
+    /// 책상과 관련된 모든 기능을 관리하는 매니저 클래스입니다.
+    /// 책상의 프리셋 관리, 반영 전용 오브젝트 생성 등을 담당합니다.
+    /// </summary>
+    public class DeskManager : MonoBehaviour
     {
+        #region Singleton
+        private static DeskManager instance;
+        public static DeskManager Instance { get { return instance; } }
+        #endregion
 
+        #region Serialized Fields
         [Header("Desks")]
         [SerializeField] private Desk[] Desks;
 
-        private List<List<PropTypes>> preset = new List<List<PropTypes>>();
+        [Header("Preset Settings")]
         [SerializeField] private int presetIndex;
         public int PresetIndex { get { return presetIndex; } }
 
-        [Header("Logics")]
+        [Header("Reflection Settings")]
         [SerializeField] private float heightOfReflectOnly = 1.0f;
 
         [Header("Prefabs")]
@@ -28,13 +37,71 @@ namespace Class
         [Header("Parents")]
         [Space]
         [SerializeField] private Transform ReflectOnlyParent;
+        #endregion
 
-        #region Singleton
-        private static DeskManager instance;
-        public static DeskManager Instance { get { return instance; } }
+        #region Private Fields
+        private List<List<PropTypes>> preset = new List<List<PropTypes>>();
+        #endregion
 
+        #region Unity Methods
+        private void Awake()
+        {
+            InitializeSingleton();
+            InitializePresets();
+        }
+        #endregion
 
-        private void Init()
+        #region Public Methods
+        /// <summary>
+        /// 씬 로드 후 책상들을 로드합니다.
+        /// </summary>
+        public void LoadDesks()
+        {
+            GameObject desksParent = FindDesksParent();
+            if (desksParent == null) return;
+
+            LoadDeskComponents(desksParent);
+        }
+
+        /// <summary>
+        /// 현재 책상 배치가 프리셋과 일치하는지 확인합니다.
+        /// </summary>
+        /// <returns>일치하면 true, 아니면 false</returns>
+        public bool CheckCleared()
+        {
+            for(int i = 0; i < 20; i++)
+            {
+                if (!IsDeskCorrect(i))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// 랜덤한 프리셋을 선택합니다.
+        /// </summary>
+        public void SetRandomPreset()
+        {
+            presetIndex = UnityEngine.Random.Range(0, preset.Count());
+        }
+
+        /// <summary>
+        /// 반영 전용 오브젝트들을 생성합니다.
+        /// </summary>
+        public void GenerateReflectionOnly()
+        {
+            List<GameObject> reflectionOnlys = CreateReflectionOnlyObjects();
+            SetReflectionOnlysParent(reflectionOnlys);
+        }
+        #endregion
+
+        #region Private Methods
+        /// <summary>
+        /// 싱글톤 인스턴스를 초기화합니다.
+        /// </summary>
+        private void InitializeSingleton()
         {
             if (instance == null)
             {
@@ -47,7 +114,6 @@ namespace Class
 
                 DontDestroyOnLoad(go);
                 instance = go.GetComponent<DeskManager>();
-
             }
             else
             {
@@ -55,12 +121,21 @@ namespace Class
                 return;
             }
         }
-        #endregion
 
-        void Awake()
+        /// <summary>
+        /// 프리셋 데이터를 초기화합니다.
+        /// </summary>
+        private void InitializePresets()
         {
-            Init();
-            #region initialization preset
+            InitializePreset1();
+            InitializePreset2();
+            InitializePreset3();
+            InitializePreset4();
+            InitializePreset5();
+        }
+
+        private void InitializePreset1()
+        {
             preset.Add(new List<PropTypes>
             {
                 PropTypes.None, PropTypes.Crayons, PropTypes.None, PropTypes.None, PropTypes.ColoredPencil,     // 1분단
@@ -68,67 +143,72 @@ namespace Class
                 PropTypes.Crayons, PropTypes.None, PropTypes.None, PropTypes.Pallet, PropTypes.Crayons,         // 3분단
                 PropTypes.None, PropTypes.Pallet, PropTypes.None, PropTypes.ColoredPencil, PropTypes.None       // 4분단
             });
+        }
 
+        private void InitializePreset2()
+        {
             preset.Add(new List<PropTypes>
             {
                 PropTypes.ColoredPencil, PropTypes.None, PropTypes.Pallet, PropTypes.None, PropTypes.None,
                 PropTypes.None, PropTypes.None, PropTypes.Pallet, PropTypes.Crayons, PropTypes.None,
                 PropTypes.Crayons, PropTypes.Pallet, PropTypes.None, PropTypes.None, PropTypes.ColoredPencil,
-                PropTypes.ColoredPencil, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.Crayons,
+                PropTypes.ColoredPencil, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.Crayons
             });
+        }
 
+        private void InitializePreset3()
+        {
             preset.Add(new List<PropTypes>
             {
                 PropTypes.ColoredPencil, PropTypes.Crayons, PropTypes.Pallet, PropTypes.None, PropTypes.None,
                 PropTypes.Crayons, PropTypes.Pallet, PropTypes.ColoredPencil, PropTypes.None, PropTypes.None,
                 PropTypes.Pallet, PropTypes.ColoredPencil, PropTypes.Crayons, PropTypes.None, PropTypes.None,
-                PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None,
+                PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None
             });
+        }
 
+        private void InitializePreset4()
+        {
             preset.Add(new List<PropTypes>
             {
                 PropTypes.None, PropTypes.Pallet, PropTypes.Pallet, PropTypes.None, PropTypes.Crayons,
                 PropTypes.None, PropTypes.None, PropTypes.ColoredPencil, PropTypes.None, PropTypes.None,
                 PropTypes.None, PropTypes.ColoredPencil, PropTypes.None, PropTypes.None, PropTypes.Pallet,
-                PropTypes.Crayons, PropTypes.None, PropTypes.Crayons, PropTypes.None, PropTypes.ColoredPencil,
+                PropTypes.Crayons, PropTypes.None, PropTypes.Crayons, PropTypes.None, PropTypes.ColoredPencil
             });
+        }
 
+        private void InitializePreset5()
+        {
             preset.Add(new List<PropTypes>
             {
                 PropTypes.ColoredPencil, PropTypes.None, PropTypes.None, PropTypes.Pallet, PropTypes.None,
                 PropTypes.None, PropTypes.Crayons, PropTypes.None, PropTypes.ColoredPencil, PropTypes.None,
                 PropTypes.Crayons, PropTypes.None, PropTypes.Pallet, PropTypes.None, PropTypes.Crayons,
-                PropTypes.Pallet, PropTypes.None, PropTypes.ColoredPencil, PropTypes.None, PropTypes.None,
+                PropTypes.Pallet, PropTypes.None, PropTypes.ColoredPencil, PropTypes.None, PropTypes.None
             });
-            #endregion
         }
 
-        /// <summary>
-        /// Load Desks after loading scene
-        /// </summary>
-        public void LoadDesks()
+        private GameObject FindDesksParent()
         {
-            GameObject go = null;
             var initProps = GameObject.FindGameObjectsWithTag(Constants.TAG_INITPROPS);
-            foreach (GameObject prop in initProps)
-            {
-                if (prop.name == "Desks")
-                {
-                    go = prop;
-                    break;
-                }
-            }
+            GameObject desksParent = initProps.FirstOrDefault(prop => prop.name == "Desks");
 
-            if(go == null)
+            if(desksParent == null)
             {
                 Debug.LogError("There is no 'Desks' object in Scene");
-                return;
+                return null;
             }
 
+            return desksParent;
+        }
+
+        private void LoadDeskComponents(GameObject desksParent)
+        {
             int counter = 0;
-            foreach (Transform child in go.transform)
+            foreach (Transform child in desksParent.transform)
             {
-                if(counter >= Desks.Count() || child.GetComponent<Desk>() == null)
+                if(counter >= Desks.Length || child.GetComponent<Desk>() == null)
                 {
                     Debug.LogError("Desk Binding Err : count mismatch or child doesn't have Desk");
                     return;
@@ -137,57 +217,58 @@ namespace Class
             }
         }
 
-        public bool CheckCleared()
+        private bool IsDeskCorrect(int index)
         {
-            for(int i = 0; i < 20; i++) {
-                if(preset[presetIndex][i] == PropTypes.None && Desks[i].props.Count == 0)
-                {
-                    continue;
-                }
-                if (!Desks[i].props.Any(prop => prop == preset[presetIndex][i]))
-                {
-                    // Debug.Log("Wrong");
-                    return false;
-                }
+            if(preset[presetIndex][index] == PropTypes.None && Desks[index].props.Count == 0)
+            {
+                return true;
             }
-            // Debug.Log("Correct");
-            return true;
+            return Desks[index].props.Any(prop => prop == preset[presetIndex][index]);
         }
 
-        public void SetRandomPreset()
+        private List<GameObject> CreateReflectionOnlyObjects()
         {
-            presetIndex = UnityEngine.Random.Range(0, preset.Count());
-        }
-
-        public void GenerateReflectionOnly()
-        {
-            List<GameObject> ReflectionOnlys = new List<GameObject>();
+            List<GameObject> reflectionOnlys = new List<GameObject>();
             for (int i = 0; i < Desks.Length; i++)
             {
-                if (preset[presetIndex][i] == PropTypes.Crayons)
+                GameObject obj = CreateReflectionOnlyObject(i);
+                if (obj != null)
                 {
-                    var obj = Instantiate(ReflectOnlyCrayon);
-                    obj.transform.position = Desks[i].transform.position + Vector3.up * heightOfReflectOnly;
-                    ReflectionOnlys.Add(obj);
-                }
-                else if(preset[presetIndex][i] == PropTypes.ColoredPencil)
-                {
-                    var obj = Instantiate(ReflectOnlyColoredPen);
-                    obj.transform.position = Desks[i].transform.position + Vector3.up * heightOfReflectOnly;
-                    ReflectionOnlys.Add(obj);
-                }
-                else if (preset[presetIndex][i] == PropTypes.Pallet)
-                {
-                    var obj = Instantiate(ReflectOnlyPallet);
-                    obj.transform.position = Desks[i].transform.position + Vector3.up * heightOfReflectOnly;
-                    ReflectionOnlys.Add(obj);
+                    reflectionOnlys.Add(obj);
                 }
             }
-
-
-            ReflectionOnlys.ForEach(i => i.transform.SetParent(ReflectOnlyParent));
-
-
+            return reflectionOnlys;
         }
+
+        private GameObject CreateReflectionOnlyObject(int index)
+        {
+            GameObject prefab = GetReflectionOnlyPrefab(preset[presetIndex][index]);
+            if (prefab == null) return null;
+
+            GameObject obj = Instantiate(prefab);
+            obj.transform.position = Desks[index].transform.position + Vector3.up * heightOfReflectOnly;
+            return obj;
+        }
+
+        private GameObject GetReflectionOnlyPrefab(PropTypes propType)
+        {
+            switch (propType)
+            {
+                case PropTypes.Crayons:
+                    return ReflectOnlyCrayon;
+                case PropTypes.ColoredPencil:
+                    return ReflectOnlyColoredPen;
+                case PropTypes.Pallet:
+                    return ReflectOnlyPallet;
+                default:
+                    return null;
+            }
+        }
+
+        private void SetReflectionOnlysParent(List<GameObject> reflectionOnlys)
+        {
+            reflectionOnlys.ForEach(obj => obj.transform.SetParent(ReflectOnlyParent));
+        }
+        #endregion
     }
 }

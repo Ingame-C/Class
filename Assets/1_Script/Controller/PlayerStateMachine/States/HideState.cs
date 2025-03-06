@@ -2,46 +2,35 @@ using UnityEngine;
 
 namespace Class.StateMachine
 {
+    /// <summary>
+    /// 플레이어의 숨기 상태를 관리합니다.
+    /// </summary>
     public class HideState : StateBase
     {
-        private Hidable hidable;
+        #region Variables
+        private Hidable currentHidable;
+        private bool isESCPressed;
+        #endregion
 
+        #region Constructor
         public HideState(PlayerController controller, PlayerStateMachine stateMachine)
             : base(controller, stateMachine)
-        {}
+        {
+        }
+        #endregion
 
+        #region State Methods
         public override void Enter()
         {
             base.Enter();
-            Debug.Log("Hide Enter");
-            controller.IsHiding = true;
-            // TODO: 필요하다면 사운드 추가하기.
-            //SoundManager.Instance.CreateAudioSource(controller.transform.position, SfxClipTypes.???);
-            hidable = (Hidable)controller.RecentlyDetectedProp;
-
-            if(controller.IsGrabbing)
-            {
-                controller.InteractableGrabbing.ReleaseObject();
-            }
-
-            controller.SetPlayerPosition(hidable.HidePosition);
-            controller.SetPlayerRotation(hidable.HideRotation);
-
-            // 필요에 따라 없앨 수도 있을 것 같습니다.
-            hidable.GetComponent<Collider>().isTrigger = true;
+            InitializeHideState();
         }
 
         public override void Exit()
         {
             base.Exit();
-            Debug.Log("Hide Exit");
-            controller.IsHiding = false;
-            controller.SetPlayerPosition(hidable.ReturnPosition);
-
-            // 필요에 따라 없앨 수도 있을 것 같습니다.
-            hidable.GetComponent<Collider>().isTrigger = false;
+            CleanupHideState();
         }
-
 
         public override void HandleInput()
         {
@@ -52,19 +41,56 @@ namespace Class.StateMachine
         public override void LogicUpdate()
         {
             base.LogicUpdate();
-
-            if (isESCPressed)
-            {
-                stateMachine.ChangeState(controller.idleState);
-                isESCPressed = false;
-            }
-
+            HandleEscapeInput();
         }
 
         public override void PhysicsUpdate()
         {
             base.PhysicsUpdate();
         }
+        #endregion
 
+        #region Private Methods
+        private void InitializeHideState()
+        {
+            controller.IsHiding = true;
+            currentHidable = (Hidable)controller.RecentlyDetectedProp;
+
+            if (controller.IsGrabbing)
+            {
+                controller.InteractableGrabbing.ReleaseObject();
+            }
+
+            SetPlayerPositionAndRotation();
+            SetColliderTrigger(true);
+        }
+
+        private void CleanupHideState()
+        {
+            controller.IsHiding = false;
+            controller.SetPlayerPosition(currentHidable.ReturnPosition);
+            SetColliderTrigger(false);
+        }
+
+        private void HandleEscapeInput()
+        {
+            if (isESCPressed)
+            {
+                stateMachine.ChangeState(controller.idleState);
+                isESCPressed = false;
+            }
+        }
+
+        private void SetPlayerPositionAndRotation()
+        {
+            controller.SetPlayerPosition(currentHidable.HidePosition);
+            controller.SetPlayerRotation(currentHidable.HideRotation);
+        }
+
+        private void SetColliderTrigger(bool isTrigger)
+        {
+            currentHidable.GetComponent<Collider>().isTrigger = isTrigger;
+        }
+        #endregion
     }
 }

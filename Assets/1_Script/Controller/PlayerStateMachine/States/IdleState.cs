@@ -2,19 +2,27 @@ using UnityEngine;
 
 namespace Class.StateMachine
 {
+    /// <summary>
+    /// 플레이어의 대기 상태를 관리합니다.
+    /// </summary>
     public class IdleState : StateBase
     {
+        #region Constants
+        private const float MOVEMENT_THRESHOLD = 0.9f;
+        #endregion
 
+        #region Constructor
         public IdleState(PlayerController controller, PlayerStateMachine stateMachine) 
             : base(controller, stateMachine)
         {
         }
+        #endregion
 
+        #region State Methods
         public override void Enter()
         {
             base.Enter();
-            vertInputRaw = horzInputRaw = 0f;
-            
+            ResetMovementInput();
         }
 
         public override void Exit()
@@ -22,11 +30,9 @@ namespace Class.StateMachine
             base.Exit();
         }
 
-
         public override void HandleInput()
         {
             base.HandleInput();
-
             GetInteractOutInput(out isESCPressed);
             GetMovementInputRaw(out vertInputRaw, out horzInputRaw);
             GetMouseInput(out mouseX, out mouseY);
@@ -36,12 +42,39 @@ namespace Class.StateMachine
         public override void LogicUpdate()
         {
             base.LogicUpdate();
+            HandleStateTransitions();
+            HandleUIState();
+        }
 
-            if (Mathf.Abs(vertInputRaw) >= 0.9f || Mathf.Abs(horzInputRaw) >= 0.9f) 
+        public override void PhysicsUpdate()
+        {
+            base.PhysicsUpdate();
+            controller.RaycastInteractableObject();
+        }
+        #endregion
+
+        #region Private Methods
+        private void ResetMovementInput()
+        {
+            vertInputRaw = horzInputRaw = 0f;
+        }
+
+        private void HandleStateTransitions()
+        {
+            if (ShouldChangeToWalkState())
             {
                 stateMachine.ChangeState(controller.walkState);
             }
-            
+        }
+
+        private bool ShouldChangeToWalkState()
+        {
+            return Mathf.Abs(vertInputRaw) >= MOVEMENT_THRESHOLD || 
+                   Mathf.Abs(horzInputRaw) >= MOVEMENT_THRESHOLD;
+        }
+
+        private void HandleUIState()
+        {
             if (isESCPressed && controller.UIisSet)
             {
                 controller.CurrentUI = null;
@@ -53,11 +86,6 @@ namespace Class.StateMachine
                 controller.RotateWithMouse(mouseX, mouseY);
             }
         }
-
-        public override void PhysicsUpdate()
-        {
-            base.PhysicsUpdate();
-            controller.RaycastInteractableObject();
-        }
+        #endregion
     }
 }

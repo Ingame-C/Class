@@ -17,7 +17,7 @@ namespace Class
 
         public override void Interact(PlayerController controller)
         {
-            if (controller.StateMachine.CurState is not SitState)
+            if (controller.StateMachine.CurrentState is not SitState)
                 controller.StateMachine.ChangeState(controller.sitState);
         }
     }

@@ -2,35 +2,50 @@ using UnityEngine;
 
 namespace Class
 {
-    // 경비 디스맨의 콘트롤러 입니다.
-    // SetThismanTarget 함수에 player을 
+    /// <summary>
+    /// 경비 디스맨의 동작을 제어하는 컨트롤러입니다.
+    /// 플레이어를 추적하고 상호작용하는 기능을 담당합니다.
+    /// </summary>
     public class ThismanController : MonoBehaviour
     {
-        private Transform target;
+        private const float DEFAULT_TRACE_SPEED = 3f;
+        private const float MIN_DISTANCE_TO_TARGET = 6f;
 
-        private float traceSpeed = 3f;
-        private bool isTargetSet = false;
+        private Transform targetTransform;
+        private float currentTraceSpeed;
+        private bool isTargetSet;
 
-
+        /// <summary>
+        /// 디스맨의 추적 대상과 속도를 설정합니다.
+        /// </summary>
+        /// <param name="player">추적할 플레이어의 Transform</param>
+        /// <param name="speed">추적 속도 (기본값: 5f)</param>
         public void SetThismanTarget(Transform player, float speed = 5f)
         {
-            target = player;
-            traceSpeed = speed;
+            targetTransform = player;
+            currentTraceSpeed = speed;
             isTargetSet = true;
-
-            transform.LookAt(player.transform);
-
+            transform.LookAt(player);
         }
+
         private void Update()
         {
-            if (!isTargetSet) return;
-            if (Vector3.SqrMagnitude(transform.position - target.position) < 6f) return;
+            if (!ShouldUpdateMovement()) return;
+            UpdateMovement();
+        }
 
-            // TODO : SOUND - 달려갈때 발자국소리 점점 빨리나도록 하면 좋을 듯 합니다
-            // + Thisman 속도조절 필요합니다. 교실 크기 정해지고나면 player와 거리 비례하게 구현하겠습니다.
+        private bool ShouldUpdateMovement()
+        {
+            if (!isTargetSet) return false;
+            return Vector3.SqrMagnitude(transform.position - targetTransform.position) >= MIN_DISTANCE_TO_TARGET;
+        }
 
-            transform.position = MathFuncs.VectorLerp(transform.position, target.position, traceSpeed);
+        private void UpdateMovement()
+        {
+            // TODO: 
+            // 1. 발자국 소리 구현 - 속도에 따라 빈도 조절
+            // 2. 교실 크기에 따른 속도 조절 로직 구현
+            transform.position = MathFuncs.VectorLerp(transform.position, targetTransform.position, currentTraceSpeed);
         }
     }
-
 }

@@ -5,10 +5,16 @@ using UnityEngine;
 
 namespace Class.Manager
 {
-
+    /// <summary>
+    /// 게임의 설정 데이터를 저장하는 클래스입니다.
+    /// 소리 크기, 해상도 등의 설정을 관리합니다.
+    /// </summary>
     [Serializable]
-    public class SettingData {     // Setting 저장 (소리 크기, 해상도..)
-
+    public class SettingData
+    {
+        /// <summary>
+        /// 기본 생성자입니다. 기본값으로 초기화합니다.
+        /// </summary>
         public SettingData()
         {
             sfxVolume = 1f;
@@ -21,12 +27,23 @@ namespace Class.Manager
         // etc...
     }
 
+    /// <summary>
+    /// 게임 플레이 데이터를 저장하는 클래스입니다.
+    /// 스테이지 클리어 상태 등의 게임 진행 상황을 관리합니다.
+    /// </summary>
     [Serializable]
-    public class GameplayData {     // 유저가 플레이한 게임 데이터를 저장. Start에서 
-        //List<bool> stageCleared = new List<bool>();
+    public class GameplayData
+    {
+        /// <summary>
+        /// 각 스테이지의 클리어 상태를 저장하는 리스트입니다.
+        /// </summary>
+        public List<bool> stageCleared = new List<bool>();
     }
 
-
+    /// <summary>
+    /// 게임의 데이터를 관리하는 매니저 클래스입니다.
+    /// 설정 데이터와 게임 플레이 데이터의 저장 및 로드를 담당합니다.
+    /// </summary>
     public class DataManager
     {
         /*
@@ -39,47 +56,106 @@ namespace Class.Manager
          * 
          */
 
-        /** Paths **/
+        #region Constants
+        private const string SETTING_DATA_FILE = "SettingData.json";
+        private const string PLAY_DATA_FILE = "PlayData.json";
+        #endregion
+
+        #region Private Fields
         private string settingDataPath;
         private string playDataPath;
-
-        /** Datas **/
         private SettingData settingData = null;
         private GameplayData gameplayData = null;
+        #endregion
 
+        #region Public Methods
+        /// <summary>
+        /// 데이터 매니저를 초기화합니다.
+        /// 저장 경로를 설정하고 데이터를 로드합니다.
+        /// </summary>
         public void Init()
         {
-            settingDataPath = Application.persistentDataPath + "/SettingData.json";
-            playDataPath = Application.persistentDataPath + "/PlayData.json";
-
+            InitializePaths();
             LoadAll();
         }
 
+        /// <summary>
+        /// 게임 시작 시 필요한 초기화를 수행합니다.
+        /// </summary>
         public void OnStart()
         {
-
+            // 게임 시작 시 필요한 초기화 로직
         }
 
-        /** Save/Load Functions **/
-        private void LoadAll()
-        {
-            LoadData<SettingData>(ref settingData, settingDataPath);
-            LoadData<GameplayData>(ref gameplayData, playDataPath);
-        }
+        /// <summary>
+        /// 모든 데이터를 저장합니다.
+        /// </summary>
         public void SaveAll()
         {
-            SaveData<SettingData>(ref settingData, settingDataPath);
-            SaveData<GameplayData>(ref gameplayData, playDataPath);
+            SaveData(settingData, settingDataPath);
+            SaveData(gameplayData, playDataPath);
         }
 
-        private void SaveData<T>(ref T data, string path)
+        /// <summary>
+        /// 특정 스테이지의 클리어 상태를 저장합니다.
+        /// </summary>
+        /// <param name="stageId">클리어한 스테이지의 ID</param>
+        public void SaveClearStage(int stageId)
+        {
+            if (gameplayData.stageCleared.Count <= stageId)
+            {
+                gameplayData.stageCleared.Add(true);
+            }
+            else
+            {
+                gameplayData.stageCleared[stageId] = true;
+            }
+            Debug.Log($"Stage: {stageId} Clear!");
+            SaveAll();
+        }
+        #endregion
+
+        #region Private Methods
+        /// <summary>
+        /// 데이터 파일의 경로를 초기화합니다.
+        /// </summary>
+        private void InitializePaths()
+        {
+            string basePath = Application.persistentDataPath;
+            settingDataPath = Path.Combine(basePath, SETTING_DATA_FILE);
+            playDataPath = Path.Combine(basePath, PLAY_DATA_FILE);
+        }
+
+        /// <summary>
+        /// 모든 데이터를 로드합니다.
+        /// </summary>
+        private void LoadAll()
+        {
+            LoadData(ref settingData, settingDataPath);
+            LoadData(ref gameplayData, playDataPath);
+        }
+
+        /// <summary>
+        /// 특정 데이터를 저장합니다.
+        /// </summary>
+        /// <typeparam name="T">저장할 데이터의 타입</typeparam>
+        /// <param name="data">저장할 데이터</param>
+        /// <param name="path">저장할 파일 경로</param>
+        private void SaveData<T>(T data, string path)
         {
             string json = JsonUtility.ToJson(data, true);
             File.WriteAllText(path, json);
         }
+
+        /// <summary>
+        /// 특정 데이터를 로드합니다.
+        /// </summary>
+        /// <typeparam name="T">로드할 데이터의 타입</typeparam>
+        /// <param name="data">로드된 데이터를 저장할 변수</param>
+        /// <param name="path">로드할 파일 경로</param>
         private void LoadData<T>(ref T data, string path) where T : new()
         {
-            if(File.Exists(path))
+            if (File.Exists(path))
             {
                 string json = File.ReadAllText(path);
                 data = JsonUtility.FromJson<T>(json);
@@ -87,18 +163,9 @@ namespace Class.Manager
             else
             {
                 data = new T();
-
-                Debug.Log(data.ToString());
+                Debug.Log($"Created new data file at: {path}");
             }
         }
-
-
-        public void SaveClearStage(int stageId)
-        {
-            Debug.Log($"Stage: {stageId} Clear!");
-            // TODO : GameplayData 에 진행상황 bool 배열로 저장해둬야합니다.
-        }
-
+        #endregion
     }
-
 }
