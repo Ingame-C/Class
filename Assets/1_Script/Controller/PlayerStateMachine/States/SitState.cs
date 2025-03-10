@@ -62,6 +62,7 @@ namespace Class.StateMachine
             SetupChair();
             SetupPlayerPosition();
             AdjustCameraPosition();
+            controller.transform.Rotate(new Vector3(0f, 0f, 0f), Space.World);
         }
 
         private void CleanupSitState()
@@ -110,7 +111,7 @@ namespace Class.StateMachine
         private void SetupChair()
         {
             chair = controller.RecentlyDetectedProp ?? GameManagerEx.Instance.StartChair;
-            chair.GetComponent<MeshCollider>().isTrigger = true;
+            chair.GetComponent<BoxCollider>().isTrigger = true;
         }
 
         private void SetupPlayerPosition()
@@ -133,7 +134,7 @@ namespace Class.StateMachine
         private void RestoreColliders()
         {
             controller.GetComponent<CapsuleCollider>().isTrigger = false;
-            chair.GetComponent<MeshCollider>().isTrigger = false;
+            chair.GetComponent<BoxCollider>().isTrigger = false;
         }
 
         private void RestoreCameraPosition()

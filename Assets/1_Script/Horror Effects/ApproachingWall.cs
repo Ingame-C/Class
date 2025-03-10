@@ -27,10 +27,9 @@ public class ApproachingWall : HorrorEffect
     private float elapsedTime;
     private readonly List<Vector3> dir = new List<Vector3> 
     {
-        new Vector3(1, 0, 0),    // Left
-        new Vector3(-1, 0, 0),   // Right
-        new Vector3(0, 0, 1),    // Back
-        new Vector3(0, 0, -1)    // Front
+        new Vector3(0, 0, 0),
+        new Vector3(-1, 0, 0),    // Left
+        new Vector3(1, 0, 0),   // Right
     };
     #endregion
 
@@ -87,6 +86,7 @@ public class ApproachingWall : HorrorEffect
         {
             walls.Add(wallsParent.transform.GetChild(i).gameObject);
         }
+        walls.RemoveAt(0);
     }
 
     /// <summary>

@@ -220,7 +220,7 @@ namespace Class
             }
             else
             {
-                rigid.MovePosition(transform.position + moveDir * diag * walkSpeed * 0.5f * Time.fixedDeltaTime);
+                rigid.MovePosition(transform.position + moveDir * diag * walkSpeed * 0.8f * Time.fixedDeltaTime);
             }
         }
 
