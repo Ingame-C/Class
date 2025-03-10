@@ -141,7 +141,9 @@ namespace Class
                 PropTypes.None, PropTypes.Crayons, PropTypes.None, PropTypes.None, PropTypes.ColoredPencil,     // 1분단
                 PropTypes.Pallet, PropTypes.None, PropTypes.ColoredPencil, PropTypes.None, PropTypes.None,      // 2분단
                 PropTypes.Crayons, PropTypes.None, PropTypes.None, PropTypes.Pallet, PropTypes.Crayons,         // 3분단
-                PropTypes.None, PropTypes.Pallet, PropTypes.None, PropTypes.ColoredPencil, PropTypes.None       // 4분단
+                PropTypes.None, PropTypes.Pallet, PropTypes.None, PropTypes.ColoredPencil, PropTypes.None,
+                PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None,
+                PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None,
             });
         }
 
@@ -152,7 +154,9 @@ namespace Class
                 PropTypes.ColoredPencil, PropTypes.None, PropTypes.Pallet, PropTypes.None, PropTypes.None,
                 PropTypes.None, PropTypes.None, PropTypes.Pallet, PropTypes.Crayons, PropTypes.None,
                 PropTypes.Crayons, PropTypes.Pallet, PropTypes.None, PropTypes.None, PropTypes.ColoredPencil,
-                PropTypes.ColoredPencil, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.Crayons
+                PropTypes.ColoredPencil, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.Crayons,
+                PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None,
+                PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None,
             });
         }
 
@@ -163,7 +167,9 @@ namespace Class
                 PropTypes.ColoredPencil, PropTypes.Crayons, PropTypes.Pallet, PropTypes.None, PropTypes.None,
                 PropTypes.Crayons, PropTypes.Pallet, PropTypes.ColoredPencil, PropTypes.None, PropTypes.None,
                 PropTypes.Pallet, PropTypes.ColoredPencil, PropTypes.Crayons, PropTypes.None, PropTypes.None,
-                PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None
+                PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None,
+                PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None,
+                PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None,
             });
         }
 
@@ -174,7 +180,9 @@ namespace Class
                 PropTypes.None, PropTypes.Pallet, PropTypes.Pallet, PropTypes.None, PropTypes.Crayons,
                 PropTypes.None, PropTypes.None, PropTypes.ColoredPencil, PropTypes.None, PropTypes.None,
                 PropTypes.None, PropTypes.ColoredPencil, PropTypes.None, PropTypes.None, PropTypes.Pallet,
-                PropTypes.Crayons, PropTypes.None, PropTypes.Crayons, PropTypes.None, PropTypes.ColoredPencil
+                PropTypes.Crayons, PropTypes.None, PropTypes.Crayons, PropTypes.None, PropTypes.ColoredPencil,
+                PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None,
+                PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None,
             });
         }
 
@@ -185,7 +193,9 @@ namespace Class
                 PropTypes.ColoredPencil, PropTypes.None, PropTypes.None, PropTypes.Pallet, PropTypes.None,
                 PropTypes.None, PropTypes.Crayons, PropTypes.None, PropTypes.ColoredPencil, PropTypes.None,
                 PropTypes.Crayons, PropTypes.None, PropTypes.Pallet, PropTypes.None, PropTypes.Crayons,
-                PropTypes.Pallet, PropTypes.None, PropTypes.ColoredPencil, PropTypes.None, PropTypes.None
+                PropTypes.Pallet, PropTypes.None, PropTypes.ColoredPencil, PropTypes.None, PropTypes.None,
+                PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None,
+                PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None,
             });
         }
 
@@ -229,7 +239,7 @@ namespace Class
         private List<GameObject> CreateReflectionOnlyObjects()
         {
             List<GameObject> reflectionOnlys = new List<GameObject>();
-            for (int i = 0; i < Desks.Length; i++)
+            for (int i = 0; i < Desks.Count(); i++)
             {
                 GameObject obj = CreateReflectionOnlyObject(i);
                 if (obj != null)
