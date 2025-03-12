@@ -31,6 +31,7 @@ namespace Class
         /// 깜빡이는 조명 효과를 활성화합니다.
         /// 카메라의 픽셀화 효과를 가져와서 효과를 시작합니다.
         /// </summary>
+        [ContextMenu("Activate")]
         public override void Activate()
         {
             InitializeComponents();
