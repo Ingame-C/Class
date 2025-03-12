@@ -10,6 +10,7 @@ namespace Class.StateMachine
         #region Variables
         private PropsBase chair;
         private Vector3 returnPosition;
+        private float OriginalMaxVertRotation;
         #endregion
 
         #region Constructor
@@ -63,6 +64,8 @@ namespace Class.StateMachine
             SetupPlayerPosition();
             AdjustCameraPosition();
             controller.transform.Rotate(new Vector3(0f, 0f, 0f), Space.World);
+            OriginalMaxVertRotation = controller.MaxVertRot;
+            controller.MaxVertRot = 65f;
         }
 
         private void CleanupSitState()
@@ -72,6 +75,8 @@ namespace Class.StateMachine
             controller.SetPlayerPosition(returnPosition);
             RestoreColliders();
             RestoreCameraPosition();
+            
+            controller.MaxVertRot = OriginalMaxVertRotation;
         }
 
         private void HandleRotationAndUI()

@@ -67,7 +67,7 @@ namespace Class {
             res.ForEach(x => x.transform.SetParent(resultParent, true));
             res.ForEach(x => x.AddComponent<BoxCollider>());
             res.ForEach(x => x.AddComponent<Rigidbody>());
-            res.ForEach(x => x.GetComponent<Rigidbody>().AddForce(Vector3.right * 20, ForceMode.Impulse));
+            res.ForEach(x => x.GetComponent<Rigidbody>().AddForce(Vector3.right * 3, ForceMode.Impulse));
             res.ForEach(x => Destroy(x, 1));
             Enumerable.Range(0, resultParent.childCount).Select(i => resultParent.GetChild(i)).ToList().ForEach(x => x.localScale = resultScale * Vector3.one);
             //ClearPreviousResults();

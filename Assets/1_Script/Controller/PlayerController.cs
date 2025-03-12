@@ -23,6 +23,14 @@ namespace Class
         public CapsuleCollider CapsuleColl { get => capsuleColl; }
         public Animator Animator { get => animator; }
         
+        public float MaxVertRot
+        {
+            get => maxVertRot;
+            set => maxVertRot = value;
+        }
+
+        public Vector3 RaycastHitPosition { get => raycastHitPosition; }
+        
         
         public UI.UI CurrentUI
         {
@@ -37,6 +45,7 @@ namespace Class
                 else
                 {
                     value.gameObject.SetActive(true);
+                    
                 }
                 currentUI = value;
             } 
@@ -78,6 +87,8 @@ namespace Class
         private bool isSitting = false;
         private bool isGrabbing = false;
         private bool isHiding = false;
+        
+        private Vector3 raycastHitPosition;
         
 
         public Grabbable InteractableGrabbing { get => interactableGrabbing; set { interactableGrabbing = value; } }
@@ -267,6 +278,8 @@ namespace Class
             UpdateCurrentPropOutline();
             
             prevDetectedProp = recentlyDetectedProp;
+            
+            raycastHitPosition = hit.transform.position;
         }
 
         /// <summary>

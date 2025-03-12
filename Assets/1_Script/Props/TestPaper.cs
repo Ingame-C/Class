@@ -21,6 +21,7 @@ namespace Class
 
         public override void Interact(PlayerController controller)
         {
+            Debug.Log("아아아");
             controller.CurrentUI = testPaper;
         }
     }

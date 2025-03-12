@@ -10,7 +10,7 @@ namespace Class.StateMachine
     public class StateBase
     {
         #region Constants
-        protected const float GRABBLE_DISTANCE = 0.5f;
+        protected const float GRABBLE_DISTANCE = 0.2f;
         #endregion
 
         #region Protected Fields
