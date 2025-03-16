@@ -44,7 +44,6 @@ namespace Class
         public void ReleaseObject()
         {
             SoundManager.Instance.CreateAudioSource(controller.transform.position, SfxClipTypes.Release_Object, 1.0f);
-            float distance = 1.0f;
 
             Vector3 releasePosion = controller.CameraTransform.position;
             controller.InteractableGrabbing.GetComponent<BoxCollider>().isTrigger = false;
@@ -53,19 +52,16 @@ namespace Class
             {
                 return;
             }
-            float upDistance = 0.1f;
             if (controller.RecentlyDetectedProp is Desk desk)
             {
                 this.desk = desk;
                 this.desk.props.Add(this.PropType);
-                upDistance = 0.2f;
                 releasePosion = controller.RaycastHitPosition + Vector3.up * 0.8f;
             }
             else if (controller.RecentlyDetectedProp is Lectern lectern)
             {
                 this.lectern = lectern;
                 lectern.Grabbable = this;
-                upDistance = 0.3f;
                 
             }
             else
