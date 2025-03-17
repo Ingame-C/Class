@@ -27,7 +27,6 @@ public class ApproachingWall : HorrorEffect
     private float elapsedTime;
     private readonly List<Vector3> dir = new List<Vector3> 
     {
-        new Vector3(0, 0, 0),
         new Vector3(-1, 0, 0),    // Left
         new Vector3(1, 0, 0),   // Right
     };
@@ -130,10 +129,8 @@ public class ApproachingWall : HorrorEffect
     {
         while (elapsedTime < endTime)
         {
-            for (int i = 0; i < 2; i++)
-            {
-                walls[i].transform.position += dir[i] * speed * Time.deltaTime;
-            }
+            walls[0].transform.position += dir[1] * speed * Time.deltaTime;
+            walls[1].transform.position += dir[0] * speed * Time.deltaTime;
             yield return null;
         }
     }

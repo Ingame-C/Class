@@ -15,6 +15,10 @@ namespace Class
         private static GameManagerEx instance;
         public static GameManagerEx Instance { get { return instance; } }
 
+        #region Scriptable Object
+        public StagePropManagement stagePropManagementConfig;
+        #endregion
+        
         # region Variables
         private bool isTimerSet = false;
         public bool IsTimerSet {  get { return isTimerSet; }  }
@@ -100,6 +104,7 @@ namespace Class
                 return;
             }
         }
+        
         private void InitializeStageClearConditions()
         {
             stageClearConditions = new List<Func<bool>>
@@ -121,6 +126,7 @@ namespace Class
             OnStageStartAction -= EffectManager.Instance.ResetEffectLogic;
             OnStageStartAction += EffectManager.Instance.ResetEffectLogic;
             
+            
             // 스테이지 1.
             if (currentStage == 1)
             {
@@ -131,7 +137,7 @@ namespace Class
             }
             
             OnStageStartAction.Invoke();
-        }
+        }  
         # endregion
 
         # region Scene Management
@@ -158,6 +164,8 @@ namespace Class
                 if (prop.GetComponent<TVController>() != null) tvController = prop.GetComponent<TVController>();
                 if (prop.GetComponent<BloodyFloorController>() != null) floorController = prop.GetComponent<BloodyFloorController>();
             }
+            
+            if(stagePropManagementConfig.startingChair != null) startChair = stagePropManagementConfig.startingChair;
         }
         private void InitializeGameState()
         {
@@ -188,6 +196,7 @@ namespace Class
             Managers.Data.SaveClearStage(clearStageId);
             MoveStage(Mathf.Clamp(clearStageId + 1, clearStageId, Managers.Resource.GetStageCount()));
             StartCoroutine(LoadSceneAfterClear(SceneEnums.Game));
+            InitializeStageActions();
             return true;
         }
         public bool OnStageFailed(int failedStageId)
@@ -196,6 +205,7 @@ namespace Class
 
             MoveStage(Mathf.Clamp(failedStageId - 1, 1, failedStageId));
             StartCoroutine(LoadSceneAfterFail(SceneEnums.Game));
+            InitializeStageActions();
             return true;
         }
         private bool CanProcessStageChange()
@@ -323,6 +333,10 @@ namespace Class
             {
                 Debug.Log("V key pressed");
                 OnStageClear(currentStage);
+            }
+            else if (Input.GetKeyDown(KeyCode.B))
+            {
+                Debug.Log("B key pressed: CurrentStage is " + currentStage);
             }
         }
         private void UpdateTimer()

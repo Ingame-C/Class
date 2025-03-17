@@ -138,12 +138,11 @@ namespace Class
         {
             preset.Add(new List<PropTypes>
             {
-                PropTypes.None, PropTypes.Crayons, PropTypes.None, PropTypes.None, PropTypes.ColoredPencil,     // 1분단
-                PropTypes.Pallet, PropTypes.None, PropTypes.ColoredPencil, PropTypes.None, PropTypes.None,      // 2분단
-                PropTypes.Crayons, PropTypes.None, PropTypes.None, PropTypes.Pallet, PropTypes.Crayons,         // 3분단
-                PropTypes.None, PropTypes.Pallet, PropTypes.None, PropTypes.ColoredPencil, PropTypes.None,
-                PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None,
-                PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None,
+                PropTypes.Crayons, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.Crayons, PropTypes.Pallet,   
+                PropTypes.None, PropTypes.None, PropTypes.Pallet, PropTypes.ColoredPencil, PropTypes.None, PropTypes.None,     
+                PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.ColoredPencil, PropTypes.None,        
+                PropTypes.None, PropTypes.Pallet, PropTypes.ColoredPencil, PropTypes.None, PropTypes.None, PropTypes.None,
+                PropTypes.Crayons, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None
             });
         }
 
@@ -151,12 +150,11 @@ namespace Class
         {
             preset.Add(new List<PropTypes>
             {
-                PropTypes.ColoredPencil, PropTypes.None, PropTypes.Pallet, PropTypes.None, PropTypes.None,
-                PropTypes.None, PropTypes.None, PropTypes.Pallet, PropTypes.Crayons, PropTypes.None,
-                PropTypes.Crayons, PropTypes.Pallet, PropTypes.None, PropTypes.None, PropTypes.ColoredPencil,
-                PropTypes.ColoredPencil, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.Crayons,
-                PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None,
-                PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None,
+                PropTypes.Pallet, PropTypes.Crayons, PropTypes.Pallet, PropTypes.ColoredPencil, PropTypes.None, PropTypes.None,   
+                PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None,     
+                PropTypes.None, PropTypes.None, PropTypes.Crayons, PropTypes.None, PropTypes.None, PropTypes.Pallet,        
+                PropTypes.ColoredPencil, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None,
+                PropTypes.None, PropTypes.None, PropTypes.Crayons, PropTypes.None, PropTypes.ColoredPencil, PropTypes.None
             });
         }
 
@@ -164,12 +162,11 @@ namespace Class
         {
             preset.Add(new List<PropTypes>
             {
-                PropTypes.ColoredPencil, PropTypes.Crayons, PropTypes.Pallet, PropTypes.None, PropTypes.None,
-                PropTypes.Crayons, PropTypes.Pallet, PropTypes.ColoredPencil, PropTypes.None, PropTypes.None,
-                PropTypes.Pallet, PropTypes.ColoredPencil, PropTypes.Crayons, PropTypes.None, PropTypes.None,
-                PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None,
-                PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None,
-                PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None,
+                PropTypes.None, PropTypes.Pallet, PropTypes.None, PropTypes.None, PropTypes.Pallet, PropTypes.Crayons,   
+                PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.Crayons, PropTypes.None,     
+                PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None,        
+                PropTypes.ColoredPencil, PropTypes.ColoredPencil, PropTypes.Pallet, PropTypes.Crayons, PropTypes.ColoredPencil, PropTypes.None,
+                PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None
             });
         }
 
@@ -177,12 +174,11 @@ namespace Class
         {
             preset.Add(new List<PropTypes>
             {
-                PropTypes.None, PropTypes.Pallet, PropTypes.Pallet, PropTypes.None, PropTypes.Crayons,
-                PropTypes.None, PropTypes.None, PropTypes.ColoredPencil, PropTypes.None, PropTypes.None,
-                PropTypes.None, PropTypes.ColoredPencil, PropTypes.None, PropTypes.None, PropTypes.Pallet,
-                PropTypes.Crayons, PropTypes.None, PropTypes.Crayons, PropTypes.None, PropTypes.ColoredPencil,
-                PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None,
-                PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None,
+                PropTypes.None, PropTypes.Pallet, PropTypes.None, PropTypes.Crayons, PropTypes.Crayons, PropTypes.None,   
+                PropTypes.ColoredPencil, PropTypes.None, PropTypes.ColoredPencil, PropTypes.Pallet, PropTypes.None, PropTypes.None,     
+                PropTypes.Pallet, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None,        
+                PropTypes.ColoredPencil, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.Crayons, PropTypes.None,
+                PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None
             });
         }
 
@@ -190,12 +186,11 @@ namespace Class
         {
             preset.Add(new List<PropTypes>
             {
-                PropTypes.ColoredPencil, PropTypes.None, PropTypes.None, PropTypes.Pallet, PropTypes.None,
-                PropTypes.None, PropTypes.Crayons, PropTypes.None, PropTypes.ColoredPencil, PropTypes.None,
-                PropTypes.Crayons, PropTypes.None, PropTypes.Pallet, PropTypes.None, PropTypes.Crayons,
-                PropTypes.Pallet, PropTypes.None, PropTypes.ColoredPencil, PropTypes.None, PropTypes.None,
-                PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None,
-                PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None,
+                PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.ColoredPencil, PropTypes.None, PropTypes.None,   
+                PropTypes.Pallet, PropTypes.Pallet, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None,     
+                PropTypes.ColoredPencil, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.Pallet,        
+                PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.Crayons, PropTypes.Crayons,
+                PropTypes.Crayons, PropTypes.ColoredPencil, PropTypes.None, PropTypes.None, PropTypes.None, PropTypes.None
             });
         }
 

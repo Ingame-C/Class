@@ -15,6 +15,7 @@ public static class Constants
     public const string TAG_INITPROPS = "InitProps";
     public const string TAG_PLAYER = "Player";
     public const string TAG_LAVAOBJECT = "LavaObject";
+    public const string TAG_STARTINGCHAIR = "StartingChair";
 
 
     /** Object Names **/
