@@ -90,7 +90,7 @@ namespace Class
             if (!isPlayerHidden || !GameManagerEx.Instance.IsTimerSet)
             {
                 isGameOver = false;
-                GameManagerEx.Instance.OnStageFailed(-1);
+                GameManagerEx.Instance.OnStageFailed(GameManagerEx.Instance.CurrentStage);
             }
             else
             {

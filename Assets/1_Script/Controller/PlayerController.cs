@@ -40,12 +40,12 @@ namespace Class
                 if (value == null)
                 {
                     currentUI.gameObject.SetActive(false);
-                    
+                    Cursor.visible = false;
                 }
                 else
                 {
                     value.gameObject.SetActive(true);
-                    
+                    Cursor.visible = true;
                 }
                 currentUI = value;
             } 
