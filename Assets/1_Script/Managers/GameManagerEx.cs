@@ -25,6 +25,8 @@ namespace Class
 
         // SerializeFeild로 하면 Scene 전환 될 때마다 Missing됩니다.
         // 따라서, Tag 달아서 Find 함수 사용하도록 하겠습니다. 혹시 더 빠른 방안 있으시면 말씀해주세요.
+        
+        private LecternManager lecternManager;
 
         [Header("Game Over")]
         [SerializeField] private ScreenBlocker screenBlocker;
@@ -69,6 +71,7 @@ namespace Class
         private void Awake()
         {
             Init();
+            lecternManager = GameObject.Find("@LecternManager").GetComponent<LecternManager>();
         }
         private void Start()
         {
@@ -77,8 +80,7 @@ namespace Class
         }
         private void Update()
         {
-            // 테스트 코드드
-            HandleInput();
+            HandleInput(); // 테스트 코드
             CheckStageClearCondition();
         }
         # endregion
@@ -110,7 +112,7 @@ namespace Class
             {
                 () => true, // 스테이지와 인덱스를 일치시키기 위한 선언입니다.
                 () => DeskManager.Instance.CheckCleared(),
-                () => LecternManager.Instance.CheckCleared(),
+                () => lecternManager.CheckCleared()
             };
         }
         private void InitializeSceneEvents()
@@ -271,7 +273,7 @@ namespace Class
             isLoadingScene = false;
         }
         /// <summary>
-        /// 경비 디스맨이 문을 열고 들어오는 코루틴.
+        /// 게임 오버시, 페이드 아웃 효과를 주며 Scene을 다시 load함.
         /// </summary>
         /// <returns></returns>
         private IEnumerator HandleFailSequence()

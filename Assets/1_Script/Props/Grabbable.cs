@@ -34,6 +34,12 @@ namespace Class
             if (desk != null)
             {
                 TheDeskBelow.props.Remove(this.PropType);
+                desk = null;
+            }
+            else if (lectern != null)
+            {
+                lectern.Grabbable = null;
+                lectern = null;
             }
 
             controller.InteractableGrabbing = this;
@@ -62,7 +68,7 @@ namespace Class
             {
                 this.lectern = lectern;
                 lectern.Grabbable = this;
-                
+                releasePosion = controller.RaycastHitPosition + Vector3.up * 1f;
             }
             else
             {
