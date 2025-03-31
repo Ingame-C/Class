@@ -17,8 +17,8 @@ namespace Class.StateMachine {
         #endregion
 
         #region Constructor
-        public FallState(PlayerController controller, PlayerStateMachine stateMachine)
-            : base(controller, stateMachine)
+        public FallState(PlayerController controller, PlayerStateMachine stateMachine, Animator animator)
+            : base(controller, stateMachine, animator)
         {
         }
         #endregion

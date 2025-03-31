@@ -31,8 +31,11 @@ public class SmileManManager : MonoBehaviour
         {
             var satisfiedSmileMan = SmileMans.Find(x => x.IsGameOver);
 
-            satisfiedSmileMan.GameOver();   // 게임 오버일 경우, 각 스마일 맨 고유의 게임 오버 로직을 실행.
-            GameManagerEx.Instance.OnStageFailed(GameManagerEx.Instance.CurrentStage);
+            if (!satisfiedSmileMan.IsGameOverActivated)
+            {
+                satisfiedSmileMan.GameOver();   // 게임 오버일 경우, 각 스마일 맨 고유의 게임 오버 로직을 실행.
+                GameManagerEx.Instance.OnStageFailed(GameManagerEx.Instance.CurrentStage);
+            }
         }
     }
 

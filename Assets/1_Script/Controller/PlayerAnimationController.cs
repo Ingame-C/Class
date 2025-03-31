@@ -14,6 +14,10 @@ namespace Class
         #region Animation Parameters
         private static readonly string IS_WALKING = "IsWalking";
         private static readonly string IS_SITTING = "IsSitting";
+
+        private int idle;
+        private int walking;
+        
         #endregion
 
         #region Components
@@ -51,6 +55,10 @@ namespace Class
             {
                 playerController = transform.parent.GetComponent<PlayerController>();
             }
+
+            idle = Animator.StringToHash("Idle");
+            walking = Animator.StringToHash("Walking");
+
         }
         #endregion
         
@@ -78,6 +86,19 @@ namespace Class
             
             animator.SetFloat("XDir", movement.x);
             animator.SetFloat("YDir", movement.y);
+
+            if (movement.magnitude == 0f && animator.GetBool(IS_WALKING))
+            {
+                animator.CrossFade(idle, 0.7f);
+                Debug.Log("스톱!");
+                return;
+            }
+            
+            if(!Mathf.Approximately(movement.magnitude, 0f) && !animator.GetBool(IS_WALKING))
+            {
+                animator.CrossFade(walking, 0.7f);
+                return;
+            }
         }
         
         private void UpdateSitAnimation()

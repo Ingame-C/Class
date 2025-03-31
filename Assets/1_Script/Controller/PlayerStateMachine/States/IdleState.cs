@@ -9,12 +9,14 @@ namespace Class.StateMachine
     {
         #region Constants
         private const float MOVEMENT_THRESHOLD = 0.9f;
+        private int idleHash;
         #endregion
 
         #region Constructor
-        public IdleState(PlayerController controller, PlayerStateMachine stateMachine) 
-            : base(controller, stateMachine)
+        public IdleState(PlayerController controller, PlayerStateMachine stateMachine, Animator animator)
+            : base(controller, stateMachine, animator)
         {
+            idleHash = Animator.StringToHash("Idle");
         }
         #endregion
 
@@ -23,6 +25,7 @@ namespace Class.StateMachine
         {
             base.Enter();
             ResetMovementInput();
+            animator.CrossFade(idleHash, 0.1f);
         }
 
         public override void Exit()

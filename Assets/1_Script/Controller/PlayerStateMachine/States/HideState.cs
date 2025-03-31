@@ -13,8 +13,8 @@ namespace Class.StateMachine
         #endregion
 
         #region Constructor
-        public HideState(PlayerController controller, PlayerStateMachine stateMachine)
-            : base(controller, stateMachine)
+        public HideState(PlayerController controller, PlayerStateMachine stateMachine, Animator animator)
+            : base(controller, stateMachine, animator)
         {
         }
         #endregion

@@ -15,6 +15,7 @@ public class TestSmileMan : ISmileMan
 
     public override void GameOver()
     {
+        base.GameOver();
         Debug.Log("Game Over");
     }
 }
