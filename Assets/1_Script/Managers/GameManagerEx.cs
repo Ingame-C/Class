@@ -25,6 +25,8 @@ namespace Class
 
         // SerializeFeild로 하면 Scene 전환 될 때마다 Missing됩니다.
         // 따라서, Tag 달아서 Find 함수 사용하도록 하겠습니다. 혹시 더 빠른 방안 있으시면 말씀해주세요.
+        
+        private LecternManager lecternManager;
 
         [Header("Game Over")]
         [SerializeField] private ScreenBlocker screenBlocker;
@@ -69,17 +71,16 @@ namespace Class
         private void Awake()
         {
             Init();
+            lecternManager = GameObject.Find("@LecternManager").GetComponent<LecternManager>();
         }
         private void Start()
         {
-            // 각 스테이지 시작 시 작동시켜야 할 함수들을 담습니다.
-            InitializeStageActions();
+            InitializeStageActions();   // 각 스테이지 시작 시 작동시켜야 할 함수들을 담습니다.
+            Cursor.visible = false;
         }
         private void Update()
         {
-            // 테스트 코드드
-            HandleInput();
-            UpdateTimer();
+            HandleInput(); // 테스트 코드
             CheckStageClearCondition();
         }
         # endregion
@@ -111,7 +112,7 @@ namespace Class
             {
                 () => true, // 스테이지와 인덱스를 일치시키기 위한 선언입니다.
                 () => DeskManager.Instance.CheckCleared(),
-                () => LecternManager.Instance.CheckCleared(),
+                () => lecternManager.CheckCleared()
             };
         }
         private void InitializeSceneEvents()
@@ -119,6 +120,9 @@ namespace Class
             SceneManager.sceneLoaded += InitScene;
             SceneManager.sceneUnloaded += ClearScene;
         }
+        /// <summary>
+        /// 공용 액션과, 각 스테이지 마다 고유한 액션을 추가.
+        /// </summary>
         private void InitializeStageActions()
         {
             OnStageStartAction -= InitThismanManager;
@@ -199,6 +203,9 @@ namespace Class
             InitializeStageActions();
             return true;
         }
+        /// <summary>
+        /// 게임 오버 시, 이 함수를 가장 먼저 실행시켜야 함. 
+        /// </summary>
         public bool OnStageFailed(int failedStageId)
         {
             if (!CanProcessStageChange()) return false;
@@ -265,17 +272,23 @@ namespace Class
             OnStageStartAction.Invoke();
             isLoadingScene = false;
         }
+        /// <summary>
+        /// 게임 오버시, 페이드 아웃 효과를 주며 Scene을 다시 load함.
+        /// </summary>
+        /// <returns></returns>
         private IEnumerator HandleFailSequence()
         {
             // 경비 디스맨이 들어오는 로직
             // 문열고 기다렸다가 Input Block, Spawn Thisman
-                doorToOpen.Interact(controller);
-                yield return new WaitForSeconds(0.8f);
+            
+            //doorToOpen.Interact(controller);
+            yield return new WaitForSeconds(0.8f);
 
-                SpawnBouncerThisman();
-                OnStageFailAction.Invoke();
-                FinThismanManager();
-                yield return new WaitForSeconds(0.8f);
+            //SpawnBouncerThisman();
+            
+            OnStageFailAction.Invoke();
+            FinThismanManager();
+            yield return new WaitForSeconds(0.8f);
         }
         private IEnumerator TransitionScene(SceneEnums sceneEnum)
         {
@@ -324,34 +337,17 @@ namespace Class
         # region Game Loop
         private void HandleInput()
         {
+            // 테스트 용 코드를 추가 해주세요.
             if (Input.GetKeyDown(KeyCode.C))
             {
-                Debug.Log("C key pressed");
                 OnStageFailed(currentStage);
             }
             else if (Input.GetKeyDown(KeyCode.V))
             {
-                Debug.Log("V key pressed");
                 OnStageClear(currentStage);
             }
-            else if (Input.GetKeyDown(KeyCode.B))
-            {
-                Debug.Log("B key pressed: CurrentStage is " + currentStage);
-            }
         }
-        private void UpdateTimer()
-        {
-            if (remainedPlayTime < 0 && isTimerSet)
-            {
-                isTimerSet = false;
-                if (thismanManager != null && !thismanManager.GetComponent<ThismanManager>().IsApproaching)
-                {
-                    OnStageFailed(currentStage);
-                }
-            }
-
-            remainedPlayTime -= Time.deltaTime;
-        }
+        
         private void CheckStageClearCondition()
         {
             // HACK : 해당 부분 Func< ... , bool> 사용해서 여러 조건들을 담을 수 있도록 해야합니다.

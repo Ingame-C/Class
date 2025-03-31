@@ -13,6 +13,8 @@ namespace Class.StateMachine
         private const float MOVEMENT_THRESHOLD = 0.5f;
         private const float BACKWARD_SOUND_MULTIPLIER = 1.2f;
         private const float DEFAULT_SOUND_INTERVAL = 0.472f;
+
+        private int walkHash;
         #endregion
 
         #region Variables
@@ -21,12 +23,15 @@ namespace Class.StateMachine
         private float lastSoundTime = -Mathf.Infinity;
         private float soundInterval = DEFAULT_SOUND_INTERVAL;
         private int randomWalkSoundIndex = 1;
+        private float hori;
+        private float vert;
         #endregion
 
         #region Constructor
-        public WalkState(PlayerController controller, PlayerStateMachine stateMachine) 
-            : base(controller, stateMachine)
+        public WalkState(PlayerController controller, PlayerStateMachine stateMachine, Animator animator)
+            : base(controller, stateMachine, animator)
         {
+            walkHash = Animator.StringToHash("Walk");
         }
         #endregion
 
@@ -35,6 +40,7 @@ namespace Class.StateMachine
         {
             base.Enter();
             InitializeWalkState();
+            animator.CrossFade(walkHash, 0.01f);
         }
 
         public override void Exit()
@@ -79,6 +85,16 @@ namespace Class.StateMachine
         private void HandleMovementState()
         {
             currentSpeed = Mathf.Abs(vertInput) + Mathf.Abs(horzInput);
+            
+            vert = Input.GetAxis("Vertical");
+            hori = Input.GetAxis("Horizontal");
+            
+            var movement = new Vector2(hori, vert);
+            movement.Normalize();
+            
+            animator.SetFloat("XDir", movement.x);
+            animator.SetFloat("YDir", movement.y);
+            
             if (Mathf.Approximately(currentSpeed, 0f))
             {
                 stateMachine.ChangeState(controller.idleState);

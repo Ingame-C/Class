@@ -11,12 +11,14 @@ namespace Class.StateMachine
         private PropsBase chair;
         private Vector3 returnPosition;
         private float OriginalMaxVertRotation;
+        private int sitHash;
         #endregion
 
         #region Constructor
-        public SitState(PlayerController controller, PlayerStateMachine stateMachine)
-            : base(controller, stateMachine)
+        public SitState(PlayerController controller, PlayerStateMachine stateMachine, Animator animator)
+            : base(controller, stateMachine, animator)
         {
+            sitHash = Animator.StringToHash("Sit");
         }
         #endregion
 
@@ -25,6 +27,7 @@ namespace Class.StateMachine
         {
             base.Enter();
             InitializeSitState();
+            animator.CrossFade(sitHash, 0.01f);
         }
 
         public override void Exit()

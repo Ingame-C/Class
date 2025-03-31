@@ -15,13 +15,12 @@ namespace Class
         #region Components
         private Rigidbody rigid;
         private CapsuleCollider capsuleColl;
-        private Animator animator;
         #endregion
 
         /** Properties **/
         public Rigidbody Rigidbody { get => rigid; }
         public CapsuleCollider CapsuleColl { get => capsuleColl; }
-        public Animator Animator { get => animator; }
+        
         
         public float MaxVertRot
         {
@@ -40,12 +39,12 @@ namespace Class
                 if (value == null)
                 {
                     currentUI.gameObject.SetActive(false);
-                    
+                    Cursor.visible = false;
                 }
                 else
                 {
                     value.gameObject.SetActive(true);
-                    
+                    Cursor.visible = true;
                 }
                 currentUI = value;
             } 
@@ -68,7 +67,9 @@ namespace Class
         
         [Header("Raycast Args")]                        // Use to detect Interactables
         [SerializeField] private float rayLength;
-
+        
+        [Header("Animator")]      
+        [SerializeField] public Animator Animator;
 
         private PlayerStateMachine stateMachine;
         public PlayerStateMachine StateMachine { get => stateMachine; }
@@ -139,12 +140,12 @@ namespace Class
         private void InitializeStateMachine()
         {
             stateMachine = new PlayerStateMachine();
-            idleState = new IdleState(this, stateMachine);
-            walkState = new WalkState(this, stateMachine);
-            sitState = new SitState(this, stateMachine);
-            thismanState = new ThismanState(this, stateMachine);
-            fallState = new FallState(this, StateMachine);
-            hideState = new HideState(this, stateMachine);
+            idleState = new IdleState(this, stateMachine, Animator);
+            walkState = new WalkState(this, stateMachine, Animator);
+            sitState = new SitState(this, stateMachine, Animator);
+            thismanState = new ThismanState(this, stateMachine, Animator);
+            fallState = new FallState(this, StateMachine, Animator);
+            hideState = new HideState(this, stateMachine, Animator);
         }
         private void InitializeStateMachineState()
         {

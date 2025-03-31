@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Class
 {
@@ -13,13 +15,13 @@ namespace Class
     /// </summary>
     public class LecternManager : MonoBehaviour
     {
-        #region Singleton
-        private static LecternManager instance;
-        public static LecternManager Instance { get { return instance; } }
-        #endregion
+
+        [SerializeField, Required] private GameObject omrCardUI;
 
         #region Private Fields
         private Lectern lectern;
+        private List<ToggleGroup> answers;
+        private bool isClear = false;
         #endregion
 
         #region Unity Methods
@@ -27,6 +29,13 @@ namespace Class
         {
             InitializeManager();
         }
+
+        private void Update()
+        {
+            if (!lectern.Grabbable) return;
+            CheckClear();
+        }
+
         #endregion
 
         #region Public Methods
@@ -37,7 +46,7 @@ namespace Class
         public bool CheckCleared()
         {
             // TODO: 클리어 조건을 달성했는 지의 여부를 확인하는 로직이 필요합니다.
-            return false;
+            return isClear;
         }
         #endregion
 
@@ -47,26 +56,9 @@ namespace Class
         /// </summary>
         private void InitializeManager()
         {
-            InitializeSingleton();
             InitializeLectern();
         }
-
-        /// <summary>
-        /// 싱글톤 인스턴스를 초기화합니다.
-        /// </summary>
-        private void InitializeSingleton()
-        {
-            if (instance == null)
-            {
-                instance = this;
-                DontDestroyOnLoad(this.gameObject);
-            }
-            else
-            {
-                Destroy(this.gameObject);
-                return;
-            }
-        }
+        
 
         /// <summary>
         /// 강의대 컴포넌트를 초기화합니다.
@@ -74,11 +66,39 @@ namespace Class
         private void InitializeLectern()
         {
             lectern = GameObject.Find("Counter_01")?.GetComponent<Lectern>();
+            var answersList = omrCardUI.GetComponentsInChildren<ToggleGroup>();
+            answers = answersList.ToList();
+            
             if (lectern == null)
             {
                 Debug.LogWarning("Lectern is not found");
             }
         }
+
+
+        private bool isChecked = false;
+        private void CheckClear()
+        {
+            for (int i = 0; i < answers.Count; i++)
+            {
+                foreach (var button in answers[i].GetComponentsInChildren<Toggle>())
+                {
+                    if (button.isOn)
+                    {
+                        isChecked = true;
+                    }
+                }
+                if (!isChecked && i != 20) return;
+                else if (i == 20)
+                {
+                    //TODO: Gameover
+                    GameManagerEx.Instance.OnStageFailed(GameManagerEx.Instance.CurrentStage); // test 코드
+                }
+                isChecked = false;
+            }
+            isClear = true;
+        }
+        
         #endregion
     }
 }

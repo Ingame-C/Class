@@ -16,6 +16,7 @@ namespace Class.StateMachine
         #region Protected Fields
         protected PlayerController controller;
         protected PlayerStateMachine stateMachine;
+        protected Animator animator;
         #endregion
 
         #region Input Values
@@ -36,15 +37,19 @@ namespace Class.StateMachine
         #endregion
 
         #region Constructor
-        public StateBase(PlayerController controller, PlayerStateMachine stateMachine)
+        public StateBase(PlayerController controller, PlayerStateMachine stateMachine, Animator animator)
         {
             this.controller = controller;
             this.stateMachine = stateMachine;
+            this.animator = animator;
         }
         #endregion
 
         #region Virtual Methods
-        public virtual void Enter() { }
+
+        public virtual void Enter()
+        {
+        }
         public virtual void HandleInput() { }
         public virtual void PhysicsUpdate() { }
         public virtual void Exit() { }

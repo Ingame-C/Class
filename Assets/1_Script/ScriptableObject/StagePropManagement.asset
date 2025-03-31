@@ -13,16 +13,13 @@ MonoBehaviour:
   m_Name: StagePropManagement
   m_EditorClassIdentifier: 
   perStages:
-  - props: []
-  - props:
-    - {fileID: 0}
-    - {fileID: 0}
-  - props:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-  - props: []
-  - props: []
-  - props: []
-  - props: []
-  - props: []
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  startingChair: {fileID: 0}
+  currentStage: 0
