@@ -17,14 +17,18 @@ namespace Class
     {
 
         [SerializeField, Required] private GameObject omrCardUI;
+        public bool IsClear { get; private set; }
 
         #region Private Fields
+
         private Lectern lectern;
         private List<ToggleGroup> answers;
-        private bool isClear = false;
+        private bool isChecked = false;
+
         #endregion
 
         #region Unity Methods
+
         private void Start()
         {
             InitializeManager();
@@ -39,66 +43,52 @@ namespace Class
         #endregion
 
         #region Public Methods
+
         /// <summary>
         /// 강의대의 클리어 조건이 달성되었는지 확인합니다.
         /// </summary>
         /// <returns>클리어 조건이 달성되었으면 true, 아니면 false</returns>
-        public bool CheckCleared()
+        public void CheckClear()
         {
-            // TODO: 클리어 조건을 달성했는 지의 여부를 확인하는 로직이 필요합니다.
-            return isClear;
+            for (int i = 0; i < answers.Count; i++)
+            {
+                foreach (var button in answers[i].GetComponentsInChildren<Toggle>())
+                {
+                    isChecked = button.isOn;
+                    if (i == 20 && isChecked) return;
+                }
+
+                if (!isChecked) return;
+
+                isChecked = false;
+            }
+
+            IsClear = true;
         }
+
         #endregion
 
         #region Private Methods
-        /// <summary>
-        /// 매니저를 초기화합니다.
-        /// </summary>
+
         private void InitializeManager()
         {
             InitializeLectern();
         }
-        
 
-        /// <summary>
-        /// 강의대 컴포넌트를 초기화합니다.
-        /// </summary>
+
         private void InitializeLectern()
         {
             lectern = GameObject.Find("Counter_01")?.GetComponent<Lectern>();
             var answersList = omrCardUI.GetComponentsInChildren<ToggleGroup>();
             answers = answersList.ToList();
-            
+
             if (lectern == null)
             {
                 Debug.LogWarning("Lectern is not found");
             }
         }
 
-
-        private bool isChecked = false;
-        private void CheckClear()
-        {
-            for (int i = 0; i < answers.Count; i++)
-            {
-                foreach (var button in answers[i].GetComponentsInChildren<Toggle>())
-                {
-                    if (button.isOn)
-                    {
-                        isChecked = true;
-                    }
-                }
-                if (!isChecked && i != 20) return;
-                else if (i == 20)
-                {
-                    //TODO: Gameover
-                    GameManagerEx.Instance.OnStageFailed(GameManagerEx.Instance.CurrentStage); // test 코드
-                }
-                isChecked = false;
-            }
-            isClear = true;
-        }
-        
         #endregion
     }
 }
+

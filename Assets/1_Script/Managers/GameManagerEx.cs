@@ -112,7 +112,7 @@ namespace Class
             {
                 () => true, // 스테이지와 인덱스를 일치시키기 위한 선언입니다.
                 () => DeskManager.Instance.CheckCleared(),
-                () => lecternManager.CheckCleared()
+                () => lecternManager.IsClear
             };
         }
         private void InitializeSceneEvents()

@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Class.StateMachine
 {
@@ -9,6 +10,13 @@ namespace Class.StateMachine
     /// </summary>
     public class StateBase
     {
+        #region Event
+        
+        public event UnityAction OnExit  = delegate{};
+        public event UnityAction OnEnter = delegate{};
+        
+        #endregion
+        
         #region Constants
         protected const float GRABBLE_DISTANCE = 0.2f;
         #endregion
@@ -49,10 +57,15 @@ namespace Class.StateMachine
 
         public virtual void Enter()
         {
+            OnEnter?.Invoke();
         }
         public virtual void HandleInput() { }
         public virtual void PhysicsUpdate() { }
-        public virtual void Exit() { }
+
+        public virtual void Exit()
+        {
+            OnExit?.Invoke();
+        }
 
         public virtual void LogicUpdate()
         {         
