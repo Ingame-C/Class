@@ -25,12 +25,8 @@ namespace Class
         /// </summary>
         public virtual void GameOver()
         {
+            GameManagerEx.Instance.Controller.thismanState.ThismanTransform = transform; 
             isGameOverActivated = true;
-        }
-
-        private void Update()
-        {
-            HandleGameOver();
         }
     }
 }

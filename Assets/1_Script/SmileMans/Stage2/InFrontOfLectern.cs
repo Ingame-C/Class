@@ -14,6 +14,12 @@ public class InFrontOfLectern : ISmileMan
     private LecternManager lecternManager;
     #endregion
     
+    
+    private void Update()
+    {
+        HandleGameOver();
+    }
+    
 
     #region ISmileman implementation
     public override void HandleGameOver()
@@ -64,20 +70,14 @@ public class InFrontOfLectern : ISmileMan
     private void CheckIsVisible()
     {
         var viewPos = Camera.main.WorldToViewportPoint(transform.position);
-        isVisible = (viewPos.x > 0f && viewPos.x < 1f && viewPos.y > 0f && viewPos.y < 1f && viewPos.z > 0f);
+        isVisible = (viewPos.x is > 0f and < 1f && viewPos.y is > 0f and < 1f && viewPos.z > 0f);
     }
 
     
-    /// <summary>
-    ///  오엠알의 클리어 로직을 파악해야 함.
-    /// </summary>
     private void OnStandUp()
     {
-        lecternManager.CheckClear();
-        
-        if (lecternManager.IsClear)
+        if (LecternManager.Instance.isToggleButtonsBeOn())
         {
-            // no op
             Destroy(this);
         }
         else
@@ -85,7 +85,6 @@ public class InFrontOfLectern : ISmileMan
             IsGameOver = true;
         }
     }
-    
-    
-    
+
+
 }

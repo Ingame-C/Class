@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Class;
@@ -17,5 +18,10 @@ public class TestSmileMan : ISmileMan
     {
         base.GameOver();
         Debug.Log("Game Over");
+    }
+
+    private void Update()
+    {
+        HandleGameOver();
     }
 }

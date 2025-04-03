@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Class.UI;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,22 +17,55 @@ namespace Class
     public class LecternManager : MonoBehaviour
     {
 
+        
+        #region Singleton
+        private static LecternManager instance;
+        public static LecternManager Instance { get { return instance; } }
+        
+        private void InitializeSingleton()
+        {
+            if (instance == null)
+            {
+                GameObject go = GameObject.Find("@LecternManager");
+                if (go == null)
+                {
+                    go = new GameObject { name = "@LecternManager" };
+                    go.AddComponent<LecternManager>();
+                }
+                instance = go.GetComponent<LecternManager>();
+            }
+
+        }
+        
+        #endregion
+        
         [SerializeField, Required] private GameObject omrCardUI;
         public bool IsClear { get; private set; }
-
+        public bool isAllChecked = false;
+        
         #region Private Fields
 
         private Lectern lectern;
         private List<ToggleGroup> answers;
-        private bool isChecked = false;
-
+        public List<bool> isOnList;
+        
         #endregion
 
         #region Unity Methods
 
+        private void Awake()
+        {
+            InitializeSingleton();
+        }
+
         private void Start()
         {
             InitializeManager();
+            isOnList = new List<bool>();
+            for (int i = 0; i < 30; i++)
+            {
+                isOnList.Add(false);
+            }
         }
 
         private void Update()
@@ -50,20 +84,21 @@ namespace Class
         /// <returns>클리어 조건이 달성되었으면 true, 아니면 false</returns>
         public void CheckClear()
         {
-            for (int i = 0; i < answers.Count; i++)
-            {
-                foreach (var button in answers[i].GetComponentsInChildren<Toggle>())
-                {
-                    isChecked = button.isOn;
-                    if (i == 20 && isChecked) return;
-                }
-
-                if (!isChecked) return;
-
-                isChecked = false;
-            }
+            if (!isToggleButtonsBeOn()) return;
 
             IsClear = true;
+        }
+
+        public bool isToggleButtonsBeOn()
+        {
+            for (int i = 0; i < 30; i++)
+            {
+                if (!isOnList[i] && i != 19)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         #endregion
