@@ -1,6 +1,8 @@
 using Class.StateMachine;
 using System;
+using Class.UI;
 using UnityEngine;
+using UnityEngine.Rendering.HighDefinition;
 using UnityEngine.UI;
 
 namespace Class

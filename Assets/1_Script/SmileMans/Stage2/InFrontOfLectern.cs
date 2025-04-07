@@ -10,8 +10,15 @@ public class InFrontOfLectern : ISmileMan
 
     private bool isVisible = false;
     private float time = 0f;
-    
+    private PlayerController player;
+    private LecternManager lecternManager;
     #endregion
+    
+    
+    private void Update()
+    {
+        HandleGameOver();
+    }
     
 
     #region ISmileman implementation
@@ -22,7 +29,6 @@ public class InFrontOfLectern : ISmileMan
         if (!isVisible)
         {
             time = 0f;
-            Debug.Log("Reset!");
             return;
         }
         
@@ -30,21 +36,55 @@ public class InFrontOfLectern : ISmileMan
         if (time > 3f)
         {
             IsGameOver = true;
-            Debug.Log(time);
         }
         
     }
 
-    public void GameOver()
+    public override void GameOver()
     {
         base.GameOver();
         Debug.Log("Game Over!" + this.name);
     }
     #endregion
+    
+    #region Unity functions
+
+    private void Start()
+    {
+        if (GameManagerEx.Instance.CurrentStage != 2) return;
+        
+        player = GameManagerEx.Instance.Controller;
+        lecternManager = GameObject.Find("@LecternManager").GetComponent<LecternManager>();
+        player.sitState.OnExit += OnStandUp;
+    }
+
+    private void OnDisable()
+    {
+        if (GameManagerEx.Instance.CurrentStage != 2) return;
+        
+        player.sitState.OnExit -= OnStandUp;
+    }
+
+    #endregion
 
     private void CheckIsVisible()
     {
         var viewPos = Camera.main.WorldToViewportPoint(transform.position);
-        isVisible = (viewPos.x > 0f && viewPos.x < 1f && viewPos.y > 0f && viewPos.y < 1f && viewPos.z > 0f);
+        isVisible = (viewPos.x is > 0f and < 1f && viewPos.y is > 0f and < 1f && viewPos.z > 0f);
     }
+
+    
+    private void OnStandUp()
+    {
+        if (LecternManager.Instance.isToggleButtonsBeOn())
+        {
+            Destroy(this);
+        }
+        else
+        {
+            IsGameOver = true;
+        }
+    }
+
+
 }
