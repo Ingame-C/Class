@@ -14,10 +14,13 @@ namespace Class
         #endregion
         
         #region private variables
+
         private point[] points;
-        private bool isMoving = false;
         private int indexOfPoint = 0;
         #endregion
+        
+        protected bool isMoving = false;
+        
         private void Awake()
         {
             points = ParentOfPoints.GetComponentsInChildren<point>();
