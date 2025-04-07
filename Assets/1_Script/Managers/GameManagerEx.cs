@@ -55,7 +55,6 @@ namespace Class
         private bool isLoadingScene = false;
 
         public PlayerController Controller { get => controller; }
-        public LecternManager LecternManager { get => lecternManager; }
 
         /** GameObjects **/
         private GameObject thismanManager = null;
@@ -72,7 +71,7 @@ namespace Class
         private void Awake()
         {
             Init();
-            
+            lecternManager = GameObject.Find("@LecternManager").GetComponent<LecternManager>();
         }
         private void Start()
         {
@@ -113,7 +112,7 @@ namespace Class
             {
                 () => true, // 스테이지와 인덱스를 일치시키기 위한 선언입니다.
                 () => DeskManager.Instance.CheckCleared(),
-                () => LecternManager.Instance.IsClear
+                () => lecternManager.IsClear
             };
         }
         private void InitializeSceneEvents()
